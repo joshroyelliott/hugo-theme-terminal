@@ -26,11 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all grid layouts
     setupGridLayouts();
     
+    // Initialize list panel counters
+    initializeListPanelCounters();
+    
     // Handle list panel item selection
     const listItems = document.querySelectorAll('.panel__list-link');
     
     if (listItems.length > 0) {
-        listItems.forEach(item => {
+        listItems.forEach((item, index) => {
+            // Add data-item-index attribute to each list item for counter tracking
+            item.setAttribute('data-item-index', index + 1);
+            
             item.addEventListener('click', function(e) {
                 // If this is a regular link that should navigate, don't prevent default
                 if (!this.classList.contains('js-preview-link')) {
@@ -44,6 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Add active class to clicked item
                 this.classList.add('panel__list-link--active');
+                
+                // Update the list panel counter with current selection
+                const listPanel = this.closest('.panel--list');
+                if (listPanel) {
+                    const itemNumber = parseInt(this.getAttribute('data-item-index')) || 1;
+                    const totalItems = listPanel.querySelectorAll('.panel__list-item').length;
+                    listPanel.setAttribute('data-count', `${itemNumber} of ${totalItems}`);
+                }
                 
                 // Handle preview content if it's a preview link
                 const previewUrl = this.getAttribute('data-preview-url');
@@ -507,5 +521,53 @@ function setupGridLayouts() {
                 }
             }
         });
+    });
+}
+
+// Initialize dynamic counters for all list panels
+function initializeListPanelCounters() {
+    // Get all list panels
+    const listPanels = document.querySelectorAll('.panel--list');
+    
+    listPanels.forEach(panel => {
+        // Count the total number of items in this list
+        const totalItems = panel.querySelectorAll('.panel__list-item').length;
+        
+        if (totalItems === 0) return; // Skip empty lists
+        
+        // Set the initial counter to show "1 of X" (or keep existing if set)
+        if (!panel.hasAttribute('data-count')) {
+            panel.setAttribute('data-count', `1 of ${totalItems}`);
+        } else {
+            // If it has a data-count attribute already but it's static (like "1 of 10"),
+            // update it with the actual count
+            const currentCount = panel.getAttribute('data-count');
+            if (currentCount.match(/\d+ of \d+/)) {
+                // Extract the current selected item number
+                const currentItemMatch = currentCount.match(/(\d+) of \d+/);
+                const currentItem = currentItemMatch ? parseInt(currentItemMatch[1]) : 1;
+                
+                // Make sure currentItem is valid (not greater than totalItems)
+                const validItem = Math.min(currentItem, totalItems);
+                
+                // Update with actual total
+                panel.setAttribute('data-count', `${validItem} of ${totalItems}`);
+            }
+        }
+        
+        // Set initial active state on first item if a js-preview-link and none is active
+        const listItems = panel.querySelectorAll('.panel__list-link');
+        const activeItem = panel.querySelector('.panel__list-link--active');
+        
+        if (!activeItem && listItems.length > 0) {
+            // Find the first preview link if available
+            const firstPreviewLink = panel.querySelector('.js-preview-link');
+            if (firstPreviewLink) {
+                firstPreviewLink.classList.add('panel__list-link--active');
+            } else {
+                // Otherwise just activate the first list item
+                listItems[0].classList.add('panel__list-link--active');
+            }
+        }
     });
 }

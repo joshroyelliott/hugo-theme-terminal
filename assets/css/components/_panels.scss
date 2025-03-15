@@ -369,9 +369,21 @@
                     color: var(--base0B);
                 }
 
+                // Add proper spacing for divider between columns
                 &:not(:last-child) {
-                    border-right: 1px solid var(--base03);
+                    position: relative;
                     padding-right: 1.5rem;
+                    
+                    // Use a pseudo-element for the divider to control its height
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 1rem; // Match the padding of panel__content
+                        bottom: 1rem; // Match the padding of panel__content
+                        right: 0;
+                        width: 1px;
+                        background-color: var(--base02);
+                    }
                 }
                 
                 // If there's already an h3 first-child, don't show our generated heading
