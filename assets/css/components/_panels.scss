@@ -1,0 +1,513 @@
+.panel {
+    background: var(--base00);
+    border: 2px solid var(--base05);
+    border-radius: 6px;
+    position: relative;
+    transition: border-color 0.2s ease;
+    margin-top: 0.7rem;
+    
+    &__content {
+        padding: 1rem;
+        font-size: 1rem;
+
+        h1, h2, h3, h4, h5, h6 {
+          margin-top: 1rem;
+          margin-bottom: 0.5rem;
+        }
+        
+        p {
+          margin: 0;
+        }
+
+        a {
+            color: var(--base0B);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            
+            &:hover {
+                color: var(--base0C);
+            }
+        }
+
+        blockquote {
+          margin: 0.5rem 0;
+        }
+    }
+    
+    // Header wrapper to contain number, separator, and title
+    &__header {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        background: var(--base00);
+        height: 2px;
+        top: -2px;
+        left: 1rem;
+        padding: 0;
+        white-space: nowrap;
+        z-index: 1;
+        gap: 0;
+        
+        // Ensure every element in the header has the same background
+        > * {
+            background: var(--base00);
+        }
+    }
+    
+    &__number {
+        color: var(--base05);
+        font-size: 1rem;
+        font-weight: 400;
+        transition: all 0.2s ease;
+        background: var(--base00);
+        padding: 0 1px;
+        line-height: 1;
+        position: relative;
+        top: 1px;
+    }
+    
+    // The separator between number and title
+    &__separator {
+        width: 1rem;
+        height: 2px;
+        background-color: var(--base05);
+        position: relative;
+        transition: background-color 0.2s ease;
+    }
+    
+    &__title {
+        color: var(--base0B);
+        font-size: 1rem;
+        font-weight: 400;
+        transition: all 0.2s ease;
+        background: var(--base00);
+        padding: 0 1px;
+        line-height: 1;
+        position: relative;
+        top: 1px;
+    }
+    
+    &__note {
+        position: absolute;
+        background: var(--base00);
+        color: var(--base05);
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 0 1px;
+        height: 2px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        top: -2px;
+        right: 1rem;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        z-index: 1;
+    }
+    
+    // Hover states
+    &:hover {
+        border-color: var(--base0B);
+        
+        .panel__number {
+            color: var(--base0B);
+            font-weight: 700;
+        }
+        
+        .panel__separator {
+            background-color: var(--base0B);
+        }
+        
+        .panel__title {
+            color: var(--base0B);
+            font-weight: 700;
+        }
+        
+        .panel__note {
+            color: var(--base0B);
+            font-weight: 700;
+        }
+        
+        .panel__main-separator {
+            background-color: var(--base0B);
+        }
+    }
+    
+    // Title-only modification
+    // &--titled:not(&--numbered) {
+    //     .panel__number,
+    //     .panel__separator {
+    //         display: none;
+    //     }
+    // }
+
+    // List panel modification
+    &--list {
+        position: relative;
+        
+        // Counter element
+        &[data-count]::after {
+            content: attr(data-count);
+            position: absolute;
+            bottom: -2px;
+            right: 1rem;
+            background: var(--base00);
+            padding: 0 4px;
+            font-size: 0.9rem;
+            color: var(--base05);
+            height: 2px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .panel__content {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+        // Custom scrollbar indicator
+        .js-scroll-indicator {
+            position: absolute;
+            right: -3px;
+            width: 4px;
+            background-color: var(--base05);
+            transition: top 0.1s ease, height 0.1s ease;
+            opacity: 0;
+            z-index: 2;
+        }
+        
+        &:hover .js-scroll-indicator {
+            opacity: 1;
+        }
+        
+        // List styles
+        .panel__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .panel__list-item {
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid var(--base02);
+            
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+        
+        .panel__list-link {
+            display: block;
+            padding: 0.5rem 0rem;
+            color: var(--base05);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.2s ease;
+            
+            // Active/hover indicator that attaches to the left border
+            &::before {
+                content: '';
+                position: absolute;
+                left: -1rem; // Position it exactly at the edge of the panel border
+                top: 0;
+                height: 100%;
+                width: 3px;
+                background-color: transparent;
+                transition: background-color 0.2s ease;
+            }
+            
+            &:hover {
+                background: var(--base00);
+                color: var(--base0B);
+                
+                &::before {
+                    background-color: var(--base0B);
+                }
+            }
+            
+            &--active {
+                background: var(--base00);
+                color: var(--base05);
+                
+                &::before {
+                    background-color: var(--base05);
+                }
+            }
+        }
+        
+        .panel__list-title {
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .panel__list-meta {
+            font-size: 0.9em;
+            color: var(--base03);
+            margin-top: 0.25rem;
+        }
+        
+        .panel__list-summary {
+            font-size: 0.9em;
+            color: var(--base04);
+            margin-top: 0.25rem;
+        }
+    }
+
+    // Tab panel
+    &--tab {
+        .panel__header {
+            // Maintain consistent header style with other panels
+            height: 2px;
+            overflow: visible;
+        }
+
+        // Main panel title if there is one
+        .panel__main-title {
+            color: var(--base0B);
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            background: var(--base00);
+            padding: 0 1px;
+            line-height: 1;
+            position: relative;
+            top: 1px;
+        }
+
+        // Use standard separator instead of vertical bar - matches the numbered panel separator
+        .panel__main-separator {
+            width: 1rem;
+            height: 2px;
+            background-color: var(--base05);
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+
+        // Container for tab sections - fix the margin/padding issue
+        .panel__tabs {
+            display: inline-flex;
+            align-items: center;
+            background: var(--base00);
+            line-height: 1;
+            position: relative;
+            top: 1px;
+            max-width: calc(100% - 150px); // Allow space for the title
+            overflow: visible; // Changed from hidden to visible to prevent cutoff
+            padding-right: 0; // Remove any potential padding
+            margin-right: 0; // Remove any potential margin
+            white-space: nowrap;
+        }
+
+        // Individual tab in the header
+        .panel__tab {
+            color: var(--base05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 400;
+            padding: 0 1px;
+            white-space: nowrap; // Keep tab text on single line
+            background: var(--base00); // Ensure background matches panel
+
+            &:hover {
+                color: var(--base0C);
+            }
+
+            &--active {
+                color: var(--base0B);
+            }
+        }
+
+        // Separator between tabs
+        .panel__tab-separator {
+            margin: 0 0.35rem;
+            color: var(--base03);
+            background: var(--base00); // Ensure background matches panel
+        }
+
+        // Tab content area with heading display
+        .panel__tab-content {
+            display: none;
+            padding: 1rem;
+            position: relative;
+            
+            &--active {
+                display: block;
+            }
+        }
+
+        // Wide enough panel (column layout)
+        &.panel--wide-enough {
+            // Hide tab navigation when in wide mode
+            .panel__tabs {
+                display: none;
+            }
+
+            .panel__tab-contents {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .panel__tab-content {
+                display: block !important; // Force display for column mode
+                flex: 1;
+                
+                // Always add the tab title as a heading when in column mode
+                &::before {
+                    content: attr(data-tab-title);
+                    display: block;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    margin-bottom: 1rem;
+                    color: var(--base0B);
+                }
+
+                &:not(:last-child) {
+                    border-right: 1px solid var(--base03);
+                    padding-right: 1.5rem;
+                }
+                
+                // If there's already an h3 first-child, don't show our generated heading
+                h3:first-child {
+                    // Instead of using :has() which has limited support
+                    // We'll handle this in JavaScript by adding a class
+                    &.replace-generated-heading {
+                        display: block;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        margin-top: 0;
+                        margin-bottom: 1rem;
+                        color: var(--base0B);
+                    }
+                }
+                
+                // This class will be added by JavaScript when there's an h3
+                &.has-heading::before {
+                    display: none;
+                }
+            }
+        }
+
+        // Media query to handle responsive display
+        @media (max-width: 768px) {
+            .panel__tabs {
+                // Replace section names with numbers when screen is small
+                .panel__tab {
+                    font-size: 0; // Hide the text completely
+                    padding: 0 1px;
+                    display: inline-block;
+                    
+                    &::before {
+                        content: attr(data-tab-num);
+                        font-size: 0.9rem;
+                        background: var(--base00);
+                    }
+                }
+            }
+            
+            // When showing numeric tabs, add title to the content area
+            &:not(.panel--wide-enough) .panel__tab-content {
+                // Add the tab title as a heading when in numeric mode
+                // This only applies when not in wide mode
+                &::before {
+                    content: attr(data-tab-title);
+                    display: block;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    margin-bottom: 1rem;
+                    color: var(--base0B);
+                }
+                
+                // Class added by JavaScript
+                &.has-heading::before {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    // Preview panel - just a simple border
+    &--preview {
+        border-color: var(--base04);
+    }
+
+    // Scroll feature for any panel
+    &--scroll {
+        .panel__content {
+            max-height: 300px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+        .js-scroll-indicator {
+            position: absolute;
+            right: 0px;
+            width: 3px;
+            background-color: var(--base0B);
+            transition: top 0.1s ease, height 0.1s ease;
+            opacity: 0;
+        }
+        
+        &:hover .js-scroll-indicator {
+            opacity: 1;
+        }
+    }
+}
+
+// Panels showcase layout for interactive panels
+.panels-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 2rem 0;
+    
+    &.interactive-panels {
+        // Make tab panel and scrollable panel stack vertically
+        // But keep list panel and preview panel side by side
+        display: grid;
+        grid-template-areas: 
+            "tab tab"
+            "scroll scroll"
+            "list preview";
+        
+        .panel--tab {
+            grid-area: tab;
+        }
+        
+        .panel--scroll:not(.panel--list) {
+            grid-area: scroll;
+        }
+        
+        .panel--list {
+            grid-area: list;
+        }
+        
+        .panel--preview {
+            grid-area: preview;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        
+        &.interactive-panels {
+            grid-template-areas: 
+                "tab"
+                "scroll"
+                "list"
+                "preview";
+        }
+    }
+}

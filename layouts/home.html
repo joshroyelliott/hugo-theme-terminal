@@ -1,0 +1,13 @@
+{{ define "main" }}
+    <div class="panels-container">
+        <div class="panels-grid">
+            {{ with .Site.GetPage "/about" }}
+                {{ partial "content-panels.html" . }}
+            {{ end }}
+        </div>
+        <div class="panels-grid">
+            {{ partial "panels/recent-projects.html" . }}
+            {{ partial "panels/recent-posts.html" . }}
+        </div>
+    </div>
+{{ end }}

@@ -1,0 +1,23 @@
+{{ $content := .Content }}
+{{ $sections := findRE "<h[1-6].*?>.*?</h[1-6]>" .Content }}
+{{ range $index, $section := $sections }}
+    {{ $heading := . }}
+    {{ $level := index (findRE "[1-6]" . 1) 0 }}
+    {{ $title := replaceRE "<h[1-6].*?>(.*?)</h[1-6]>" "$1" . }}
+    {{ $content_section := split $content $heading }}
+    {{ $section_content := index (split (index $content_section 1) "<h") 0 }}
+    <div class="panel panel--titled panel--numbered" 
+         tabindex="0" 
+         data-panel-number="{{ add $index 1 }}"
+         role="region"
+         aria-labelledby="panel-title-{{ add $index 1 }}">
+        <div class="panel__header">
+            <span class="panel__number">[{{ add $index 1 }}]</span>
+            <span class="panel__separator"></span>
+            <span class="panel__title" id="panel-title-{{ add $index 1 }}">{{ $title }}</span>
+        </div>
+        <div class="panel__content">
+            {{ $section_content | safeHTML }}
+        </div>
+    </div>
+{{ end }}

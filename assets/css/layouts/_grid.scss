@@ -1,0 +1,90 @@
+.panels-container {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.panels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1fr));
+  gap: 0.5rem;
+  margin: 0.5rem 0rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Panels showcase layout for interactive panels
+.panels-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0 2rem 0;
+    
+    &.interactive-panels {
+        // Make tab panel and scrollable panel stack vertically
+        // But keep list panel and preview panel side by side
+        display: grid;
+        grid-template-areas: 
+            "tab tab"
+            "scroll scroll"
+            "list preview";
+        
+        .panel--tab {
+            grid-area: tab;
+        }
+        
+        .panel--scroll:not(.panel--list) {
+            grid-area: scroll;
+        }
+        
+        .panel--list {
+            grid-area: list;
+        }
+        
+        .panel--preview {
+            grid-area: preview;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        
+        &.interactive-panels {
+            grid-template-areas: 
+                "tab"
+                "scroll"
+                "list"
+                "preview";
+        }
+    }
+}
+
+// Basic panels grid with left/right columns
+.basic-panels-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 1rem 0 2rem 0;
+  
+  .left-column {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// List page specific styles
+.list-layout {
+  grid-template-columns: minmax(300px, 1fr) 2fr;
+  gap: 1rem;
+  margin: 0.5rem 0rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}

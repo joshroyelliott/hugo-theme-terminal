@@ -1,0 +1,218 @@
+{{ define "main" }}
+<div class="panels-container">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+
+    <!-- First section: Basic panels -->
+    <h2>Basic Panels</h2>
+    <div class="panels-showcase-grid">
+        <!-- Example 1: Basic Panel -->
+        <div class="panel">
+            <div class="panel__content">
+                <p>This is a basic panel.</p>
+            </div>
+        </div>
+
+        <!-- Example 2: Titled Panel -->
+        <div class="panel panel--titled">
+            <div class="panel__header">
+                <span class="panel__title">Panel Title</span>
+            </div>
+            <div class="panel__content">
+                <p>This is a panel with a title.</p>
+            </div>
+        </div>
+
+        <!-- Example 3: Numbered Panel -->
+        <div class="panel panel--titled panel--numbered">
+            <div class="panel__header">
+                <span class="panel__number">[1]</span>
+                <span class="panel__separator"></span>
+                <span class="panel__title">Numbered Panel</span>
+            </div>
+            <div class="panel__content">
+                <p>This is a numbered panel with a title.</p>
+            </div>
+        </div>
+
+        <!-- Example 4: Panel with Note -->
+        <div class="panel panel--titled panel--note">
+            <div class="panel__header">
+                <span class="panel__title">Panel with Note</span>
+            </div>
+            <div class="panel__note">(New)</div>
+            <div class="panel__content">
+                <p>This panel has a note in the top right corner.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second section: Interactive panels -->
+    <h2>Interactive Panels</h2>
+
+        <!-- Example 7: Scrollable Panel - Now full width below the tab panel -->
+        <div class="panel panel--titled panel--scroll">
+            <div class="panel__header">
+                <span class="panel__title">Scrollable Content</span>
+            </div>
+            <div class="panel__content" style="max-height: 220px;">
+                <h3>Scrollable Panel Example</h3>
+                <p>This panel has content that exceeds the fixed height and becomes scrollable. Notice the scroll indicator that appears on hover.</p>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+            </div>
+            <div class="js-scroll-indicator"></div>
+        </div>
+
+        <!-- Example Tab Panel with appropriate data attributes -->
+        <div class="panel panel--titled panel--tab js-tab-panel js-check-width">
+            <div class="panel__header">
+                <span class="panel__main-title">Tab Panel</span>
+                <!-- Standard separator instead of vertical bar -->
+                <span class="panel__separator"></span>
+                <div class="panel__tabs">
+                    <span class="panel__tab panel__tab--active" data-tab-id="tab-1" data-tab-num="1" data-tab-title="Section One">Section One</span>
+                    <span class="panel__tab-separator">-</span>
+                    <span class="panel__tab" data-tab-id="tab-2" data-tab-num="2" data-tab-title="Section Two">Section Two</span>
+                    <span class="panel__tab-separator">-</span>
+                    <span class="panel__tab" data-tab-id="tab-3" data-tab-num="3" data-tab-title="Section Three">Section Three</span>
+                </div>
+            </div>
+            <div class="panel__tab-contents">
+                <!-- Each tab content section has data-tab-title attribute -->
+                <div id="tab-1" class="panel__tab-content panel__tab-content--active" data-tab-title="Section One">
+                    <!-- This heading will be styled specially in column mode -->
+                    <h3>First Section Content</h3>
+                    <p>This is the content for the first tab section. Click on the tabs in the title to switch between different content sections.</p>
+                    <p>The tab panel is perfect for organizing related content that doesn't need to be visible all at once.</p>
+                </div>
+                <div id="tab-2" class="panel__tab-content" data-tab-title="Section Two">
+                    <h3>Second Section Content</h3>
+                    <p>This is the content for the second tab section.</p>
+                    <p>Tab panels can be created manually like this example, or automatically generated from markdown headings.</p>
+                </div>
+                <div id="tab-3" class="panel__tab-content" data-tab-title="Section Three">
+                    <h3>Third Section Content</h3>
+                    <p>This is the content for the third tab section.</p>
+                    <p>On wider screens, tab panels can optionally display all content in columns side by side.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example of Tab Panel without headings in content -->
+        <div class="panel panel--titled panel--tab js-tab-panel js-check-width">
+            <div class="panel__header">
+                <span class="panel__main-title">Tab Panel Without Headings</span>
+                <span class="panel__separator"></span>
+                <div class="panel__tabs">
+                    <span class="panel__tab panel__tab--active" data-tab-id="no-head-1" data-tab-num="1" data-tab-title="First Tab">First Tab</span>
+                    <span class="panel__tab-separator">-</span>
+                    <span class="panel__tab" data-tab-id="no-head-2" data-tab-num="2" data-tab-title="Second Tab">Second Tab</span>
+                </div>
+            </div>
+            <div class="panel__tab-contents">
+                <!-- These content sections don't have h3 headings, so the tab title will be generated -->
+                <div id="no-head-1" class="panel__tab-content panel__tab-content--active" data-tab-title="First Tab">
+                    <p>This tab content has no heading, so the tab title will be automatically inserted when in column mode or when tabs are minimized to numbers.</p>
+                    <p>The title "First Tab" will appear above this text in those cases.</p>
+                </div>
+                <div id="no-head-2" class="panel__tab-content" data-tab-title="Second Tab">
+                    <p>This is the second tab content without a heading.</p>
+                    <p>The title "Second Tab" will be automatically displayed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 8: List Panel with counter and note - Side by side with Preview -->
+        <div class="panel panel--titled panel--list panel--scroll panel--note" data-count="1 of 10">
+            <div class="panel__header">
+                <span class="panel__title">List Panel</span>
+            </div>
+            <div class="panel__note">(Select one)</div>
+            <div class="panel__content">
+                <ul class="panel__list">
+                    <li class="panel__list-item">
+                        <a href="#" class="panel__list-link js-preview-link" data-preview-url="#preview-1">
+                            <h4 class="panel__list-title">List Item 1</h4>
+                            <div class="panel__list-meta">March 1, 2025</div>
+                            <div class="panel__list-summary">Summary of the first item...</div>
+                        </a>
+                    </li>
+                    <li class="panel__list-item">
+                        <a href="#" class="panel__list-link js-preview-link" data-preview-url="#preview-2">
+                            <h4 class="panel__list-title">List Item 2</h4>
+                            <div class="panel__list-meta">March 2, 2025</div>
+                            <div class="panel__list-summary">Summary of the second item...</div>
+                        </a>
+                    </li>
+                    <li class="panel__list-item">
+                        <a href="#" class="panel__list-link js-preview-link" data-preview-url="#preview-3">
+                            <h4 class="panel__list-title">List Item 3</h4>
+                            <div class="panel__list-meta">March 3, 2025</div>
+                            <div class="panel__list-summary">Summary of the third item...</div>
+                        </a>
+                    </li>
+                    <li class="panel__list-item">
+                        <a href="#" class="panel__list-link js-preview-link" data-preview-url="#preview-4">
+                            <h4 class="panel__list-title">List Item 4</h4>
+                            <div class="panel__list-meta">March 4, 2025</div>
+                            <div class="panel__list-summary">Summary of the fourth item...</div>
+                        </a>
+                    </li>
+                    <li class="panel__list-item">
+                        <a href="#" class="panel__list-link js-preview-link" data-preview-url="#preview-5">
+                            <h4 class="panel__list-title">List Item 5</h4>
+                            <div class="panel__list-meta">March 5, 2025</div>
+                            <div class="panel__list-summary">Summary of the fifth item...</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="js-scroll-indicator"></div>
+        </div>
+
+        <!-- Example 9: Preview Panel -->
+        <div class="panel panel--titled panel--preview">
+            <div class="panel__header">
+                <span class="panel__title">Preview</span>
+            </div>
+            <div class="panel__content js-preview-content">
+                <p>Click an item in the list panel to see a preview here.</p>
+                
+                <div id="preview-1" style="display: none;">
+                    <h3>List Item 1 Content</h3>
+                    <p>This is the detailed content for list item 1.</p>
+                    <p>It appears when you click on list item 1 in the panel to the left.</p>
+                </div>
+                
+                <div id="preview-2" style="display: none;">
+                    <h3>List Item 2 Content</h3>
+                    <p>This is the detailed content for list item 2.</p>
+                    <p>It appears when you click on list item 2 in the panel to the left.</p>
+                </div>
+                
+                <div id="preview-3" style="display: none;">
+                    <h3>list item 3 content</h3>
+                    <p>this is the detailed content for list item 3.</p>
+                    <p>it appears when you click on list item 3 in the panel to the left.</p>
+                </div>
+
+                <div id="preview-4" style="display: none;">
+                    <h3>list item 4 content</h3>
+                    <p>this is the detailed content for list item 4.</p>
+                    <p>it appears when you click on list item 4 in the panel to the left.</p>
+                </div>
+
+                <div id="preview-5" style="display: none;">
+                    <h3>list item 5 content</h3>
+                    <p>this is the detailed content for list item 5.</p>
+                    <p>it appears when you click on list item 5 in the panel to the left.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

@@ -1,0 +1,14 @@
+// Import variables first
+@import 'variables';
+
+// Import base styles
+@import 'base';
+
+// Import layout styles
+@import 'layouts/grid';
+
+// Import component styles
+@import 'components/navbar';
+@import 'components/panels';
+
+// Further customization can be added here

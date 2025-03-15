@@ -1,0 +1,43 @@
+// Color variables based on Tokyo Night theme
+:root {
+  --base00: #24283B; // Background darker
+  --base01: #16161E; // Background dark
+  --base02: #343A52; // Selection background
+  --base03: #444B6A; // Comments, invisibles
+  --base04: #787C99; // Dark foreground
+  --base05: #A9B1D6; // Default foreground
+  --base06: #CBCCD1; // Light foreground
+  --base07: #D5D6DB; // Light background
+  --base08: #C0CAF5; // Variables
+  --base09: #A9B1D6; // Numbers
+  --base0A: #0DB9D7; // Classes
+  --base0B: #9ECE6A; // Strings/Success
+  --base0C: #B4F9F8; // Support
+  --base0D: #2AC3DE; // Functions/Methods
+  --base0E: #BB9AF7; // Keywords
+  --base0F: #F7768E; // Deprecated/Error
+}
+
+// Typography
+$font-mono: 'Fira Code', Consolas, "DejaVu Sans Mono", monospace;
+$font-size-base: 15px;
+$line-height: 1.6;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Layout
+$container-max-width: 1600px;
+$panel-border-width: 2px;
+$panel-border-radius: 6px;
+$nav-height: 1.5rem;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

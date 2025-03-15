@@ -1,0 +1,22 @@
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="{{ "/" | relURL }}" 
+           class="site-title {{ if .IsHome }}active{{ end }}">
+            {{ .Site.Title }}
+        </a>
+        <ul class="nav-links">
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main }}
+            <li>
+                <a class="{{ if or ($currentPage.IsMenuCurrent "main" .) 
+                                  ($currentPage.HasMenuCurrent "main" .) 
+                                  (and (eq .URL "/") (eq $currentPage.RelPermalink "/"))
+                                  (and (ne .URL "/") (hasPrefix $currentPage.RelPermalink .URL)) }}active{{ end }}" 
+                   href="{{ .URL | relURL }}">
+                   <span>{{ .Name }}</span>
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</nav>

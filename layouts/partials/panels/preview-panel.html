@@ -1,0 +1,74 @@
+<div class="panel panel--titled panel--numbered panel--preview" 
+     tabindex="0" 
+     data-panel-number="2"
+     role="region"
+     aria-labelledby="panel-title-preview">
+    <div class="panel__header">
+        <span class="panel__number">[2]</span>
+        <span class="panel__separator"></span>
+        <span class="panel__title" id="panel-title-preview">Preview</span>
+    </div>
+    <div class="panel__content js-preview-content">
+        <div class="preview-placeholder">
+            <p>Select an item to preview its content</p>
+        </div>
+        <div class="preview-content" style="display: none;">
+            <!-- Content will be loaded via JavaScript -->
+        </div>
+    </div>
+    <div class="js-scroll-indicator"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const listItems = document.querySelectorAll('.panel__list-item');
+    const listLinks = document.querySelectorAll('.panel__list-link');
+    const previewContent = document.querySelector('.preview-content');
+    const previewPlaceholder = document.querySelector('.preview-placeholder');
+    
+    listLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all items
+            listLinks.forEach(i => i.classList.remove('panel__list-link--active'));
+            
+            // Add active class to clicked item
+            this.classList.add('panel__list-link--active');
+            
+            // Get the URL from the parent list item
+            const listItem = this.closest('.panel__list-item');
+            const url = listItem.getAttribute('data-url');
+            
+            // Show loading state
+            previewPlaceholder.style.display = 'none';
+            previewContent.style.display = 'block';
+            previewContent.innerHTML = '<p>Loading preview...</p>';
+            
+            // Fetch the content
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    // Extract the main content
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const content = doc.querySelector('main').innerHTML;
+                    
+                    // Update the preview
+                    previewContent.innerHTML = content;
+                })
+                .catch(error => {
+                    previewContent.innerHTML = `<p>Error loading preview: ${error.message}</p>`;
+                });
+        });
+        
+        // Also handle keyboard navigation
+        link.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+});
+</script>

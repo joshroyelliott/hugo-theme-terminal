@@ -1,0 +1,13 @@
+name = "Terminal"
+license = "MIT"
+licenselink = "https://github.com/joshroyelliott/hugo-theme-terminal/blob/main/LICENSE"
+description = "A modern, panel-based Hugo theme with a terminal aesthetic"
+homepage = "https://github.com/joshroyelliott/hugo-theme-terminal"
+demosite = "https://example.org"
+tags = ["responsive", "minimal", "terminal", "panel", "modern"]
+features = ["responsive", "panels", "scss"]
+min_version = "0.41.0"
+
+[author]
+  name = "Josh Elliott"
+  homepage = "https://example.org"

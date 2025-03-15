@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css">
+    {{ $style := resources.Get "css/main.scss" | resources.ToCSS | resources.Minify }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    
+    <!-- Load panel.js for the theme functionality -->
+    {{ $panelJs := resources.Get "js/components/panel.js" | resources.Minify }}
+    <script src="{{ $panelJs.RelPermalink }}"></script>
+    
+    <!-- Additional scripts block for page-specific JS -->
+    {{ block "scripts" . }}{{ end }}
+</head>
+<body>
+    <div class="container">
+        {{ partial "components/nav.html" . }}
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+        {{ partial "components/footer.html" . }}
+    </div>
+</body>
+</html>

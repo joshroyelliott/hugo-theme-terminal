@@ -1,0 +1,102 @@
+{{ define "main" }}
+<article class="post">
+    {{ if eq .Section "projects" }}
+        <header class="project-header">
+            <h1>{{ .Title }}</h1>
+            <div class="project-meta">
+                {{ with .Params.status }}
+                <span class="status {{ . }}">{{ . }}</span>
+                {{ end }}
+                {{ with .Params.technologies }}
+                <div class="technologies">
+                    {{ range . }}
+                    <span class="tech">{{ . }}</span>
+                    {{ end }}
+                </div>
+                {{ end }}
+                {{ with .Params.github }}
+                <div class="github">
+                    <a href="{{ . }}" target="_blank">View on GitHub</a>
+                </div>
+                {{ end }}
+            </div>
+        </header>
+    {{ else }}
+        <header>
+            <h1>{{ .Title }}</h1>
+            <div class="post-meta">
+                <span class="date">{{ .Date.Format "2006-01-02" }}</span>
+            </div>
+        </header>
+    {{ end }}
+    
+    <div class="content">
+        {{ .Content }}
+    </div>
+</article>
+
+<style>
+.post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 3px;
+}
+
+.status.active {
+  background-color: var(--base0B);
+  color: var(--base00);
+}
+
+.status.completed {
+  background-color: var(--base0D);
+  color: var(--base00);
+}
+
+.status.archived {
+  background-color: var(--base03);
+  color: var(--base00);
+}
+
+.status.pending {
+  background-color: var(--base0A);
+  color: var(--base00);
+}
+
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  background-color: var(--base01);
+  color: var(--base05);
+  border-radius: 3px;
+}
+
+.post-meta {
+  margin-bottom: 1.5rem;
+  color: var(--base04);
+}
+
+.content {
+  line-height: 1.6;
+}
+</style>
+{{ end }}

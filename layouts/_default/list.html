@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="section-container">
+    <div class="panels-grid list-layout">
+        {{ partial "panels/list-panel.html" (dict 
+            "context" .
+            "title" .Title
+            "items" .Pages
+        ) }}
+        {{ partial "panels/preview-panel.html" . }}
+    </div>
+</div>
+{{ end }}

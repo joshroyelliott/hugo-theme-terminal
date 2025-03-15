@@ -1,0 +1,57 @@
+{{ define "tab-panel" }}
+{{/* Parameters:
+    - title: string (optional) Main panel title
+    - number: int (optional)
+    - classes: string (optional) Additional classes
+    - tabs: array of tab objects, each with title and content
+    - note: string (optional) note displayed in top right
+    - checkWidth: bool (optional) whether to check if panel is wide enough for columns layout
+*/}}
+<div class="panel panel--titled panel--tab js-tab-panel
+    {{- with .number }} panel--numbered{{ end -}}
+    {{- with .note }} panel--note{{ end -}}
+    {{- if .checkWidth }} js-check-width{{ end -}}
+    {{- with .classes }} {{ . }}{{ end -}}">
+    
+    <!-- Panel Header with Tabs -->
+    <div class="panel__header">
+        {{ with $.number }}
+        <span class="panel__number">[{{ . }}]</span>
+        <span class="panel__separator"></span>
+        {{ end }}
+        
+        {{ with .title }}
+        <span class="panel__main-title">{{ . }}</span>
+        <span class="panel__separator"></span>
+        {{ end }}
+        
+        <!-- Tab Navigation integrated in header -->
+        <div class="panel__tabs">
+            {{ range $index, $tab := $.tabs }}
+            {{ if ne $index 0 }}
+            <span class="panel__tab-separator">-</span>
+            {{ end }}
+            <span class="panel__tab{{ if eq $index 0 }} panel__tab--active{{ end }}" 
+                  data-tab-id="tab-{{ $index }}"
+                  data-tab-num="{{ add $index 1 }}"
+                  data-tab-title="{{ $tab.title }}">
+                {{ $tab.title }}
+            </span>
+            {{ end }}
+        </div>
+    </div>
+    
+    {{ with .note }}
+    <div class="panel__note">({{ . }})</div>
+    {{ end }}
+    
+    <!-- Tab Contents -->
+    <div class="panel__tab-contents">
+        {{ range $index, $tab := .tabs }}
+        <div id="tab-{{ $index }}" class="panel__tab-content{{ if eq $index 0 }} panel__tab-content--active{{ end }}" data-tab-title="{{ $tab.title }}">
+            {{ $tab.content | safeHTML }}
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}
