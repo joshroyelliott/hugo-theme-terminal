@@ -1,90 +1,230 @@
+// Base container for all panel groups
 .panels-container {
   width: 100%;
-  padding: 1rem 0;
+  padding: $spacing-md 0;
 }
 
-.panels-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(1fr));
-  gap: 0.5rem;
-  margin: 0.5rem 0rem;
+// Standardized panel spacing variables from _variables.scss
+$panel-gap: $spacing-sm; // 0.5rem standard gap between panels
+$panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
 
-  @media (max-width: 768px) {
+// ===================================================
+// STANDARD GRID LAYOUTS
+// ===================================================
+
+// Base grid class for all panel layouts with consistent spacing
+%panel-grid-base {
+  display: grid;
+  gap: $panel-gap;
+  margin: $panel-margin;
+}
+
+// Grid layouts that can be applied to any panel group
+// Two equal columns (standard layout)
+.grid-2col {
+  @extend %panel-grid-base;
+  grid-template-columns: repeat(2, 1fr);
+  
+  @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
   }
 }
 
-// Panels showcase layout for interactive panels
-.panels-showcase-grid {
-    display: grid;
+// Three equal columns
+.grid-3col {
+  @extend %panel-grid-base;
+  grid-template-columns: repeat(3, 1fr);
+  
+  @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    margin: 1rem 0 2rem 0;
-    
-    &.interactive-panels {
-        // Make tab panel and scrollable panel stack vertically
-        // But keep list panel and preview panel side by side
-        display: grid;
-        grid-template-areas: 
-            "tab tab"
-            "scroll scroll"
-            "list preview";
-        
-        .panel--tab {
-            grid-area: tab;
-        }
-        
-        .panel--scroll:not(.panel--list) {
-            grid-area: scroll;
-        }
-        
-        .panel--list {
-            grid-area: list;
-        }
-        
-        .panel--preview {
-            grid-area: preview;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        
-        &.interactive-panels {
-            grid-template-areas: 
-                "tab"
-                "scroll"
-                "list"
-                "preview";
-        }
-    }
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
 }
 
-// Basic panels grid with left/right columns
-.basic-panels-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin: 1rem 0 2rem 0;
+// Four equal columns
+.grid-4col {
+  @extend %panel-grid-base;
+  grid-template-columns: repeat(4, 1fr);
   
-  .left-column {
+  @media (max-width: $breakpoint-xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Main content with sidebar (1:2 ratio)
+.grid-main-sidebar {
+  @extend %panel-grid-base;
+  grid-template-columns: 2fr 1fr;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Sidebar with main content (1:2 ratio)
+.grid-sidebar-main {
+  @extend %panel-grid-base;
+  grid-template-columns: 1fr 2fr;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Two columns with first column wider (2:1 ratio)
+.grid-wide-narrow {
+  @extend %panel-grid-base;
+  grid-template-columns: 2fr 1fr;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Two columns with second column wider (1:2 ratio)
+.grid-narrow-wide {
+  @extend %panel-grid-base;
+  grid-template-columns: 1fr 2fr;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Auto-fit responsive grid (good for collections of similar panels)
+.grid-auto-fit {
+  @extend %panel-grid-base;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+// ===================================================
+// SPECIFIC LAYOUT PATTERNS
+// ===================================================
+
+// Panel showcase grid (for basic panels demonstration)
+.panels-showcase-grid {
+  @extend %panel-grid-base;
+  grid-template-columns: repeat(2, 1fr);
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Interactive panel layout (with named grid areas)
+.interactive-panels {
+  @extend %panel-grid-base;
+  // Define grid areas for different panel types using specific layouts
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+    "tab tab"
+    "scroll scroll"
+    "list preview";
+  
+  // Assign grid areas to the specific panel types
+  .panel--tab {
+    grid-area: tab;
+  }
+  
+  .panel--scroll:not(.panel--list) {
+    grid-area: scroll;
+  }
+  
+  .panel--list {
+    grid-area: list;
+  }
+  
+  .panel--preview {
+    grid-area: preview;
+  }
+  
+  // Mobile response for the interactive panels
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "tab"
+      "scroll"
+      "list"
+      "preview";
+  }
+}
+
+// List page specific layout (for blog/projects lists)
+.list-layout {
+  @extend %panel-grid-base;
+  grid-template-columns: minmax(300px, 1fr) 2fr;
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ===================================================
+// TILING WINDOW MANAGER INSPIRED LAYOUTS
+// ===================================================
+
+// Master and stack layout (1 large panel on left, stacked panels on right)
+.grid-master-stack {
+  @extend %panel-grid-base;
+  grid-template-columns: 2fr 1fr;
+  
+  // Right stack of panels
+  .stack {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: $panel-gap;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
   }
 }
 
-// List page specific styles
-.list-layout {
-  grid-template-columns: minmax(300px, 1fr) 2fr;
-  gap: 1rem;
-  margin: 0.5rem 0rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+// Three-column layout with adjustable ratios (can be used for complex layouts)
+.grid-thirds {
+  @extend %panel-grid-base;
+  grid-template-columns: 1fr 1fr 1fr;
+  
+  // Allow panels to span multiple columns using utility classes
+  .span-2 {
+    grid-column: span 2;
   }
+  
+  .span-3 {
+    grid-column: span 3;
+  }
+  
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr 1fr;
+    
+    .span-3 {
+      grid-column: span 2;
+    }
+  }
+  
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+    
+    .span-2, .span-3 {
+      grid-column: span 1;
+    }
+  }
+}
+
+// Monocle layout (full width panels stacked vertically)
+.grid-monocle {
+  @extend %panel-grid-base;
+  grid-template-columns: 1fr;
 }

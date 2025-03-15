@@ -8,6 +8,17 @@ html {
   font-size: 16px;
 }
 
+// CSS custom properties for fonts with variable font support
+:root {
+  --font-mono: #{$font-mono};
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --font-mono: 'Fira Code VF', Consolas, "DejaVu Sans Mono", monospace;
+  }
+}
+
 body {
   font-family: var(--font-mono);
   line-height: $line-height;

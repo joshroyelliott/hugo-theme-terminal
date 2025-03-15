@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Initialize all grid layouts
+    setupGridLayouts();
+    
     // Handle list panel item selection
     const listItems = document.querySelectorAll('.panel__list-link');
     
@@ -247,18 +250,23 @@ function checkPanelWidth(panel) {
 
 // Setup function for interactive panels layout
 function setupInteractivePanels() {
-    const showcaseGrids = document.querySelectorAll('.panels-showcase-grid');
+    // No need to add the interactive-panels class anymore as we're using dedicated grid classes
+    // But we'll keep this function to maintain backward compatibility
+    const showcaseGrids = document.querySelectorAll('.panels-showcase-grid:not(.interactive-panels)');
     showcaseGrids.forEach(grid => {
         const tabPanel = grid.querySelector('.panel--tab');
         const scrollPanel = grid.querySelector('.panel--scroll:not(.panel--list)');
         const listPanel = grid.querySelector('.panel--list');
         const previewPanel = grid.querySelector('.panel--preview');
         
-        // If we have the interactive panel layout components, apply special grid-area styles
+        // If we have the interactive panel layout components, apply the interactive-panels class
         if (tabPanel && (scrollPanel || (listPanel && previewPanel))) {
             grid.classList.add('interactive-panels');
         }
     });
+    
+    // Setup all grid layouts for responsive behavior
+    setupGridLayouts();
 }
 
 // Function to initialize tab panels based on markdown headings
@@ -414,4 +422,90 @@ function updateScrollIndicator(content, indicator) {
     } else {
         indicator.style.display = 'none';
     }
+}
+
+// Setup all grid layouts - provides additional functionality for special grid layouts
+function setupGridLayouts() {
+    // Master-stack layout - allow collapsing of stack items
+    const masterStackGrids = document.querySelectorAll('.grid-master-stack');
+    masterStackGrids.forEach(grid => {
+        // Setup master panel to be able to expand to full width on click
+        const masterPanel = grid.querySelector('.panel:first-child');
+        if (masterPanel) {
+            masterPanel.addEventListener('dblclick', function(e) {
+                // Prevent if clicking on interactive elements
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || 
+                    e.target.closest('a') || e.target.closest('button')) {
+                    return;
+                }
+                
+                // Toggle full-width class
+                grid.classList.toggle('master-expanded');
+                
+                if (grid.classList.contains('master-expanded')) {
+                    // Expand master panel
+                    masterPanel.style.gridColumn = 'span 2';
+                    // Hide stack temporarily
+                    const stack = grid.querySelector('.stack');
+                    if (stack) stack.style.display = 'none';
+                } else {
+                    // Restore original layout
+                    masterPanel.style.gridColumn = '';
+                    const stack = grid.querySelector('.stack');
+                    if (stack) stack.style.display = '';
+                }
+            });
+        }
+    });
+    
+    // Grid-thirds layout - add ability to expand panels to full width temporarily
+    const gridThirds = document.querySelectorAll('.grid-thirds .panel');
+    gridThirds.forEach(panel => {
+        panel.addEventListener('dblclick', function(e) {
+            // Prevent if clicking on interactive elements
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || 
+                e.target.closest('a') || e.target.closest('button')) {
+                return;
+            }
+            
+            // Store original span
+            const originalSpan = panel.getAttribute('data-original-span') || 
+                                (panel.classList.contains('span-2') ? 'span-2' : 
+                                 panel.classList.contains('span-3') ? 'span-3' : '');
+            
+            if (panel.classList.contains('panel-expanded')) {
+                // Restore original size
+                panel.classList.remove('panel-expanded');
+                panel.classList.remove('span-3');
+                
+                // Restore original span class if it had one
+                if (originalSpan) {
+                    panel.classList.add(originalSpan);
+                }
+                
+                // Show other panels
+                const grid = panel.closest('.grid-thirds');
+                if (grid) {
+                    const otherPanels = grid.querySelectorAll('.panel:not(.panel-expanded)');
+                    otherPanels.forEach(p => p.style.display = '');
+                }
+            } else {
+                // Store original span for later restoration
+                panel.setAttribute('data-original-span', originalSpan);
+                
+                // Make this panel full width
+                panel.classList.add('panel-expanded');
+                panel.classList.remove('span-2');
+                panel.classList.remove('span-3');
+                panel.classList.add('span-3'); // Span all columns
+                
+                // Hide other panels
+                const grid = panel.closest('.grid-thirds');
+                if (grid) {
+                    const otherPanels = grid.querySelectorAll('.panel:not(.panel-expanded)');
+                    otherPanels.forEach(p => p.style.display = 'none');
+                }
+            }
+        });
+    });
 }
