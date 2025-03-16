@@ -1,22 +1,50 @@
-<nav class="main-nav">
-    <div class="nav-container">
-        <a href="{{ "/" | relURL }}" 
-           class="site-title {{ if .IsHome }}active{{ end }}">
-            {{ .Site.Title }}
-        </a>
-        <ul class="nav-links">
-            {{ $currentPage := . }}
-            {{ range .Site.Menus.main }}
-            <li>
-                <a class="{{ if or ($currentPage.IsMenuCurrent "main" .) 
-                                  ($currentPage.HasMenuCurrent "main" .) 
-                                  (and (eq .URL "/") (eq $currentPage.RelPermalink "/"))
-                                  (and (ne .URL "/") (hasPrefix $currentPage.RelPermalink .URL)) }}active{{ end }}" 
-                   href="{{ .URL | relURL }}">
-                   <span>{{ .Name }}</span>
-                </a>
-            </li>
-            {{ end }}
-        </ul>
-    </div>
-</nav>
+<!-- Check if navLists is provided in the context -->
+{{ if isset . "navLists" }}
+    <!-- If navLists is provided, use them directly -->
+    {{ partial "components/nav-renderer.html" . }}
+{{ else }}
+    <!-- Fallback for when navLists are not provided, create default navLists -->
+    {{ $defaultNavLists := slice }}
+    
+    <!-- Create a default nav list for the site title -->
+    {{ $titleList := dict 
+        "title" .Site.Title
+        "titleURL" "/"
+        "titleActive" (eq .RelPermalink "/")
+        "direction" "right"
+        "float" "left"
+        "flatten" true
+        "items" slice
+    }}
+    {{ $defaultNavLists = $defaultNavLists | append $titleList }}
+    
+    <!-- Create a default nav list for the main menu -->
+    {{ $menuItems := slice }}
+    {{ $currentPage := . }}
+    {{ range $index, $menuItem := .Site.Menus.main }}
+        {{ $isActive := false }}
+        {{ if eq $menuItem.URL "/" }}
+            {{ $isActive = eq $currentPage.RelPermalink "/" }}
+        {{ else if ne $menuItem.URL "/" }}
+            {{ $isActive = hasPrefix $currentPage.RelPermalink $menuItem.URL }}
+        {{ end }}
+        
+        {{ $menuItems = $menuItems | append (dict 
+            "name" $menuItem.Name
+            "url" $menuItem.URL
+            "active" $isActive
+        ) }}
+    {{ end }}
+    
+    {{ $menuList := dict
+        "title" ""
+        "direction" "right"
+        "float" "right"
+        "flatten" true
+        "items" $menuItems
+    }}
+    {{ $defaultNavLists = $defaultNavLists | append $menuList }}
+    
+    <!-- Render navigation with default navLists -->
+    {{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
+{{ end }}

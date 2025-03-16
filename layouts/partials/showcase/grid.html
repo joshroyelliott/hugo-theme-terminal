@@ -1,0 +1,124 @@
+<!-- Equal three-column grid -->
+<h3>Three Columns (grid-3col)</h3>
+<div class="grid-3col">
+    <div class="panel">
+        <div class="panel__content">
+            <p>Column 1 content.</p>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__content">
+            <p>Column 2 content.</p>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__content">
+            <p>Column 3 content.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Master and stack layout (tiling window manager style) -->
+<h3>Master and Stack (grid-master-stack)</h3>
+<div class="grid-master-stack">
+    <div class="panel">
+        <div class="panel__content">
+            <h3>Master Panel</h3>
+            <p>This is the main content area that takes up more space.</p>
+        </div>
+    </div>
+    <div class="stack">
+        <div class="panel">
+            <div class="panel__content">
+                <p>Stack item 1</p>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel__content">
+                <p>Stack item 2</p>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel__content">
+                <p>Stack item 3</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Flexible grid with spanning elements -->
+<h3>Flexible Grid with Spans (grid-thirds)</h3>
+<div class="grid-thirds">
+    <div class="panel span-2">
+        <div class="panel__content">
+            <p>This panel spans 2 columns.</p>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__content">
+            <p>Single column panel.</p>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__content">
+            <p>Another single column panel.</p>
+        </div>
+    </div>
+    <div class="panel span-3">
+        <div class="panel__content">
+            <p>This panel spans all 3 columns.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Main content with sidebar layout -->
+<h3>Content with Sidebar (grid-main-sidebar)</h3>
+<div class="grid-main-sidebar">
+    <div class="main">
+        <div class="panel">
+            <div class="panel__header">
+                <span class="panel__title">Main Content</span>
+            </div>
+            <div class="panel__content">
+                <p>This is the main content area that takes up most of the width.</p>
+                <p>It's ideal for primary content like articles, blog posts, or product details.</p>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <div class="panel">
+            <div class="panel__header">
+                <span class="panel__title">Sidebar</span>
+            </div>
+            <div class="panel__content">
+                <p>Sidebar content</p>
+                <ul>
+                    <li>Navigation</li>
+                    <li>Related items</li>
+                    <li>Quick actions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Monocle layout for full-width stacked panels -->
+<h3>Full-Width Stacked (grid-monocle)</h3>
+<div class="grid-monocle">
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Full Width Panel 1</span>
+        </div>
+        <div class="panel__content">
+            <p>This panel takes up the full width of the container.</p>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Full Width Panel 2</span>
+        </div>
+        <div class="panel__content">
+            <p>This is another full-width panel stacked below the first one.</p>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,177 @@
     <h1>{{ .Title }}</h1>
     <p>{{ .Description }}</p>
 
+    <!-- Navigation Bar Examples -->
+    <h2>Navigation Bar Variants</h2>
+    <p>Different configurations of the navigation bar for TUI-like toolbars.</p>
+
+    <!-- Single line pointing right (default) -->
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Default Navigation</span>
+        </div>
+        <div class="panel__content">
+            {{ $defaultNavContext := dict
+                "Site" (dict 
+                    "Title" "Site Title"
+                    "Menus" (dict 
+                        "main" (slice 
+                            (dict "Name" "About" "URL" "#" "Active" false)
+                            (dict "Name" "Projects" "URL" "#" "Active" false)
+                            (dict "Name" "Blog" "URL" "#" "Active" false)
+                            (dict "Name" "Contact" "URL" "#" "Active" true)
+                        )
+                    )
+                )
+                "IsHome" true
+            }}
+            {{ partial "components/nav.html" $defaultNavContext }}
+        </div>
+    </div>
+
+    <!-- Two lines: left (right-pointing) and right (left-pointing) -->
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Opposing Directions</span>
+        </div>
+        <div class="panel__content">
+            {{ $opposingNavContext := dict
+                "navLines" (slice
+                    (dict
+                        "title" "Terminal"
+                        "titleURL" "#"
+                        "titleActive" true 
+                        "direction" "right"
+                        "float" "left"
+                        "items" (slice
+                            (dict "name" "File" "url" "#" "active" false)
+                            (dict "name" "Edit" "url" "#" "active" false)
+                            (dict "name" "View" "url" "#" "active" true)
+                        )
+                    )
+                    (dict
+                        "title" "Status" 
+                        "titleURL" "#"
+                        "titleActive" false
+                        "direction" "left" 
+                        "float" "right"
+                        "items" (slice
+                            (dict "name" "UTF-8" "url" "#" "active" false)
+                            (dict "name" "LF" "url" "#" "active" false)
+                            (dict "name" "main" "url" "#" "active" false)
+                        )
+                    )
+                )
+            }}
+            {{ partial "components/nav.html" $opposingNavContext }}
+        </div>
+    </div>
+
+    <!-- Three lists example -->
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Three Lists</span>
+        </div>
+        <div class="panel__content">
+            {{ $threeListsContext := dict
+                "Site" (dict 
+                    "Title" "IDE"
+                    "Params" (dict
+                        "navLists" (slice
+                            (dict
+                                "title" "IDE"
+                                "titleURL" "#"
+                                "titleActive" true 
+                                "direction" "right"
+                                "float" "left"
+                                "items" (slice
+                                    (dict "name" "File" "url" "#" "active" false)
+                                    (dict "name" "Edit" "url" "#" "active" false)
+                                )
+                            )
+                            (dict
+                                "title" "" 
+                                "direction" "right" 
+                                "float" "left"
+                                "items" (slice
+                                    (dict "name" "Debug" "url" "#" "active" true)
+                                    (dict "name" "Run" "url" "#" "active" false)
+                                )
+                            )
+                            (dict
+                                "title" "" 
+                                "direction" "right" 
+                                "float" "right"
+                                "items" (slice
+                                    (dict "name" "Plugins" "url" "#" "active" false)
+                                    (dict "name" "Help" "url" "#" "active" false)
+                                )
+                            )
+                        )
+                    )
+                )
+            }}
+            {{ partial "components/nav.html" $threeListsContext }}
+        </div>
+    </div>
+
+    <!-- List without title -->
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">No Title List</span>
+        </div>
+        <div class="panel__content">
+            {{ $noTitleContext := dict
+                "Site" (dict 
+                    "Title" ""
+                    "Params" (dict
+                        "navLists" (slice
+                            (dict
+                                "title" ""
+                                "direction" "right"
+                                "float" "left"
+                                "items" (slice
+                                    (dict "name" "Home" "url" "#" "active" true)
+                                    (dict "name" "Projects" "url" "#" "active" false)
+                                    (dict "name" "Blog" "url" "#" "active" false)
+                                    (dict "name" "About" "url" "#" "active" false)
+                                )
+                            )
+                        )
+                    )
+                )
+            }}
+            {{ partial "components/nav.html" $noTitleContext }}
+        </div>
+    </div>
+
+    <!-- Title without items -->
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Title Only</span>
+        </div>
+        <div class="panel__content">
+            {{ $titleOnlyContext := dict
+                "Site" (dict 
+                    "Title" "Terminal v1.0"
+                    "Params" (dict
+                        "navLists" (slice
+                            (dict
+                                "title" "Terminal v1.0"
+                                "titleURL" "#"
+                                "titleActive" true
+                                "direction" "right"
+                                "float" "left"
+                                "items" (slice)
+                            )
+                        )
+                    )
+                )
+            }}
+            {{ partial "components/nav.html" $titleOnlyContext }}
+        </div>
+    </div>
+
     <!-- First section: Basic panels using grid-2col class -->
     <h2>Basic Panels</h2>
     <div class="grid-2col">

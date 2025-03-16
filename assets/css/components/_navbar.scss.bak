@@ -18,8 +18,8 @@
     }
   }
   
-  // Nav list container - can be multiple in a navbar
-  .nav-list {
+  // Nav line container - can be multiple in a navbar
+  .nav-line {
     display: flex;
     align-items: center;
     height: 100%;
@@ -33,12 +33,12 @@
       margin-left: auto; // Push to the right
     }
     
-    // Add spacing between nav lists
-    & + .nav-list {
+    // Add spacing between nav-line groups
+    & + .nav-line {
       margin-left: $spacing-sm;
     }
     
-    // Title styling - the tab at the start of the list
+    // Title styling - could be site title or list title
     &__title {
       height: 100%;
       display: flex;
@@ -51,7 +51,9 @@
       flex-shrink: 0;
       text-decoration: none;
       background: var(--base01);
-      padding: 0 1rem;
+      padding-left: 1rem;
+      justify-content: flex-start;
+      clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
       
       &.active {
         background: var(--base0E);
@@ -79,6 +81,7 @@
       height: 100%;
       display: flex;
       margin: 0;
+      margin-left: -0.7rem; // Default overlap for right direction
     }
     
     &__link {
@@ -94,6 +97,17 @@
       flex-shrink: 0;
       background: var(--base05);
       text-decoration: none;
+      
+      // Standard right-pointing shape (default)
+      clip-path: polygon(
+        0 0, 
+        calc(100% - 0.7rem) 0, 
+        calc(100% - 1.4rem) 50%, 
+        calc(100% - 0.7rem) 100%, 
+        0.7rem 100%, 
+        0 50%, 
+        0.7rem 0
+      );
       
       // Inside content of the link
       span {
@@ -115,25 +129,35 @@
     }
   }
   
-  // Right pointing chevrons
-  .nav-list--right {
-    // Title shape
-    .nav-list__title {
+  // Direction-specific styles
+  
+  // Right-pointing nav line (default)
+  .nav-line--right {
+    // Title adjustment for right direction
+    .nav-line__title {
+      padding-left: 1rem;
       justify-content: flex-start;
       clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
     }
     
-    // Default chevron shape for items
-    .nav-list__item {
-      margin-left: -0.7rem; // Overlap for rightward chevrons
-    }
-    
-    .nav-list__link {
+    // First item with flat left edge when no title is present
+    .nav-line__item--first .nav-line__link {
       clip-path: polygon(
         0 0, 
         calc(100% - 0.7rem) 0, 
         calc(100% - 1.4rem) 50%, 
         calc(100% - 0.7rem) 100%, 
+        0 100%, 
+        0 0
+      );
+    }
+    
+    // Last item with flat right edge
+    .nav-line__item--last .nav-line__link {
+      clip-path: polygon(
+        0 0, 
+        100% 0, 
+        100% 100%, 
         0.7rem 100%, 
         0 50%, 
         0.7rem 0
@@ -141,20 +165,18 @@
     }
   }
   
-  // Left pointing chevrons
-  .nav-list--left {
-    // Title shape
-    .nav-list__title {
+  // Left-pointing nav line
+  .nav-line--left {
+    // Title adjustment for left direction
+    .nav-line__title {
+      padding-right: 1rem;
+      padding-left: 0;
       justify-content: flex-end;
       clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
     }
     
-    // Default chevron shape for items
-    .nav-list__item {
-      margin-right: -0.7rem; // Overlap for leftward chevrons
-    }
-    
-    .nav-list__link {
+    // Item shape for left-pointing
+    .nav-line__link {
       clip-path: polygon(
         0.7rem 0, 
         calc(100% - 0.7rem) 0, 
@@ -164,77 +186,40 @@
         0 50%
       );
     }
-  }
-  
-  // Flattening edges when lists are against container boundaries
-  .nav-list--flatten {
-    // Right direction with flatten
-    &.nav-list--right {
-      // When list is at left edge, flatten left side of title
-      &.nav-list--left .nav-list__title {
-        clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
-      }
-      
-      // When list is at right edge, flatten right side of last item
-      &.nav-list--right .nav-list__item--last .nav-list__link {
-        clip-path: polygon(
-          0 0, 
-          100% 0, 
-          100% 100%, 
-          0.7rem 100%, 
-          0 50%, 
-          0.7rem 0
-        );
-      }
-      
-      // When there's no title, flatten left side of first item
-      .nav-list__items:first-child .nav-list__item--first .nav-list__link {
-        clip-path: polygon(
-          0 0, 
-          calc(100% - 0.7rem) 0, 
-          calc(100% - 1.4rem) 50%, 
-          calc(100% - 0.7rem) 100%, 
-          0 100%, 
-          0 0
-        );
-      }
+    
+    // Change overlap direction for left-pointing
+    .nav-line__item {
+      margin-left: 0;
+      margin-right: -0.7rem;
     }
     
-    // Left direction with flatten
-    &.nav-list--left {
-      // When list is at right edge, flatten right side of title
-      &.nav-list--right .nav-list__title {
-        clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
-      }
-      
-      // When list is at left edge, flatten left side of first item
-      &.nav-list--left .nav-list__item--first .nav-list__link {
-        clip-path: polygon(
-          0 0,
-          calc(100% - 0.7rem) 0, 
-          100% 50%, 
-          calc(100% - 0.7rem) 100%, 
-          0 100%
-        );
-      }
-      
-      // When list is at right edge, flatten right side of last item
-      &.nav-list--right .nav-list__item--last .nav-list__link {
-        clip-path: polygon(
-          0.7rem 0, 
-          100% 0, 
-          100% 100%, 
-          0 100%, 
-          0 50%
-        );
-      }
+    // First item with flat left edge
+    .nav-line__item--first .nav-line__link {
+      clip-path: polygon(
+        0 0,
+        calc(100% - 0.7rem) 0, 
+        100% 50%, 
+        calc(100% - 0.7rem) 100%, 
+        0 100%
+      );
+    }
+    
+    // Last item with flat right edge
+    .nav-line__item--last .nav-line__link {
+      clip-path: polygon(
+        0.7rem 0, 
+        100% 0, 
+        100% 100%, 
+        0.7rem 100%, 
+        0 50%
+      );
     }
   }
   
   // Responsive styles
   @media (max-width: $breakpoint-md) {
-    .nav-list__title,
-    .nav-list__link {
+    .nav-line__title,
+    .nav-line__link {
       width: auto;
       min-width: 5rem;
     }
@@ -246,7 +231,7 @@
         height: auto;
       }
       
-      .nav-list {
+      .nav-line {
         width: 100%;
         margin: 0.2rem 0;
       }

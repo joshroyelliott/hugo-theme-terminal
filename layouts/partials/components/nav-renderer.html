@@ -1,0 +1,37 @@
+<nav class="main-nav">
+    <div class="nav-container">
+        <!-- Loop through all navLists provided in the context -->
+        {{ range .navLists }}
+            {{ $direction := default "right" .direction }}
+            {{ $float := default "left" .float }}
+            {{ $flatten := default true .flatten }}
+            
+            <div class="nav-list nav-list--{{ $float }} nav-list--{{ $direction }}{{ if $flatten }} nav-list--flatten{{ end }}">
+                <!-- Render the title tab if provided -->
+                {{ if .title }}
+                    <a href="{{ .titleURL | default "#" }}" 
+                       class="nav-list__title{{ if .titleActive }} active{{ end }}">
+                        {{ .title }}
+                    </a>
+                {{ end }}
+                
+                <!-- Render the item tabs if provided -->
+                {{ if .items }}
+                    <ul class="nav-list__items">
+                        {{ $itemCount := len .items }}
+                        {{ range $index, $item := .items }}
+                            <li class="nav-list__item
+                                {{ if eq $index 0 }}nav-list__item--first{{ end }}
+                                {{ if eq $index (sub $itemCount 1) }}nav-list__item--last{{ end }}">
+                                <a href="{{ $item.url | default "#" }}" 
+                                   class="nav-list__link{{ if $item.active }} active{{ end }}">
+                                    <span>{{ $item.name }}</span>
+                                </a>
+                            </li>
+                        {{ end }}
+                    </ul>
+                {{ end }}
+            </div>
+        {{ end }}
+    </div>
+</nav>

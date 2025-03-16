@@ -1,0 +1,424 @@
+{{ define "main" }}
+<div class="panels-container">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+
+    <h2>Navigation Bar Components</h2>
+    <p>The navigation bar system in this theme is designed to mimic a TUI (Text User Interface) application's toolbar or status line. It provides flexible configuration for creating various navigation bar layouts.</p>
+
+    <div class="panel">
+        <div class="panel__header">
+            <span class="panel__title">Components Overview</span>
+        </div>
+        <div class="panel__content">
+            <h3>Basic Components</h3>
+            <ul>
+                <li><strong>Nav Container</strong>: The dark bar that spans the page width</li>
+                <li><strong>Nav Lists</strong>: Groups of navigation elements within the container</li>
+                <li><strong>List Title</strong>: An optional title tab for each list (dark background)</li>
+                <li><strong>List Items</strong>: The clickable navigation items (light background)</li>
+            </ul>
+            
+            <h3>Configuration Options</h3>
+            <ul>
+                <li><strong>direction</strong>: Controls chevron orientation ("right" or "left")</li>
+                <li><strong>float</strong>: Controls list positioning within container ("left" or "right")</li>
+                <li><strong>flatten</strong>: Determines if edges against boundaries should be flat (true/false)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Examples Section -->
+    <h2>Examples</h2>
+
+    <!-- Default Navigation -->
+    <section class="nav-example">
+        <h3>Default Site Navigation</h3>
+        <p>The default navigation layout with site title on left and menu items on right.</p>
+        {{ $defaultNavContext := dict
+            "Site" (dict 
+                "Title" "Site Title"
+                "Menus" (dict 
+                    "main" (slice 
+                        (dict "Name" "About" "URL" "#" "Active" false)
+                        (dict "Name" "Projects" "URL" "#" "Active" false)
+                        (dict "Name" "Blog" "URL" "#" "Active" false)
+                        (dict "Name" "Contact" "URL" "#" "Active" true)
+                    )
+                )
+            )
+            "IsHome" true
+        }}
+        {{ partial "components/nav.html" $defaultNavContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- title: "Site Title"  # Left title
+  direction: "right"
+  float: "left"
+  flatten: true
+- items:                # Right menu items
+  - name: "About"
+    url: "/about/"
+  - name: "Projects" 
+    url: "/projects/"
+  - name: "Blog"
+    url: "/blog/"
+  - name: "Contact"
+    url: "/contact/"
+    active: true
+  direction: "right"
+  float: "right"
+  flatten: true` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- Opposing Directions -->
+    <section class="nav-example">
+        <h3>Opposing Directions</h3>
+        <p>Two lists with opposing chevron directions - simulating a code editor's toolbar and status bar.</p>
+        {{ $opposingNavContext := dict
+            "navLists" (slice
+                (dict
+                    "title" "Terminal"
+                    "titleURL" "#"
+                    "titleActive" true 
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "File" "url" "#" "active" false)
+                        (dict "name" "Edit" "url" "#" "active" false)
+                        (dict "name" "View" "url" "#" "active" true)
+                    )
+                )
+                (dict
+                    "title" "Status" 
+                    "titleURL" "#"
+                    "titleActive" false
+                    "direction" "left" 
+                    "float" "right"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "UTF-8" "url" "#" "active" false)
+                        (dict "name" "LF" "url" "#" "active" false)
+                        (dict "name" "main" "url" "#" "active" false)
+                    )
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $opposingNavContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- title: "Terminal"     # Left title and menus pointing right
+  direction: "right"
+  float: "left"
+  flatten: true
+  items:
+    - name: "File"
+      url: "#"
+    - name: "Edit"
+      url: "#" 
+    - name: "View"
+      url: "#"
+      active: true
+- title: "Status"       # Right title and menus pointing left
+  direction: "left"
+  float: "right"
+  flatten: true
+  items:
+    - name: "UTF-8"
+      url: "#"
+    - name: "LF"
+      url: "#"
+    - name: "main"
+      url: "#"` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- Multiple Lists -->
+    <section class="nav-example">
+        <h3>Multiple Nav Lists</h3>
+        <p>Three different navigation lists in a single container.</p>
+        {{ $multipleListsContext := dict
+            "navLists" (slice
+                (dict
+                    "title" "IDE"
+                    "titleURL" "#"
+                    "titleActive" true 
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "File" "url" "#" "active" false)
+                        (dict "name" "Edit" "url" "#" "active" false)
+                    )
+                )
+                (dict
+                    "title" "" 
+                    "direction" "right" 
+                    "float" "left"
+                    "flatten" false
+                    "items" (slice
+                        (dict "name" "Debug" "url" "#" "active" true)
+                        (dict "name" "Run" "url" "#" "active" false)
+                    )
+                )
+                (dict
+                    "title" "" 
+                    "direction" "right" 
+                    "float" "right"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "Plugins" "url" "#" "active" false)
+                        (dict "name" "Help" "url" "#" "active" false)
+                    )
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $multipleListsContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- title: "IDE"          # First list with title
+  direction: "right"
+  float: "left"
+  flatten: true
+  items:
+    - name: "File"
+      url: "#"
+    - name: "Edit"
+      url: "#"
+- direction: "right"    # Second list with no title
+  float: "left"
+  flatten: false        # No flattening for middle list
+  items:
+    - name: "Debug"
+      url: "#"
+      active: true
+    - name: "Run"
+      url: "#"
+- direction: "right"    # Third list floating right
+  float: "right"
+  flatten: true
+  items:
+    - name: "Plugins"
+      url: "#"
+    - name: "Help"
+      url: "#"` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- Title Only -->
+    <section class="nav-example">
+        <h3>Title Only</h3>
+        <p>A navigation list with only a title and no items.</p>
+        {{ $titleOnlyContext := dict
+            "navLists" (slice
+                (dict
+                    "title" "Terminal v1.0"
+                    "titleURL" "#"
+                    "titleActive" true
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" true
+                    "items" (slice)
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $titleOnlyContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- title: "Terminal v1.0"  # Title only, no items
+  direction: "right"
+  float: "left"
+  flatten: true
+  items: []` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- Items Only -->
+    <section class="nav-example">
+        <h3>Items Only</h3>
+        <p>A navigation list with items but no title.</p>
+        {{ $itemsOnlyContext := dict
+            "navLists" (slice
+                (dict
+                    "title" ""
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "Home" "url" "#" "active" true)
+                        (dict "name" "Projects" "url" "#" "active" false)
+                        (dict "name" "Blog" "url" "#" "active" false)
+                        (dict "name" "About" "url" "#" "active" false)
+                    )
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $itemsOnlyContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- direction: "right"    # No title, just items
+  float: "left"
+  flatten: true
+  items:
+    - name: "Home"
+      url: "#"
+      active: true
+    - name: "Projects"
+      url: "#"
+    - name: "Blog"
+      url: "#"
+    - name: "About"
+      url: "#"` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- VS Code Status Bar -->
+    <section class="nav-example">
+        <h3>VS Code Status Bar</h3>
+        <p>A realistic VS Code style status bar with information on both sides.</p>
+        {{ $vscodeContext := dict
+            "navLists" (slice
+                (dict
+                    "title" ""
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "main*" "url" "#" "active" true)
+                        (dict "name" "󰚌 0 󰅙 0" "url" "#" "active" false)
+                    )
+                )
+                (dict
+                    "title" "" 
+                    "direction" "left" 
+                    "float" "right"
+                    "flatten" true
+                    "items" (slice
+                        (dict "name" "Ln 42, Col 80" "url" "#" "active" false)
+                        (dict "name" "Spaces: 2" "url" "#" "active" false)
+                        (dict "name" "UTF-8" "url" "#" "active" false)
+                        (dict "name" "JavaScript" "url" "#" "active" false)
+                    )
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $vscodeContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- direction: "right"    # Left status items
+  float: "left"
+  flatten: true
+  items:
+    - name: "main*"
+      url: "#"
+      active: true
+    - name: "󰚌 0 󰅙 0"
+      url: "#"
+- direction: "left"     # Right status items
+  float: "right"
+  flatten: true
+  items:
+    - name: "Ln 42, Col 80"
+      url: "#"
+    - name: "Spaces: 2"
+      url: "#"
+    - name: "UTF-8"
+      url: "#"
+    - name: "JavaScript"
+      url: "#"` }}</code></pre>
+        </div>
+    </section>
+
+    <!-- No Flattening -->
+    <section class="nav-example">
+        <h3>No Flattening</h3>
+        <p>Lists without the flatten parameter, showing chevrons on all sides regardless of position.</p>
+        {{ $noFlattenContext := dict
+            "navLists" (slice
+                (dict
+                    "title" "No Flatten"
+                    "titleURL" "#"
+                    "titleActive" false
+                    "direction" "right"
+                    "float" "left"
+                    "flatten" false
+                    "items" (slice
+                        (dict "name" "Item 1" "url" "#" "active" false)
+                        (dict "name" "Item 2" "url" "#" "active" true)
+                        (dict "name" "Item 3" "url" "#" "active" false)
+                    )
+                )
+                (dict
+                    "title" "Also No Flatten" 
+                    "titleURL" "#"
+                    "titleActive" false
+                    "direction" "left" 
+                    "float" "right"
+                    "flatten" false
+                    "items" (slice
+                        (dict "name" "Option 1" "url" "#" "active" false)
+                        (dict "name" "Option 2" "url" "#" "active" false)
+                    )
+                )
+            )
+        }}
+        {{ partial "components/nav.html" $noFlattenContext }}
+        <div class="code-sample">
+            <pre><code>{{ `navLists:
+- title: "No Flatten"   # Left with no flattening
+  direction: "right"
+  float: "left"
+  flatten: false        # Notice chevrons on all sides
+  items:
+    - name: "Item 1"
+      url: "#"
+    - name: "Item 2"
+      url: "#"
+      active: true
+    - name: "Item 3"
+      url: "#"
+- title: "Also No Flatten"  # Right with no flattening
+  direction: "left"
+  float: "right"
+  flatten: false        # Notice chevrons on all sides
+  items:
+    - name: "Option 1"
+      url: "#"
+    - name: "Option 2"
+      url: "#"` }}</code></pre>
+        </div>
+    </section>
+</div>
+
+<style>
+/* Styles for the nav showcase page */
+.nav-example {
+    margin-bottom: 3rem;
+}
+
+.nav-example .main-nav {
+    margin-bottom: 1rem;
+}
+
+.code-sample {
+    background-color: var(--base01);
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+
+.code-sample pre {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.code-sample code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--base05);
+}
+</style>
+{{ end }}

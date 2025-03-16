@@ -1,0 +1,122 @@
+<!-- Default Navigation -->
+<h3>Default Navigation</h3>
+{{ $defaultNavLists := slice 
+    (dict 
+        "title" "Site Title"
+        "titleURL" "/"
+        "titleActive" true
+        "direction" "right"
+        "float" "left"
+        "flatten" true
+        "items" slice
+    )
+    (dict
+        "title" ""
+        "direction" "right"
+        "float" "right"
+        "flatten" true
+        "items" (slice
+            (dict "name" "About" "url" "#" "active" false)
+            (dict "name" "Projects" "url" "#" "active" false)
+            (dict "name" "Blog" "url" "#" "active" false)
+            (dict "name" "Contact" "url" "#" "active" true)
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
+
+<!-- Opposing Directions -->
+<h3>Opposing Directions</h3>
+{{ $opposingNavLists := slice
+    (dict
+        "title" "Terminal"
+        "titleURL" "#"
+        "titleActive" true 
+        "direction" "right"
+        "float" "left"
+        "items" (slice
+            (dict "name" "File" "url" "#" "active" false)
+            (dict "name" "Edit" "url" "#" "active" false)
+            (dict "name" "View" "url" "#" "active" true)
+        )
+    )
+    (dict
+        "title" "Status" 
+        "titleURL" "#"
+        "titleActive" false
+        "direction" "left" 
+        "float" "right"
+        "items" (slice
+            (dict "name" "UTF-8" "url" "#" "active" false)
+            (dict "name" "LF" "url" "#" "active" false)
+            (dict "name" "main" "url" "#" "active" false)
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $opposingNavLists) }}
+
+<!-- Three Lists -->
+<h3>Three Lists</h3>
+{{ $threeNavLists := slice
+    (dict
+        "title" "IDE"
+        "titleURL" "#"
+        "titleActive" true 
+        "direction" "right"
+        "float" "left"
+        "items" (slice
+            (dict "name" "File" "url" "#" "active" false)
+            (dict "name" "Edit" "url" "#" "active" false)
+        )
+    )
+    (dict
+        "title" "" 
+        "direction" "right" 
+        "float" "left"
+        "items" (slice
+            (dict "name" "Debug" "url" "#" "active" true)
+            (dict "name" "Run" "url" "#" "active" false)
+        )
+    )
+    (dict
+        "title" "" 
+        "direction" "right" 
+        "float" "right"
+        "items" (slice
+            (dict "name" "Plugins" "url" "#" "active" false)
+            (dict "name" "Help" "url" "#" "active" false)
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $threeNavLists) }}
+
+<!-- No Title List -->
+<h3>No Title List</h3>
+{{ $noTitleNavLists := slice
+    (dict
+        "title" ""
+        "direction" "right"
+        "float" "left"
+        "items" (slice
+            (dict "name" "Home" "url" "#" "active" true)
+            (dict "name" "Projects" "url" "#" "active" false)
+            (dict "name" "Blog" "url" "#" "active" false)
+            (dict "name" "About" "url" "#" "active" false)
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $noTitleNavLists) }}
+
+<!-- Title Only -->
+<h3>Title Only</h3>
+{{ $titleOnlyNavLists := slice
+    (dict
+        "title" "Terminal v1.0"
+        "titleURL" "#"
+        "titleActive" true
+        "direction" "right"
+        "float" "left"
+        "items" (slice)
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $titleOnlyNavLists) }}
