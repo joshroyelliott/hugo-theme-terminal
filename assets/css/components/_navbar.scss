@@ -6,6 +6,7 @@
   .nav-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: $nav-height;
     min-width: min-content;
     overflow-x: auto;
@@ -24,14 +25,7 @@
     align-items: center;
     height: 100%;
     
-    // Float positioning
-    &--left {
-      margin-right: auto; // Push to the left
-    }
-    
-    &--right {
-      margin-left: auto; // Push to the right
-    }
+    // Spacing between lists managed by container's justify-content
     
     // Add spacing between nav lists
     & + .nav-list {
@@ -170,13 +164,13 @@
   .nav-list--flatten {
     // Right direction with flatten
     &.nav-list--right {
-      // When list is at left edge, flatten left side of title
-      &.nav-list--left .nav-list__title {
+      // Flatten left side of title when it's first in the container
+      &:first-child .nav-list__title {
         clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
       }
       
-      // When list is at right edge, flatten right side of last item
-      &.nav-list--right .nav-list__item--last .nav-list__link {
+      // Flatten right side of last item when it's last in the container
+      &:last-child .nav-list__item--last .nav-list__link {
         clip-path: polygon(
           0 0, 
           100% 0, 
@@ -188,7 +182,7 @@
       }
       
       // When there's no title, flatten left side of first item
-      .nav-list__items:first-child .nav-list__item--first .nav-list__link {
+      &:first-child .nav-list__items:first-child .nav-list__item--first .nav-list__link {
         clip-path: polygon(
           0 0, 
           calc(100% - 0.7rem) 0, 
@@ -202,13 +196,13 @@
     
     // Left direction with flatten
     &.nav-list--left {
-      // When list is at right edge, flatten right side of title
-      &.nav-list--right .nav-list__title {
+      // Flatten right side of title when it's last in the container
+      &:last-child .nav-list__title {
         clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
       }
       
-      // When list is at left edge, flatten left side of first item
-      &.nav-list--left .nav-list__item--first .nav-list__link {
+      // Flatten left side of first item when it's first in the container
+      &:first-child .nav-list__item--first .nav-list__link {
         clip-path: polygon(
           0 0,
           calc(100% - 0.7rem) 0, 
@@ -218,8 +212,8 @@
         );
       }
       
-      // When list is at right edge, flatten right side of last item
-      &.nav-list--right .nav-list__item--last .nav-list__link {
+      // Flatten right side of last item when it's last in the container
+      &:last-child .nav-list__item--last .nav-list__link {
         clip-path: polygon(
           0.7rem 0, 
           100% 0, 

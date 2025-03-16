@@ -3,10 +3,9 @@
         <!-- Loop through all navLists provided in the context -->
         {{ range .navLists }}
             {{ $direction := default "right" .direction }}
-            {{ $float := default "left" .float }}
             {{ $flatten := default true .flatten }}
             
-            <div class="nav-list nav-list--{{ $float }} nav-list--{{ $direction }}{{ if $flatten }} nav-list--flatten{{ end }}">
+            <div class="nav-list nav-list--{{ $direction }}{{ if $flatten }} nav-list--flatten{{ end }}">
                 <!-- Render the title tab if provided -->
                 {{ if .title }}
                     <a href="{{ .titleURL | default "#" }}" 
