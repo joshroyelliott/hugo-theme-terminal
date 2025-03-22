@@ -38,3 +38,35 @@
 .showcase-section {
     margin-top: 4rem;
 }
+
+// Add consistent spacing for panel sections in showcase
+#panels-section {
+    // Add consistent spacing between panel sections
+    h4 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    // First heading shouldn't have the extra top margin
+    h4:first-of-type {
+        margin-top: 1rem;
+    }
+    
+    // Wrapper class for panel showcases to ensure consistent spacing
+    .showcase-panels-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        // All direct children get the same gap
+        > * {
+            margin: 0;
+        }
+        
+        // Ensure grid layouts also have consistent spacing
+        .grid-2col, .grid-3col, .grid-4col {
+            gap: 1rem;
+            margin: 0;
+        }
+    }
+}

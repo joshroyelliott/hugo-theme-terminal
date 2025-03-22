@@ -5,8 +5,8 @@
 }
 
 // Standardized panel spacing variables from _variables.scss
-$panel-gap: $spacing-sm; // 0.5rem standard gap between panels
-$panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
+$panel-gap: $spacing-md; // 1rem standard gap between panels
+$panel-margin: 0; // No margin for panel groups
 
 // ===================================================
 // STANDARD GRID LAYOUTS
@@ -27,6 +27,7 @@ $panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
@@ -37,10 +38,12 @@ $panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
   
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
@@ -51,14 +54,17 @@ $panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
   
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: repeat(3, 1fr);
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
