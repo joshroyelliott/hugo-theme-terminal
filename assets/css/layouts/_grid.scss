@@ -65,7 +65,7 @@ $panel-margin: $spacing-md 0; // 1rem standard margin for panel groups
 // Main content with sidebar (1:2 ratio)
 .grid-main-sidebar {
   @extend %panel-grid-base;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 2fr;
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;

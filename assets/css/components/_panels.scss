@@ -383,6 +383,114 @@
     &--preview {
         border-color: var(--base04);
     }
+    
+    // Input panel - styles for actual HTML input elements
+    &--input {
+        position: relative;
+        
+        // Add the prompt character
+        &::before {
+            content: '>';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--base05);
+            font-weight: 400;
+            z-index: 1;
+        }
+        
+        .panel__content {
+            padding-left: 2.2rem; // Extra space for the prompt character
+            position: relative;
+        }
+        
+        // Style for the actual input element
+        input[type="text"], 
+        input[type="search"],
+        input[type="password"],
+        input[type="email"],
+        input[type="url"],
+        input[type="tel"] {
+            background: transparent;
+            border: none;
+            color: var(--base05);
+            font-family: $font-mono;
+            font-size: 1rem;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            
+            // Try to make a block cursor in browsers that support it
+            // This won't work in all browsers, but standard line cursor is acceptable fallback
+            caret-color: var(--base06);
+            
+            // More specific properties for modern browsers
+            @supports (caret-shape: block) {
+                caret-shape: block;
+                caret-width: 0.6rem;
+            }
+        }
+        
+        // Textarea styling
+        textarea {
+            background: transparent;
+            border: none;
+            color: var(--base05);
+            font-family: $font-mono;
+            font-size: 1rem;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            resize: vertical;
+            min-height: 1.5rem;
+            line-height: 1.5;
+            overflow: auto;
+            white-space: pre;
+            
+            // Try to make a block cursor in browsers that support it
+            caret-color: var(--base06);
+            
+            // More specific properties for modern browsers
+            @supports (caret-shape: block) {
+                caret-shape: block;
+                caret-width: 0.6rem;
+            }
+            
+            // Hide scrollbars but keep functionality
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+        // Active state (when input is focused)
+        &--active {
+            border-color: var(--base0C);
+            
+            .panel__title {
+                color: var(--base0C);
+                font-weight: 700;
+            }
+            
+            .panel__separator {
+                background-color: var(--base0C);
+            }
+            
+            // Ensure the prompt character matches the text color even when active
+            &::before {
+                color: var(--base05);
+            }
+        }
+        
+        // Hover state 
+        &:hover {
+            border-color: var(--base0B);
+        }
+    }
 
     // Scroll feature for any panel
     &--scroll {
@@ -424,9 +532,18 @@
         // But keep list panel and preview panel side by side
         display: grid;
         grid-template-areas: 
+            "input input2"
             "tab tab"
             "scroll scroll"
             "list preview";
+        
+        .panel--input:nth-of-type(1) {
+            grid-area: input;
+        }
+        
+        .panel--input:nth-of-type(2) {
+            grid-area: input2;
+        }
         
         .panel--tab {
             grid-area: tab;
@@ -450,6 +567,8 @@
         
         &.interactive-panels {
             grid-template-areas: 
+                "input"
+                "input2"
                 "tab"
                 "scroll"
                 "list"

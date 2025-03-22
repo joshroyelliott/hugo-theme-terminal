@@ -23,6 +23,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Initialize input panels
+    const inputPanels = document.querySelectorAll('.panel--input');
+    inputPanels.forEach(panel => {
+        const inputs = panel.querySelectorAll('input, textarea');
+        
+        if (inputs.length === 0) return;
+        
+        // Add click handler to panel to focus the first input
+        panel.addEventListener('click', function(e) {
+            // Don't capture clicks on the inputs themselves
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            // Focus the first input/textarea
+            const firstInput = panel.querySelector('input, textarea');
+            if (firstInput) {
+                firstInput.focus();
+                
+                // Set cursor position to the end
+                if (firstInput.tagName === 'INPUT') {
+                    firstInput.selectionStart = firstInput.selectionEnd = firstInput.value.length;
+                }
+            }
+        });
+        
+        inputs.forEach(input => {
+            // Handle focus event
+            input.addEventListener('focus', function() {
+                // Remove active class from all input panels
+                document.querySelectorAll('.panel--input--active').forEach(p => {
+                    p.classList.remove('panel--input--active');
+                });
+                
+                // Add active class to parent panel
+                panel.classList.add('panel--input--active');
+            });
+            
+            // Handle blur event
+            input.addEventListener('blur', function() {
+                // Only remove active class if no other inputs in this panel are focused
+                const stillFocused = Array.from(panel.querySelectorAll('input, textarea'))
+                    .some(el => el === document.activeElement);
+                
+                if (!stillFocused) {
+                    panel.classList.remove('panel--input--active');
+                }
+            });
+        });
+    });
+    
     // Initialize all grid layouts
     setupGridLayouts();
     

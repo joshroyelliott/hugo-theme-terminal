@@ -16,7 +16,7 @@
 }
 
 .theme-font {
-    font-family: var(--font-mono, "Fira Code");
+    font-family: var(--font-mono);
 }
 
 .variables-colors {
@@ -24,7 +24,7 @@
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 0px;
-    // margin-top: 1rem;
+    margin-top: 1rem;
     width: 360px;
     height: 60px;
 }
@@ -36,5 +36,5 @@
 }
 
 .showcase-section {
-    margin-top: 3rem;
+    margin-top: 4rem;
 }
