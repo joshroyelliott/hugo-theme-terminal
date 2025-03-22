@@ -2,7 +2,14 @@
 <div class="showcase-container">
     <h1>{{ .Title }}</h1>
     <p>{{ .Description }}</p>
-    
+
+     <!-- Theme Variables Section (NEW) -->
+    <section id="variables-section" class="showcase-section">
+        <h2>Theme Variables</h2>
+        <p>Current color scheme and typography variables used in the theme.</p>
+        {{ partial "showcase/variables.html" . }}
+    </section>   
+
     <!-- Navigation Bar Examples -->
     <section id="navigation-section" class="showcase-section">
         <h2>Navigation Bar Variants</h2>

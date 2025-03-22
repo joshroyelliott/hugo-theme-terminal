@@ -123,23 +123,10 @@
             font-weight: 700;
         }
         
-        // .panel__note {
-        //     color: var(--base0B);
-        //     font-weight: 700;
-        // }
-        
         .panel__main-separator {
             background-color: var(--base0B);
         }
     }
-    
-    // Title-only modification
-    // &--titled:not(&--numbered) {
-    //     .panel__number,
-    //     .panel__separator {
-    //         display: none;
-    //     }
-    // }
 
     // List panel modification
     &--list {
@@ -169,21 +156,6 @@
             &::-webkit-scrollbar {
                 display: none;
             }
-        }
-        
-        // Custom scrollbar indicator
-        .js-scroll-indicator {
-            position: absolute;
-            right: -3px;
-            width: 4px;
-            background-color: var(--base05);
-            transition: top 0.1s ease, height 0.1s ease;
-            opacity: 0;
-            z-index: 2;
-        }
-        
-        &:hover .js-scroll-indicator {
-            opacity: 1;
         }
         
         // List styles
@@ -218,7 +190,7 @@
                 left: -1rem; // Position it exactly at the edge of the panel border
                 top: 0;
                 height: 100%;
-                width: 3px;
+                width: 4px;
                 background-color: transparent;
                 transition: background-color 0.2s ease;
             }
@@ -282,16 +254,7 @@
             top: 1px;
         }
 
-        // Use standard separator instead of vertical bar - matches the numbered panel separator
-        .panel__main-separator {
-            width: 1rem;
-            height: 2px;
-            background-color: var(--base05);
-            position: relative;
-            transition: background-color 0.2s ease;
-        }
-
-        // Container for tab sections - fix the margin/padding issue
+        // Container for tab sections
         .panel__tabs {
             display: inline-flex;
             align-items: center;
@@ -341,6 +304,15 @@
             &--active {
                 display: block;
             }
+            
+            // Style for generated tab headings (the same in all modes)
+            .tab-generated-heading {
+                font-size: 1.1rem;
+                font-weight: 500;
+                margin-top: 0;
+                margin-bottom: 1rem;
+                color: var(--base0B);
+            }
         }
 
         // Wide enough panel (column layout)
@@ -359,16 +331,6 @@
                 display: block !important; // Force display for column mode
                 flex: 1;
                 
-                // Always add the tab title as a heading when in column mode
-                &::before {
-                    content: attr(data-tab-title);
-                    display: block;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    margin-bottom: 1rem;
-                    color: var(--base0B);
-                }
-
                 // Add proper spacing for divider between columns
                 &:not(:last-child) {
                     position: relative;
@@ -386,23 +348,9 @@
                     }
                 }
                 
-                // If there's already an h3 first-child, don't show our generated heading
-                h3:first-child {
-                    // Instead of using :has() which has limited support
-                    // We'll handle this in JavaScript by adding a class
-                    &.replace-generated-heading {
-                        display: block;
-                        font-size: 1.1rem;
-                        font-weight: 500;
-                        margin-top: 0;
-                        margin-bottom: 1rem;
-                        color: var(--base0B);
-                    }
-                }
-                
-                // This class will be added by JavaScript when there's an h3
-                &.has-heading::before {
-                    display: none;
+                // Remove the ::before pseudo-element
+                &::before {
+                    content: none;
                 }
             }
         }
@@ -424,23 +372,9 @@
                 }
             }
             
-            // When showing numeric tabs, add title to the content area
-            &:not(.panel--wide-enough) .panel__tab-content {
-                // Add the tab title as a heading when in numeric mode
-                // This only applies when not in wide mode
-                &::before {
-                    content: attr(data-tab-title);
-                    display: block;
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    margin-bottom: 1rem;
-                    color: var(--base0B);
-                }
-                
-                // Class added by JavaScript
-                &.has-heading::before {
-                    display: none;
-                }
+            // Remove the ::before pseudo-element in mobile tab view
+            &:not(.panel--wide-enough) .panel__tab-content::before {
+                content: none;
             }
         }
     }
@@ -465,7 +399,7 @@
         
         .js-scroll-indicator {
             position: absolute;
-            right: 0px;
+            right: -5px;
             width: 3px;
             background-color: var(--base0B);
             transition: top 0.1s ease, height 0.1s ease;

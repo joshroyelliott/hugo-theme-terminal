@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
+        // Handle tab clicks - adding direct click handlers to each tab
         tabs.forEach(tab => {
             tab.addEventListener('click', function() {
                 // Skip if wide layout is active
@@ -137,6 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add active class to clicked tab
                 this.classList.add('panel__tab--active');
                 
+                // Remove any existing tab-generated headings from all content
+                panel.querySelectorAll('.tab-generated-heading').forEach(heading => {
+                    heading.remove();
+                });
+                
                 // Hide all tab content in this panel
                 panel.querySelectorAll('.panel__tab-content').forEach(content => {
                     content.classList.remove('panel__tab-content--active');
@@ -148,6 +154,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (tabContent) {
                     tabContent.classList.add('panel__tab-content--active');
                     tabContent.style.display = 'block';
+                    
+                    // Add tab title as heading if in small screen mode
+                    if (window.innerWidth < 768) {
+                        const tabTitle = this.getAttribute('data-tab-title') || 
+                                      this.textContent.trim();
+                        
+                        // Create a new heading element for the tab title
+                        const tabHeading = document.createElement('h3');
+                        tabHeading.className = 'tab-generated-heading';
+                        tabHeading.textContent = tabTitle;
+                        
+                        // Insert at the beginning of the content
+                        tabContent.insertBefore(tabHeading, tabContent.firstChild);
+                    }
                 }
             });
         });
@@ -190,28 +210,53 @@ function checkPanelWidth(panel) {
     // Calculate required width (300px per tab is a good estimate)
     const requiredWidth = tabCount * 300;
     const panelWidth = panel.offsetWidth;
+    const isSmallScreen = window.innerWidth < 768;
+    
+    // Remove any previously generated headings to start fresh
+    panel.querySelectorAll('.tab-generated-heading').forEach(heading => {
+        heading.remove();
+    });
     
     if (panelWidth >= requiredWidth) {
+        // WIDE MODE - Show as columns
         panel.classList.add('panel--wide-enough');
+        
+        // Hide the separator when in wide mode
+        const separator = panel.querySelector('.panel__separator');
+        if (separator) {
+            separator.style.display = 'none';
+        }
         
         // When switching to column mode, make sure all tab content is visible
         panel.querySelectorAll('.panel__tab-content').forEach(content => {
             content.classList.remove('panel__tab-content--active');
             content.style.display = 'block';
+            
+            // Get the corresponding tab title
+            const tabId = content.id;
+            const correspondingTab = panel.querySelector(`[data-tab-id="${tabId}"]`);
+            
+            if (correspondingTab) {
+                const tabTitle = correspondingTab.getAttribute('data-tab-title') || 
+                                correspondingTab.textContent.trim();
+                
+                // Create a new heading element for the tab title
+                const tabHeading = document.createElement('h3');
+                tabHeading.className = 'tab-generated-heading';
+                tabHeading.textContent = tabTitle;
+                
+                // Insert at the beginning of the content
+                content.insertBefore(tabHeading, content.firstChild);
+            }
         });
-        
-        // Hide the separator when in column mode - no need for it
-        const mainSeparator = panel.querySelector('.panel__separator:nth-child(4)'); // The separator after panel title
-        if (mainSeparator) {
-            mainSeparator.style.display = 'none';
-        }
     } else {
+        // NARROW MODE - Show as tabs
         panel.classList.remove('panel--wide-enough');
         
         // Show the separator when in tab mode
-        const mainSeparator = panel.querySelector('.panel__separator:nth-child(4)');
-        if (mainSeparator) {
-            mainSeparator.style.display = '';
+        const separator = panel.querySelector('.panel__separator');
+        if (separator) {
+            separator.style.display = '';
         }
         
         // When switching back to tab mode, only show the active tab
@@ -226,6 +271,20 @@ function checkPanelWidth(panel) {
             if (activeContent) {
                 activeContent.classList.add('panel__tab-content--active');
                 activeContent.style.display = 'block';
+                
+                // If small screen, add the heading to the active content
+                if (isSmallScreen) {
+                    const tabTitle = activeTab.getAttribute('data-tab-title') || 
+                                    activeTab.textContent.trim();
+                    
+                    // Create a new heading element for the tab title
+                    const tabHeading = document.createElement('h3');
+                    tabHeading.className = 'tab-generated-heading';
+                    tabHeading.textContent = tabTitle;
+                    
+                    // Insert at the beginning of the content
+                    activeContent.insertBefore(tabHeading, activeContent.firstChild);
+                }
             }
         } else {
             // If no active tab, activate the first one
@@ -235,11 +294,24 @@ function checkPanelWidth(panel) {
                 firstTab.classList.add('panel__tab--active');
                 firstContent.classList.add('panel__tab-content--active');
                 firstContent.style.display = 'block';
+                
+                // If small screen, add the heading to the first content
+                if (isSmallScreen) {
+                    const tabTitle = firstTab.getAttribute('data-tab-title') || 
+                                    firstTab.textContent.trim();
+                    
+                    // Create a new heading element for the tab title
+                    const tabHeading = document.createElement('h3');
+                    tabHeading.className = 'tab-generated-heading';
+                    tabHeading.textContent = tabTitle;
+                    
+                    // Insert at the beginning of the content
+                    firstContent.insertBefore(tabHeading, firstContent.firstChild);
+                }
             }
         }
         
         // Handle responsive tab display (numbers vs text)
-        const isSmallScreen = window.innerWidth < 768;
         const tabs = panel.querySelectorAll('.panel__tab');
         
         if (isSmallScreen) {
@@ -386,6 +458,11 @@ window.initMarkdownTabPanels = function(panelElement, mainTitle = null) {
             // Add active class to clicked tab
             this.classList.add('panel__tab--active');
             
+            // Remove any existing tab-generated headings
+            panelElement.querySelectorAll('.tab-generated-heading').forEach(heading => {
+                heading.remove();
+            });
+            
             // Hide all tab content
             contentsContainer.querySelectorAll('.panel__tab-content').forEach(c => {
                 c.classList.remove('panel__tab-content--active');
@@ -397,6 +474,20 @@ window.initMarkdownTabPanels = function(panelElement, mainTitle = null) {
             if (tabContent) {
                 tabContent.classList.add('panel__tab-content--active');
                 tabContent.style.display = 'block';
+                
+                // If small screen, add the heading to the active content
+                if (window.innerWidth < 768) {
+                    const tabTitle = this.getAttribute('data-tab-title') || 
+                                   this.textContent.trim();
+                    
+                    // Create a new heading element for the tab title
+                    const tabHeading = document.createElement('h3');
+                    tabHeading.className = 'tab-generated-heading';
+                    tabHeading.textContent = tabTitle;
+                    
+                    // Insert at the beginning of the content
+                    tabContent.insertBefore(tabHeading, tabContent.firstChild);
+                }
             }
         });
     });
@@ -422,11 +513,26 @@ function updateScrollIndicator(content, indicator) {
     const visibleHeight = content.clientHeight;
     const scrollTop = content.scrollTop;
     
+    // Get the panel's border radius from CSS
+    const borderRadius = parseInt(getComputedStyle(document.documentElement)
+        .getPropertyValue('--panel-border-radius')) || 6; // Default to 6px if not set
+    
+    // Use the border radius as a guide for the top/bottom padding
+    const edgePadding = borderRadius;
+    
+    // Adjust the visible height to account for the padding
+    const adjustedVisibleHeight = visibleHeight - (edgePadding * 2);
+    
     // Calculate indicator height and position
     const scrollRatio = visibleHeight / contentHeight;
-    const indicatorHeight = Math.max(30, visibleHeight * scrollRatio); // Min height of 30px
-    const indicatorPosition = (scrollTop / (contentHeight - visibleHeight)) * 
-                             (visibleHeight - indicatorHeight);
+    const indicatorHeight = Math.max(30, adjustedVisibleHeight * scrollRatio); // Min height of 30px
+    
+    // Calculate position with padding taken into account
+    let indicatorPosition = (scrollTop / (contentHeight - visibleHeight)) * 
+                          (adjustedVisibleHeight - indicatorHeight);
+    
+    // Add the edge padding to the position
+    indicatorPosition += edgePadding;
     
     // Only show indicator if content is scrollable
     if (contentHeight > visibleHeight) {

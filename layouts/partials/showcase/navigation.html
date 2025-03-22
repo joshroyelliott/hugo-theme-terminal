@@ -1,10 +1,10 @@
 <!-- Default Navigation -->
-<h3>Default Navigation</h3>
+<h4>Default Navigation</h4>
 {{ $defaultNavLists := slice 
     (dict 
         "title" "Title"
         "titleURL" "#"
-        "titleActive" true
+        "titleActive" false
         "direction" "right"
         "flatten" true
         "items" slice
@@ -17,30 +17,30 @@
             (dict "name" "Item1" "url" "#" "active" false)
             (dict "name" "Item2" "url" "#" "active" false)
             (dict "name" "Item3" "url" "#" "active" false)
-            (dict "name" "Item4" "url" "#" "active" true)
+            (dict "name" "Item4" "url" "#" "active" false)
         )
     )
 }}
 {{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
 
 <!-- Opposing Directions -->
-<h3>Opposing Directions</h3>
+<h4>Opposing Directions</h4>
 {{ $opposingNavLists := slice
     (dict
         "title" "Title1"
         "titleURL" "#"
-        "titleActive" true 
+        "titleActive" false 
         "direction" "right"
         "flatten" false
         "items" (slice
             (dict "name" "Item1" "url" "#" "active" false)
-            (dict "name" "Item2" "url" "#" "active" false)
+            (dict "name" "Iuem2" "url" "#" "acuive" false)
         )
     )
     (dict
         "title" "Title2" 
         "titleURL" "#"
-        "titleActive" true
+        "titleActive" false
         "direction" "left" 
         "flatten" false
         "items" (slice
@@ -52,12 +52,12 @@
 {{ partial "components/nav-renderer.html" (dict "navLists" $opposingNavLists) }}
 
 <!-- Three Lists -->
-<h3>Three Lists</h3>
+<h4>Three Lists</h4>
 {{ $threeNavLists := slice
     (dict
         "title" "Title"
         "titleURL" "#"
-        "titleActive" true 
+        "titleActive" false 
         "direction" "right"
         "flatten" false
         "items" (slice
@@ -70,7 +70,7 @@
         "direction" "right"
         "flatten" false 
         "items" (slice
-            (dict "name" "Item1" "url" "#" "active" true)
+            (dict "name" "Item1" "url" "#" "active" false)
             (dict "name" "Item2" "url" "#" "active" false)
         )
     )
@@ -87,12 +87,12 @@
 {{ partial "components/nav-renderer.html" (dict "navLists" $threeNavLists) }}
 
 <!-- Left-pointing Example -->
-<h3>Left-pointing Navigation</h3>
+<h4>Left-pointing Navigation</h4>
 {{ $leftNavLists := slice
     (dict
         "title" "Title"
         "titleURL" "#"
-        "titleActive" true 
+        "titleActive" false 
         "direction" "left"
         "flatten" false
         "items" (slice
