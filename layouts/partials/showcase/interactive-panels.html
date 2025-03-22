@@ -1,57 +1,57 @@
-<div class="interactive-panels">
-    
-    <!-- Example: Plain Scrollable Panel (not an input) -->
-    <div class="panel panel--titled panel--scroll">
-        <div class="panel__header">
-            <span class="panel__title">Scrollable Content</span>
-        </div>
-        <div class="panel__content" style="max-height: 220px;">
-            <h3>Scrollable Panel Example</h3>
-            <p>This panel has content that exceeds the fixed height and becomes scrollable. Notice the scroll indicator that appears on hover.</p>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
-        </div>
-        <div class="js-scroll-indicator"></div>
+<!-- Example: Plain Scrollable Panel (not an input) -->
+<div class="panel panel--titled panel--scroll">
+    <div class="panel__header">
+        <span class="panel__title">Scrollable Content</span>
     </div>
+    <div class="panel__content" style="max-height: 220px;">
+        <h3>Scrollable Panel Example</h3>
+        <p>This panel has content that exceeds the fixed height and becomes scrollable. Notice the scroll indicator that appears on hover.</p>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies ultrices, nunc nisl aliquam nunc. Phasellus euismod, nisl eget ultricies ultrices, nunc nisl aliquam nunc.</p>
+    </div>
+    <div class="js-scroll-indicator"></div>
+</div>
 
-    <!-- Example Tab Panel with appropriate data attributes -->
-    <div class="panel panel--titled panel--tab js-tab-panel js-check-width">
-        <div class="panel__header">
-            <span class="panel__main-title">Tab Panel</span>
-            <!-- Standard separator instead of vertical bar -->
-            <span class="panel__separator"></span>
-            <div class="panel__tabs">
-                <span class="panel__tab panel__tab--active" data-tab-id="tab-1" data-tab-num="1" data-tab-title="Section One">Section One</span>
-                <span class="panel__tab-separator">-</span>
-                <span class="panel__tab" data-tab-id="tab-2" data-tab-num="2" data-tab-title="Section Two">Section Two</span>
-                <span class="panel__tab-separator">-</span>
-                <span class="panel__tab" data-tab-id="tab-3" data-tab-num="3" data-tab-title="Section Three">Section Three</span>
-            </div>
-        </div>
-        <div class="panel__tab-contents">
-            <!-- Each tab content section has data-tab-title attribute -->
-            <div id="tab-1" class="panel__tab-content panel__tab-content--active" data-tab-title="Section One">
-                <!-- This heading will be styled specially in column mode -->
-                <h3>First Section Content</h3>
-                <p>This is the content for the first tab section. Click on the tabs in the title to switch between different content sections.</p>
-                <p>The tab panel is perfect for organizing related content that doesn't need to be visible all at once.</p>
-            </div>
-            <div id="tab-2" class="panel__tab-content" data-tab-title="Section Two">
-                <h3>Second Section Content</h3>
-                <p>This is the content for the second tab section.</p>
-                <p>Tab panels can be created manually like this example, or automatically generated from markdown headings.</p>
-            </div>
-            <div id="tab-3" class="panel__tab-content" data-tab-title="Section Three">
-                <h3>Third Section Content</h3>
-                <p>This is the content for the third tab section.</p>
-                <p>On wider screens, tab panels can optionally display all content in columns side by side.</p>
-            </div>
+<!-- Example Tab Panel with appropriate data attributes -->
+<div class="panel panel--titled panel--tab js-tab-panel js-check-width">
+    <div class="panel__header">
+        <span class="panel__main-title">Tab Panel</span>
+        <!-- Standard separator instead of vertical bar -->
+        <span class="panel__separator"></span>
+        <div class="panel__tabs">
+            <span class="panel__tab panel__tab--active" data-tab-id="tab-1" data-tab-num="1" data-tab-title="Section One">Section One</span>
+            <span class="panel__tab-separator">-</span>
+            <span class="panel__tab" data-tab-id="tab-2" data-tab-num="2" data-tab-title="Section Two">Section Two</span>
+            <span class="panel__tab-separator">-</span>
+            <span class="panel__tab" data-tab-id="tab-3" data-tab-num="3" data-tab-title="Section Three">Section Three</span>
         </div>
     </div>
+    <div class="panel__tab-contents">
+        <!-- Each tab content section has data-tab-title attribute -->
+        <div id="tab-1" class="panel__tab-content panel__tab-content--active" data-tab-title="Section One">
+            <!-- This heading will be styled specially in column mode -->
+            <h3>First Section Content</h3>
+            <p>This is the content for the first tab section. Click on the tabs in the title to switch between different content sections.</p>
+            <p>The tab panel is perfect for organizing related content that doesn't need to be visible all at once.</p>
+        </div>
+        <div id="tab-2" class="panel__tab-content" data-tab-title="Section Two">
+            <h3>Second Section Content</h3>
+            <p>This is the content for the second tab section.</p>
+            <p>Tab panels can be created manually like this example, or automatically generated from markdown headings.</p>
+        </div>
+        <div id="tab-3" class="panel__tab-content" data-tab-title="Section Three">
+            <h3>Third Section Content</h3>
+            <p>This is the content for the third tab section.</p>
+            <p>On wider screens, tab panels can optionally display all content in columns side by side.</p>
+        </div>
+    </div>
+</div>
 
+<!-- Two Column Grid for List and Preview Panels -->
+<div class="grid-2col">
     <!-- List Panel with dynamic counter and note -->
     <div class="panel panel--titled panel--list panel--scroll panel--note">
         <div class="panel__header">
