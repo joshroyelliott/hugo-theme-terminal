@@ -1,4 +1,3 @@
-// Navigation bar styles
 .main-nav {
   margin: 0;
   background: var(--base01);
@@ -13,6 +12,7 @@
     scrollbar-width: none;
     margin: 0 auto;
     padding: 0;
+    gap: 0.7rem;
     
     &::-webkit-scrollbar {
       display: none;
@@ -24,37 +24,31 @@
     display: flex;
     align-items: center;
     height: 100%;
-    
-    // Spacing between lists managed by container's justify-content
-    
-    // Add spacing between nav lists
-    & + .nav-list {
-      margin-left: $spacing-sm;
-    }
+    position: relative;
     
     // Title styling - the tab at the start of the list
     &__title {
       height: 100%;
-      display: flex;
+      // display: flex;
       align-items: center;
       color: var(--base06);
       font-size: 1rem;
       font-weight: 600;
-      width: 10rem;
-      position: relative;
+      width: auto;
       flex-shrink: 0;
       text-decoration: none;
       background: var(--base01);
-      padding: 0 1rem;
+      padding: 0 1.7rem 0 1rem;
       
       &.active {
-        background: var(--base0E);
+        background: var(--base0B);
         color: var(--base00);
       }
       
       &:hover {
         text-decoration: none;
-        opacity: 0.9;
+        background: var(--base0C);
+        color: var(--base00);
       }
     }
     
@@ -83,8 +77,8 @@
       color: var(--base00);
       font-size: 1rem;
       font-weight: 600;
-      width: 10rem;
-      position: relative;
+      width: auto;
+      padding: 0 1rem;
       flex-shrink: 0;
       background: var(--base05);
       text-decoration: none;
@@ -111,139 +105,54 @@
   
   // Right pointing chevrons
   .nav-list--right {
-    // Title shape
+    // Title shape - flat left, chevron right
     .nav-list__title {
-      justify-content: flex-start;
       clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
+      position: relative;
     }
     
-    // Default chevron shape for items
     .nav-list__item {
-      margin-left: -0.7rem; // Overlap for rightward chevrons
+      position: relative;
+      margin-right: 0rem;
     }
     
     .nav-list__link {
-      clip-path: polygon(
-        0 0, 
-        calc(100% - 0.7rem) 0, 
-        calc(100% - 1.4rem) 50%, 
-        calc(100% - 0.7rem) 100%, 
-        0.7rem 100%, 
-        0 50%, 
-        0.7rem 0
-      );
+      clip-path: polygon( 0.7rem 50%, 0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
+      position: relative;
     }
   }
   
   // Left pointing chevrons
   .nav-list--left {
-    // Title shape
     .nav-list__title {
-      justify-content: flex-end;
-      clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
+      clip-path: polygon( 0 0, 100% 0, calc(100% - 0.7rem) 50%, 100% 100%, 0 100%);
+      position: relative;
     }
-    
-    // Default chevron shape for items
+
     .nav-list__item {
-      margin-right: -0.7rem; // Overlap for leftward chevrons
+      position: relative;
+      margin-left: 0rem; // Make all items overlap
     }
     
+    // Link shape - with dark background chevron
     .nav-list__link {
-      clip-path: polygon(
-        0.7rem 0, 
-        calc(100% - 0.7rem) 0, 
-        100% 50%, 
-        calc(100% - 0.7rem) 100%, 
-        0.7rem 100%, 
-        0 50%
-      );
-    }
-  }
-  
-  // Flattening edges when lists are against container boundaries
-  .nav-list--flatten {
-    // Right direction with flatten
-    &.nav-list--right {
-      // Flatten left side of title when it's first in the container
-      &:first-child .nav-list__title {
-        clip-path: polygon(0 0, calc(100% - 0.7rem) 0, 100% 50%, calc(100% - 0.7rem) 100%, 0 100%);
-      }
-      
-      // Flatten right side of last item when it's last in the container
-      &:last-child .nav-list__item--last .nav-list__link {
-        clip-path: polygon(
-          0 0, 
-          100% 0, 
-          100% 100%, 
-          0.7rem 100%, 
-          0 50%, 
-          0.7rem 0
-        );
-      }
-      
-      // When there's no title, flatten left side of first item
-      &:first-child .nav-list__items:first-child .nav-list__item--first .nav-list__link {
-        clip-path: polygon(
-          0 0, 
-          calc(100% - 0.7rem) 0, 
-          calc(100% - 1.4rem) 50%, 
-          calc(100% - 0.7rem) 100%, 
-          0 100%, 
-          0 0
-        );
-      }
-    }
-    
-    // Left direction with flatten
-    &.nav-list--left {
-      // Flatten right side of title when it's last in the container
-      &:last-child .nav-list__title {
-        clip-path: polygon(0.7rem 0, 100% 0, 100% 100%, 0.7rem 100%, 0 50%);
-      }
-      
-      // Flatten left side of first item when it's first in the container
-      &:first-child .nav-list__item--first .nav-list__link {
-        clip-path: polygon(
-          0 0,
-          calc(100% - 0.7rem) 0, 
-          100% 50%, 
-          calc(100% - 0.7rem) 100%, 
-          0 100%
-        );
-      }
-      
-      // Flatten right side of last item when it's last in the container
-      &:last-child .nav-list__item--last .nav-list__link {
-        clip-path: polygon(
-          0.7rem 0, 
-          100% 0, 
-          100% 100%, 
-          0 100%, 
-          0 50%
-        );
-      }
+      clip-path: polygon( 0 50%, 0.7rem 0, 100% 0, calc(100% - 0.7rem) 50%, 100% 100%, 0.7rem 100%);
+      position: relative;
     }
   }
   
   // Responsive styles
+  @media (max-width: $breakpoint-lg) {
+    .nav-list__title,
+    .nav-list__link {
+      // padding: 0 2rem;
+    }
+  }
+    
   @media (max-width: $breakpoint-md) {
     .nav-list__title,
     .nav-list__link {
-      width: auto;
-      min-width: 5rem;
-    }
-    
-    // Adjustments for very small screens
-    @media (max-width: $breakpoint-sm) {
-      .nav-container {
-        flex-wrap: wrap;
-        height: auto;
-      }
-      
-      .nav-list {
-        width: 100%;
-        margin: 0.2rem 0;
-      }
+      // padding: 0 1rem;
     }
   }
 }
