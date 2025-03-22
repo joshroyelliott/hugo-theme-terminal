@@ -50,6 +50,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         inputs.forEach(input => {
+            // Auto-resize for textareas
+            if (input.tagName === 'TEXTAREA') {
+                // Initial adjustment
+                autoResizeTextarea(input);
+                
+                // Add scroll indicator for scrollable input panels
+                if (panel.classList.contains('panel--scroll')) {
+                    const scrollIndicator = panel.querySelector('.js-scroll-indicator');
+                    
+                    if (scrollIndicator) {
+                        // Initial setup
+                        updateScrollIndicator(input, scrollIndicator);
+                        
+                        // Update on scroll
+                        input.addEventListener('scroll', () => {
+                            updateScrollIndicator(input, scrollIndicator);
+                        });
+                    }
+                }
+                
+                // Auto-resize on input
+                input.addEventListener('input', function() {
+                    autoResizeTextarea(this);
+                    
+                    // Update scroll indicator if panel is scrollable
+                    if (panel.classList.contains('panel--scroll')) {
+                        const scrollIndicator = panel.querySelector('.js-scroll-indicator');
+                        if (scrollIndicator) {
+                            updateScrollIndicator(this, scrollIndicator);
+                        }
+                    }
+                });
+            }
+            
             // Handle focus event
             input.addEventListener('focus', function() {
                 // Remove active class from all input panels
@@ -73,6 +107,30 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    
+    // Function to auto-resize textarea
+    function autoResizeTextarea(textarea) {
+        // Reset height to auto to calculate actual content height
+        textarea.style.height = 'auto';
+        
+        // Check if in a scrollable panel
+        const isScrollable = textarea.closest('.panel--scroll') !== null;
+        
+        if (isScrollable) {
+            // In scrollable mode, just make sure we're within our max-height
+            const maxHeight = parseInt(getComputedStyle(textarea).maxHeight);
+            if (textarea.scrollHeight > maxHeight) {
+                textarea.style.height = maxHeight + 'px';
+                textarea.style.overflow = 'auto';
+            } else {
+                textarea.style.height = textarea.scrollHeight + 'px';
+                textarea.style.overflow = 'hidden';
+            }
+        } else {
+            // For auto-growing, set height to scrollHeight
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+    }
     
     // Initialize all grid layouts
     setupGridLayouts();

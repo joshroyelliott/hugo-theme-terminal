@@ -1,0 +1,59 @@
+<div class="interactive-panels">
+    <!-- Example: Input Panel (Single Line) -->
+    <div class="panel panel--titled panel--input">
+        <div class="panel__header">
+            <span class="panel__title">Command Input</span>
+        </div>
+        <div class="panel__content">
+            <input type="text" placeholder="Type a command..." value="echo 'Hello Terminal'" autocomplete="off">
+        </div>
+    </div>
+    
+    <!-- Example: Input Panel with scrolling -->
+    <div class="panel panel--titled panel--input panel--scroll">
+        <div class="panel__header">
+            <span class="panel__title">Scrollable Input</span>
+        </div>
+        <div class="panel__content">
+            <textarea placeholder="Type longer content that will scroll..." autocomplete="off" spellcheck="false">#!/bin/bash
+
+# This is an example of a longer script
+# that will demonstrate the scrolling behavior
+
+echo "Starting script..."
+
+# Generate some folders
+mkdir -p ./test/folder1
+mkdir -p ./test/folder2
+mkdir -p ./test/folder3
+
+# Create some test files
+touch ./test/folder1/file1.txt
+touch ./test/folder1/file2.txt
+touch ./test/folder2/file1.txt
+touch ./test/folder3/file1.txt
+
+# Add content to files
+echo "Content for file 1" > ./test/folder1/file1.txt
+echo "Content for file 2" > ./test/folder1/file2.txt
+
+# List files
+find ./test -type f | sort
+
+echo "Script completed!"</textarea>
+        </div>
+        <div class="js-scroll-indicator"></div>
+    </div>
+    
+    <!-- Example: Input Panel (Auto-growing Multiline) -->
+    <div class="panel panel--titled panel--input">
+        <div class="panel__header">
+            <span class="panel__title">Auto-growing Input</span>
+        </div>
+        <div class="panel__content">
+            <textarea placeholder="Type multi-line text..." autocomplete="off" spellcheck="false">cd /home/user/projects
+git status
+ls -la</textarea>
+        </div>
+    </div>
+</div>

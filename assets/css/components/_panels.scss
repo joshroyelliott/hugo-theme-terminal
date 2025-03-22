@@ -190,7 +190,7 @@
                 left: -1rem; // Position it exactly at the edge of the panel border
                 top: 0;
                 height: 100%;
-                width: 4px;
+                width: 3px;
                 background-color: transparent;
                 transition: background-color 0.2s ease;
             }
@@ -388,8 +388,8 @@
     &--input {
         position: relative;
         
-        // Add the prompt character
-        &::before {
+        // Add the prompt character, making sure it only applies directly to input panels
+        &.panel::before {
             content: '>';
             position: absolute;
             top: 1rem;
@@ -432,7 +432,7 @@
             }
         }
         
-        // Textarea styling
+        // Textarea styling for auto-growing
         textarea {
             background: transparent;
             border: none;
@@ -443,10 +443,10 @@
             padding: 0;
             margin: 0;
             outline: none;
-            resize: vertical;
+            resize: none; // Disable manual resize as we'll auto-resize
             min-height: 1.5rem;
             line-height: 1.5;
-            overflow: auto;
+            overflow: hidden; // Hide overflow for auto-growing
             white-space: pre;
             
             // Try to make a block cursor in browsers that support it
@@ -456,14 +456,6 @@
             @supports (caret-shape: block) {
                 caret-shape: block;
                 caret-width: 0.6rem;
-            }
-            
-            // Hide scrollbars but keep functionality
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            
-            &::-webkit-scrollbar {
-                display: none;
             }
         }
         
@@ -489,6 +481,40 @@
         // Hover state 
         &:hover {
             border-color: var(--base0B);
+        }
+        
+        // Special handling when input panel is also scrollable
+        &.panel.panel--scroll {
+            .panel__content {
+                max-height: 300px;
+                overflow-y: visible; // We want the content itself to scroll
+            }
+            
+            textarea {
+                max-height: 278px; // 300px - 2x padding (1rem = 16px)
+                overflow-y: auto; // Allow scrolling within the textarea
+                resize: vertical; // Allow vertical resize within the max-height
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+            
+            // Add scroll indicator for scrollable input panels
+            .js-scroll-indicator {
+                position: absolute;
+                right: -5px;
+                width: 3px;
+                background-color: var(--base0B);
+                transition: top 0.1s ease, height 0.1s ease;
+                opacity: 0;
+            }
+            
+            &:hover .js-scroll-indicator {
+                opacity: 1;
+            }
         }
     }
 
@@ -533,6 +559,7 @@
         display: grid;
         grid-template-areas: 
             "input input2"
+            "input3 input3"
             "tab tab"
             "scroll scroll"
             "list preview";
@@ -543,6 +570,10 @@
         
         .panel--input:nth-of-type(2) {
             grid-area: input2;
+        }
+        
+        .panel--input:nth-of-type(3) {
+            grid-area: input3;
         }
         
         .panel--tab {
@@ -569,6 +600,7 @@
             grid-template-areas: 
                 "input"
                 "input2"
+                "input3"
                 "tab"
                 "scroll"
                 "list"
