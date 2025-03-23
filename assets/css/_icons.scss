@@ -70,6 +70,7 @@ $icon-book: '\f02d';
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    line-height: 1; // Add this to ensure consistent height
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative; // For fallback positioning
@@ -86,7 +87,7 @@ $icon-book: '\f02d';
       }
     }
     
-    // Standard spacing
+    // Standard spacing - more consistent approach
     &:not(.icon--no-margin) {
       &.icon--left {
         margin-right: $spacing-xs;
@@ -113,10 +114,12 @@ $icon-book: '\f02d';
       animation: icon-spin 1s infinite steps(8);
     }
     
-    // Fixed width for alignment
+    // Fixed width for alignment - adjusted for better alignment
     &--fw {
       width: 1.25em;
       text-align: center;
+      display: inline-flex;
+      justify-content: center;
     }
     
     // Semantic color variations
@@ -137,8 +140,22 @@ $icon-book: '\f02d';
     }
   }
   
-  // Navigation-specific icon styles
+  // Navigation-specific icon styles - updated for better alignment
   .nav-list {
+    &__link {
+      display: flex;
+      align-items: center;
+      padding: $spacing-xs; // Add default padding
+      
+      @media (max-width: 768px) {
+        padding: $spacing-sm; // More padding on small screens
+      }
+    }
+    
+    &__text {
+      display: inline-block;
+    }
+    
     &__icon {
       display: inline-flex; // Ensure proper display of icon containers
       
@@ -166,33 +183,34 @@ $icon-book: '\f02d';
       }
     }
     
-    // Specific styling for left/right navigation
+    // Specific styling for left/right navigation - better flexbox approach
     &--left {
       .nav-list__link {
-        .icon--right {
-          order: 2; // Move to the right of the text
-        }
+        flex-direction: row-reverse;
+        justify-content: flex-end;
         
-        .nav-list__text {
-          order: 1; // Move to the left of the icon
+        .icon--right {
+          margin-left: 0;
+          margin-right: $spacing-xs;
         }
       }
     }
     
     &--right {
       .nav-list__link {
-        .icon--left {
-          order: 1; // Move to the left of the text
-        }
+        flex-direction: row;
         
-        .nav-list__text {
-          order: 2; // Move to the right of the icon
+        .icon--left {
+          margin-right: $spacing-xs;
         }
       }
     }
     
     // Navigation title with icon
     &__title {
+      display: flex;
+      align-items: center;
+      
       .icon {
         margin-right: $spacing-xs;
       }

@@ -29,8 +29,8 @@
     // Title styling - the tab at the start of the list
     &__title {
       height: 100%;
-      // display: flex;
-      align-items: center;
+      display: flex; // Ensure flex display
+      align-items: center; // Vertically center contents
       color: var(--base06);
       font-size: 1rem;
       font-weight: 600;
@@ -39,6 +39,14 @@
       text-decoration: none;
       background: var(--base01);
       padding: 0 1.7rem 0 1rem;
+      
+      // Properly space and align any icons in the title
+      .nav-list__icon, .icon {
+        margin-right: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+      }
       
       &.active {
         background: var(--base0B);
@@ -72,8 +80,8 @@
     &__link {
       height: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: center; // Vertical centering
+      justify-content: flex-start; // Start alignment (better for icon + text)
       color: var(--base00);
       font-size: 1rem;
       font-weight: 600;
@@ -101,12 +109,24 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-right: 0.5rem;
+      margin-right: 0.7rem; // Increased margin between icon and text
+      vertical-align: middle; // Ensure vertical alignment
+      
+      // Ensure the icon itself has some space
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 1.2em; // Minimum width for icon
+        text-align: center;
+      }
     }
     
     // Text within nav links  
     &__text {
       text-align: center;
+      vertical-align: middle;
+      display: inline-block; // Keep it inline-block for proper spacing
     }
   }
   
@@ -162,14 +182,19 @@
   @media (max-width: $breakpoint-md) {
     .nav-list__title {
       padding: 0 1rem 0 0.7rem; // Reduced padding for small screens
+      // Make sure the title is still visible
+      display: flex;
+      align-items: center;
     }
     
     .nav-list__link {
-      padding: 0 0.7rem; // Reduced padding as requested for small screens
+      padding: 0 1.7rem; // Slightly more padding for icons on small screens
+      min-width: 2.5rem; // Ensure minimum width for icon-only buttons
+      justify-content: center; // Center the icon when text is hidden
     }
     
-    // Hide text, show only icons on mobile
-    .nav-list__text {
+    // Hide text, show only icons on mobile, but ONLY for nav-list__link items
+    .nav-list__link .nav-list__text {
       display: none;
     }
     
@@ -177,6 +202,11 @@
     .nav-list__icon {
       margin-right: 0;
       font-size: 1.1rem; // Slightly larger icons when they're alone
+      
+      // Ensure the icon has proper spacing when alone
+      .icon {
+        padding: 0.15rem;
+      }
     }
   }
 }
