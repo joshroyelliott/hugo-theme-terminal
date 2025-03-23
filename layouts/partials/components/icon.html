@@ -1,0 +1,86 @@
+{{/*
+  icon.html - A partial for rendering icons consistently
+  
+  Parameters:
+  - name: The name of the icon (required)
+  - position: Position of the icon (left/right) - default: left
+  - size: Size of the icon (xs/sm/md/lg/xl) - default: none
+  - class: Additional CSS classes to add
+  - fw: Set to true for fixed width - default: false
+*/}}
+
+{{ $name := .name }}
+{{ $position := default "left" .position }}
+{{ $size := default "" .size }}
+{{ $class := default "" .class }}
+{{ $fw := default false .fw }}
+
+{{ $iconMap := dict 
+  "home" "f015"
+  "folder" "f07b"
+  "file" "f15b"
+  "document" "f15c"
+  "code" "f121"
+  "terminal" "f120"
+  "github" "f09b"
+  "twitter" "f099"
+  "linkedin" "f08c"
+  "email" "f0e0"
+  "calendar" "f133"
+  "clock" "f017"
+  "tag" "f02b"
+  "tags" "f02c"
+  "bookmark" "f02e"
+  "user" "f007"
+  "users" "f0c0"
+  "search" "f002"
+  "cog" "f013"
+  "download" "f019"
+  "upload" "f093"
+  "info" "f129"
+  "warning" "f071"
+  "error" "f06a"
+  "success" "f058"
+  "link" "f0c1"
+  "external-link" "f08e"
+  "comment" "f075"
+  "heart" "f004"
+  "star" "f005"
+  "bars" "f0c9"
+  "chevron-right" "f054"
+  "chevron-left" "f053"
+  "chevron-up" "f077"
+  "chevron-down" "f078"
+}}
+
+{{ $iconUnicode := index $iconMap $name | default $name }}
+{{ $classes := slice "icon" }}
+
+{{ if eq $position "left" }}
+  {{ $classes = $classes | append "icon--left" }}
+{{ else if eq $position "right" }}
+  {{ $classes = $classes | append "icon--right" }}
+{{ end }}
+
+{{ if $size }}
+  {{ $classes = $classes | append (printf "icon--%s" $size) }}
+{{ end }}
+
+{{ if $fw }}
+  {{ $classes = $classes | append "icon--fw" }}
+{{ end }}
+
+{{ if $class }}
+  {{ $classes = $classes | append $class }}
+{{ end }}
+
+{{ $allClasses := delimit $classes " " }}
+
+<!-- Provide a fallback in case the font doesn't load properly -->
+<span class="{{ $allClasses }}" data-icon="{{ $name }}">
+  <!-- Render the Unicode character -->
+  &#x{{ $iconUnicode }};
+  
+  <!-- Add a title attribute for better accessibility and as a fallback -->
+  <span class="icon-fallback" style="display: none;">{{ $name }}</span>
+</span>

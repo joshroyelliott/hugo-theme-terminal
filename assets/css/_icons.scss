@@ -1,0 +1,254 @@
+// _icons.scss - General icon styles for the entire site
+@import 'variables';
+@import 'nerdfont';
+
+// Helper mixins for icon usage - defined OUTSIDE of the @if block
+@mixin icon-before($unicode, $margin: $spacing-xs) {
+  &::before {
+    content: $unicode;
+    font-family: $nerd-font-family;
+    display: inline-block;
+    margin-right: $margin;
+    vertical-align: middle;
+  }
+}
+
+@mixin icon-after($unicode, $margin: $spacing-xs) {
+  &::after {
+    content: $unicode;
+    font-family: $nerd-font-family;
+    display: inline-block;
+    margin-left: $margin;
+    vertical-align: middle;
+  }
+}
+
+// Common icon unicode definitions for easy reference
+$icon-home: '\f015';
+$icon-folder: '\f07b';
+$icon-file: '\f15b';
+$icon-document: '\f15c';
+$icon-code: '\f121';
+$icon-terminal: '\f120';
+$icon-github: '\f09b';
+$icon-twitter: '\f099';
+$icon-linkedin: '\f08c';
+$icon-email: '\f0e0';
+$icon-calendar: '\f133';
+$icon-clock: '\f017';
+$icon-tag: '\f02b';
+$icon-tags: '\f02c';
+$icon-bookmark: '\f02e';
+$icon-user: '\f007';
+$icon-users: '\f0c0';
+$icon-search: '\f002';
+$icon-cog: '\f013';
+$icon-download: '\f019';
+$icon-upload: '\f093';
+$icon-info: '\f129';
+$icon-warning: '\f071';
+$icon-error: '\f06a';
+$icon-success: '\f058';
+$icon-link: '\f0c1';
+$icon-external-link: '\f08e';
+$icon-comment: '\f075';
+$icon-heart: '\f004';
+$icon-star: '\f005';
+$icon-bars: '\f0c9';
+$icon-chevron-right: '\f054';
+$icon-chevron-left: '\f053';
+$icon-chevron-up: '\f077';
+$icon-chevron-down: '\f078';
+$icon-book: '\f02d';
+
+// Only include icon styles if Nerd Font is enabled
+@if $use-nerd-font {
+  // Base icon styles
+  .icon {
+    font-family: $nerd-font-family, monospace; // Add monospace fallback
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative; // For fallback positioning
+    
+    // Fallback for when font doesn't load
+    &:not(:defined), &.icon-failed {
+      // Show something visually useful when the font is missing
+      &::after {
+        content: attr(data-icon);
+        font-family: $font-mono;
+        font-size: 0.85em;
+        font-style: normal;
+        color: inherit;
+      }
+    }
+    
+    // Standard spacing
+    &:not(.icon--no-margin) {
+      &.icon--left {
+        margin-right: $spacing-xs;
+      }
+      
+      &.icon--right {
+        margin-left: $spacing-xs;
+      }
+    }
+    
+    // Icon sizes
+    &--xs { font-size: 0.75em; }
+    &--sm { font-size: 0.875em; }
+    &--md { font-size: 1em; }
+    &--lg { font-size: 1.25em; }
+    &--xl { font-size: 1.5em; }
+    
+    // Icon animations
+    &--spin {
+      animation: icon-spin 2s infinite linear;
+    }
+    
+    &--pulse {
+      animation: icon-spin 1s infinite steps(8);
+    }
+    
+    // Fixed width for alignment
+    &--fw {
+      width: 1.25em;
+      text-align: center;
+    }
+    
+    // Semantic color variations
+    &--primary { color: var(--base0D); }
+    &--success { color: var(--base0B); }
+    &--warning { color: var(--base0A); }
+    &--danger { color: var(--base0F); }
+    &--info { color: var(--base0C); }
+  }
+  
+  // Icon animation keyframes
+  @keyframes icon-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(359deg);
+    }
+  }
+  
+  // Navigation-specific icon styles
+  .nav-list {
+    &__icon {
+      display: inline-flex; // Ensure proper display of icon containers
+      
+      .icon {
+        // Apply transitions for smoother interactions
+        transition: transform 0.2s ease, color 0.2s ease;
+      }
+    }
+    
+    &__link:hover {
+      .icon {
+        transform: scale(1.1);
+      }
+    }
+    
+    &__link.active {
+      .icon {
+        color: var(--base0D);
+        
+        // Override for semantic colors
+        &.icon--primary, &.icon--success, &.icon--warning, 
+        &.icon--danger, &.icon--info {
+          filter: brightness(1.2); // Brighten the color instead of changing it
+        }
+      }
+    }
+    
+    // Specific styling for left/right navigation
+    &--left {
+      .nav-list__link {
+        .icon--right {
+          order: 2; // Move to the right of the text
+        }
+        
+        .nav-list__text {
+          order: 1; // Move to the left of the icon
+        }
+      }
+    }
+    
+    &--right {
+      .nav-list__link {
+        .icon--left {
+          order: 1; // Move to the left of the text
+        }
+        
+        .nav-list__text {
+          order: 2; // Move to the right of the icon
+        }
+      }
+    }
+    
+    // Navigation title with icon
+    &__title {
+      .icon {
+        margin-right: $spacing-xs;
+      }
+    }
+  }
+  
+  // Content area icons
+  .content {
+    // Headings with icons
+    h1, h2, h3, h4, h5, h6 {
+      .icon {
+        vertical-align: middle;
+      }
+    }
+    
+    // List icons
+    ul.icon-list {
+      list-style: none;
+      padding-left: 0;
+      
+      li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: $spacing-xs;
+        
+        .icon {
+          flex-shrink: 0;
+          margin-top: 0.25em;
+          margin-right: $spacing-sm;
+        }
+      }
+    }
+    
+    // Buttons with icons
+    .btn, button {
+      .icon--left {
+        margin-right: $spacing-xs;
+      }
+      
+      .icon--right {
+        margin-left: $spacing-xs;
+      }
+    }
+  }
+  
+  // Panel icons
+  .panel {
+    &__header {
+      .icon {
+        margin-right: $spacing-xs;
+      }
+    }
+    
+    &__icon {
+      @extend .icon;
+      @extend .icon--left;
+    }
+  }
+}

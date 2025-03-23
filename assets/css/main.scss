@@ -1,5 +1,12 @@
 // Import variables first
 @import 'variables';
+
+// Import Nerd Font styles
+@import 'nerdfont';
+
+// Import icon system
+@import 'icons';
+
 @import 'showcase';
 
 // Import base styles
@@ -11,6 +18,5 @@
 // Import component styles
 @import 'components/navbar';
 @import 'components/panels';
-
 
 // Further customization can be added here

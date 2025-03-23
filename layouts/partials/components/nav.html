@@ -16,11 +16,31 @@
         "flatten" true
         "items" slice
     }}
+    
+    <!-- Add a title icon if specified in site params -->
+    {{ if .Site.Params.titleIcon }}
+        {{ $titleList = merge $titleList (dict "titleIcon" (partial "components/icon" (dict "name" .Site.Params.titleIcon "position" "left"))) }}
+    {{ end }}
+    
     {{ $defaultNavLists = $defaultNavLists | append $titleList }}
     
     <!-- Create a default nav list for the main menu -->
     {{ $menuItems := slice }}
     {{ $currentPage := . }}
+    
+    <!-- Map section identifiers to icon names -->
+    {{ $iconMap := dict 
+        "home" "home"
+        "blog" "document"
+        "posts" "document"
+        "projects" "folder"
+        "about" "user"
+        "contact" "email"
+        "docs" "book"
+        "tags" "tag"
+        "categories" "tags"
+    }}
+    
     {{ range $index, $menuItem := .Site.Menus.main }}
         {{ $isActive := false }}
         {{ if eq $menuItem.URL "/" }}
@@ -29,10 +49,37 @@
             {{ $isActive = hasPrefix $currentPage.RelPermalink $menuItem.URL }}
         {{ end }}
         
+        <!-- Determine icon based on menu parameters, identifier or name -->
+        {{ $icon := "" }}
+        {{ if $menuItem.Params.icon }}
+            <!-- Use custom icon from front matter -->
+            {{ if hasPrefix $menuItem.Params.icon "f" }}
+                <!-- It's a hex code -->
+                {{ $icon = printf "<span class=\"icon icon--left\">&#x%s;</span>" $menuItem.Params.icon }}
+            {{ else }}
+                <!-- It's an icon name -->
+                {{ $icon = partial "components/icon" (dict "name" $menuItem.Params.icon "position" "left") }}
+            {{ end }}
+        {{ else }}
+            <!-- Try to find a matching icon from the map -->
+            {{ $iconName := "" }}
+            {{ if $menuItem.Identifier }}
+                {{ $iconName = index $iconMap (lower $menuItem.Identifier) | default "" }}
+            {{ end }}
+            {{ if and (not $iconName) $menuItem.Name }}
+                {{ $iconName = index $iconMap (lower $menuItem.Name) | default "" }}
+            {{ end }}
+            
+            {{ if $iconName }}
+                {{ $icon = partial "components/icon" (dict "name" $iconName "position" "left") }}
+            {{ end }}
+        {{ end }}
+        
         {{ $menuItems = $menuItems | append (dict 
             "name" $menuItem.Name
             "url" $menuItem.URL
             "active" $isActive
+            "icon" $icon
         ) }}
     {{ end }}
     

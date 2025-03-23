@@ -1,5 +1,8 @@
 // panel.js - Unified panel functionality with responsive improvements
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if icon font is loaded correctly
+    checkIconFontLoading();
+
     // Initialize all panel scrolling indicators
     const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
     
@@ -785,4 +788,66 @@ function initializeListPanelCounters() {
             }
         }
     });
+}
+
+// Function to check if the Nerd Font is loaded correctly
+function checkIconFontLoading() {
+    // Create a test span with an icon
+    const testSpan = document.createElement('span');
+    testSpan.style.fontFamily = 'FiraCode Nerd Font, monospace';
+    testSpan.style.visibility = 'hidden';
+    testSpan.style.position = 'absolute';
+    testSpan.style.top = '-9999px';
+    testSpan.style.left = '-9999px';
+    testSpan.innerHTML = '&#xf015;'; // Home icon
+    document.body.appendChild(testSpan);
+
+    // Use font loading API if available
+    if (document.fonts) {
+        document.fonts.ready.then(function() {
+            // Check if our test element has rendered with the correct width
+            const fontLoaded = Array.from(document.fonts).some(font => 
+                font.family.includes('FiraCode Nerd Font') && font.status === 'loaded'
+            );
+            
+            if (!fontLoaded) {
+                applyFallbackForIcons();
+            }
+            
+            // Clean up test element
+            document.body.removeChild(testSpan);
+        });
+    } else {
+        // Fallback for browsers that don't support the Font Loading API
+        setTimeout(() => {
+            // Check test element's width
+            if (testSpan.offsetWidth < 5) { // Likely means the icon didn't render correctly
+                applyFallbackForIcons();
+            }
+            
+            // Clean up test element
+            document.body.removeChild(testSpan);
+        }, 500);
+    }
+}
+
+// Apply fallback styling when font doesn't load
+function applyFallbackForIcons() {
+    document.querySelectorAll('.icon').forEach(icon => {
+        icon.classList.add('icon-failed');
+        
+        // If we're using a fallback inside the icon, show it
+        const fallback = icon.querySelector('.icon-fallback');
+        if (fallback) {
+            fallback.style.display = 'inline';
+        }
+        
+        // Add a tooltips with the icon name for better UX
+        const iconName = icon.getAttribute('data-icon');
+        if (iconName) {
+            icon.setAttribute('title', iconName);
+        }
+    });
+    
+    console.warn('FiraCode Nerd Font failed to load, using fallback styles for icons.');
 }

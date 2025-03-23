@@ -25,6 +25,11 @@ $font-mono: 'Fira Code', Consolas, "DejaVu Sans Mono", monospace;
 $font-size-base: 15px;
 $line-height: 1.6;
 
+// Nerd Font Configuration
+$nerd-font-family: 'FiraCode Nerd Font', $font-mono;
+$nerd-font-path: '/fonts/FiraCodeNerdFont/'; // Path relative to the site's base URL
+$use-nerd-font: true; // Flag to enable/disable Nerd Font features
+
 // Spacing
 $spacing-xs: 0.25rem;
 $spacing-sm: 0.5rem;

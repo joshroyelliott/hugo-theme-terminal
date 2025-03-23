@@ -1,0 +1,87 @@
+// _nerdfont.scss
+// Import variables to use the font path and other settings
+@import 'variables';
+
+// Define common icons for easy reference - moved OUTSIDE the @if block
+$icon-folder: '\f07b';
+$icon-file: '\f15b';
+$icon-code: '\f121';
+$icon-github: '\f09b';
+$icon-home: '\f015';
+$icon-calendar: '\f133';
+$icon-tag: '\f02b';
+$icon-comment: '\f075';
+
+// Commonly used icon mixins - moved OUTSIDE the @if block
+@mixin icon($unicode) {
+  &::before {
+    content: $unicode;
+    font-family: $nerd-font-family;
+    display: inline-block;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: middle;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: $spacing-xs;
+  }
+}
+
+// Only include Nerd Font styles if enabled
+@if $use-nerd-font {
+  // Font face declarations for Fira Code monospace font
+  @font-face {
+    font-family: 'Fira Code';
+    src: url('#{$nerd-font-path}FiraCodeNerdFont-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Fira Code';
+    src: url('#{$nerd-font-path}FiraCodeNerdFont-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  // Font face declarations for Nerd Font version with icons
+  @font-face {
+    font-family: 'FiraCode Nerd Font';
+    src: url('#{$nerd-font-path}FiraCodeNerdFont-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'FiraCode Nerd Font';
+    src: url('#{$nerd-font-path}FiraCodeNerdFont-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  // Icon helper class
+  .nf {
+    font-family: $nerd-font-family;
+    display: inline-block;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: middle;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  // Usage example: 
+  // .folder { @include icon($icon-folder); }
+}

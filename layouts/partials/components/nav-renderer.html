@@ -9,7 +9,10 @@
                 {{ if .title }}
                     <a href="{{ .titleURL | default "#" }}" 
                        class="nav-list__title{{ if .titleActive }} active{{ end }}">
-                        {{ .title }}
+                        {{ if .titleIcon }}
+                        {{ .titleIcon | safeHTML }}
+                        {{ end }}
+                        <span class="nav-list__text">{{ .title }}</span>
                     </a>
                 {{ end }}
                 
@@ -22,7 +25,7 @@
                                 <a href="{{ $item.url | default "#" }}" 
                                    class="nav-list__link{{ if $item.active }} active{{ end }}">
                                     {{ if $item.icon }}
-                                    <span class="nav-list__icon">{{ $item.icon | safeHTML }}</span>
+                                    {{ $item.icon | safeHTML }}
                                     {{ end }}
                                     <span class="nav-list__text">{{ $item.name }}</span>
                                 </a>
