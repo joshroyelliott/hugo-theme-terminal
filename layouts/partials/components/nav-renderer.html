@@ -21,7 +21,10 @@
                             <li class="nav-list__item {{ if eq $index 0 }}nav-list__item--first{{ end }} {{ if eq $index (sub $itemCount 1) }}nav-list__item--last{{ end }}">
                                 <a href="{{ $item.url | default "#" }}" 
                                    class="nav-list__link{{ if $item.active }} active{{ end }}">
-                                    <span>{{ $item.name }}</span>
+                                    {{ if $item.icon }}
+                                    <span class="nav-list__icon">{{ $item.icon | safeHTML }}</span>
+                                    {{ end }}
+                                    <span class="nav-list__text">{{ $item.name }}</span>
                                 </a>
                             </li>
                         {{ end }}

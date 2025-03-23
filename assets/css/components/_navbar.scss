@@ -78,16 +78,10 @@
       font-size: 1rem;
       font-weight: 600;
       width: auto;
-      padding: 0 1rem;
+      padding: 0 2rem; // Increased padding for larger screens
       flex-shrink: 0;
       background: var(--base05);
       text-decoration: none;
-      
-      // Inside content of the link
-      span {
-        text-align: center;
-        padding: 0 0.7rem;
-      }
       
       // Active state
       &.active {
@@ -100,6 +94,19 @@
         background: var(--base0C);
         text-decoration: none;
       }
+    }
+    
+    // Icon within nav links
+    &__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.5rem;
+    }
+    
+    // Text within nav links  
+    &__text {
+      text-align: center;
     }
   }
   
@@ -143,16 +150,33 @@
   
   // Responsive styles
   @media (max-width: $breakpoint-lg) {
-    .nav-list__title,
+    .nav-list__title {
+      padding: 0 1.3rem 0 0.8rem; // Reduced padding for medium screens
+    }
+    
     .nav-list__link {
-      // padding: 0 2rem;
+      padding: 0 1.3rem; // Reduced padding for medium screens
     }
   }
     
   @media (max-width: $breakpoint-md) {
-    .nav-list__title,
+    .nav-list__title {
+      padding: 0 1rem 0 0.7rem; // Reduced padding for small screens
+    }
+    
     .nav-list__link {
-      // padding: 0 1rem;
+      padding: 0 0.7rem; // Reduced padding as requested for small screens
+    }
+    
+    // Hide text, show only icons on mobile
+    .nav-list__text {
+      display: none;
+    }
+    
+    // Adjust icon for mobile
+    .nav-list__icon {
+      margin-right: 0;
+      font-size: 1.1rem; // Slightly larger icons when they're alone
     }
   }
 }
