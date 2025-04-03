@@ -20,15 +20,14 @@
 $colorscheme-name: 'Tokyo Night Storm';
 $colorscheme-author: 'abcdefg';
 
-// Typography
-$font-mono: 'Fira Code', Consolas, "DejaVu Sans Mono", monospace;
+$font-mono: '"FiraCode Nerd Font"';
 $font-size-base: 15px;
 $line-height: 1.6;
 
 // Nerd Font Configuration
-$nerd-font-family: 'FiraCode Nerd Font', $font-mono;
-$nerd-font-path: '/fonts/FiraCodeNerdFont/'; // Path relative to the site's base URL
-$use-nerd-font: true; // Flag to enable/disable Nerd Font features
+$nerd-font-family: '"FiraCode Nerd Font"';
+$nerd-font-path: '/fonts/FiraCodeNerdFont/'; // Path from web root (static folder)
+$use-nerd-font: true;
 
 // Spacing
 $spacing-xs: 0.25rem;
@@ -38,7 +37,7 @@ $spacing-lg: 1.5rem;
 $spacing-xl: 2rem;
 
 // Layout
-$container-max-width: 1200px;
+$container-max-width: 1500px;
 $panel-border-width: 2px;
 $panel-border-radius: 6px;
 $nav-height: 1.5rem;

@@ -1,5 +1,6 @@
 <!-- Default Navigation -->
 <h4>Default Navigation</h4>
+<!-- Keep your original approach since your renderer expects pre-rendered HTML -->
 {{ $defaultNavLists := slice 
     (dict 
         "title" "Title"
@@ -7,7 +8,7 @@
         "titleActive" false
         "direction" "right"
         "flatten" true
-        "titleIcon" (partial "components/icon" (dict "name" "star" "position" "left"))
+        "titleIcon" (partial "components/icon.html" (dict "name" "star" "position" "left"))
         "items" slice
     )
     (dict
@@ -15,128 +16,11 @@
         "direction" "right"
         "flatten" true
         "items" (slice
-            (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "home" "position" "left")))
-            (dict "name" "Blog" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "document" "position" "left")))
-            (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "folder" "position" "left")))
-            (dict "name" "About" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "user" "position" "left")))
+            (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "home" "position" "left")))
+            (dict "name" "Blog" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "document" "position" "left")))
+            (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "folder" "position" "left")))
+            (dict "name" "About" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "user" "position" "left")))
         )
     )
 }}
 {{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
-
-<!-- Opposing Directions -->
-<h4>Opposing Directions</h4>
-{{ $opposingNavLists := slice
-    (dict
-        "title" "Title1"
-        "titleURL" "#"
-        "titleActive" false 
-        "direction" "right"
-        "flatten" false
-        "items" (slice
-            (dict "name" "Settings" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "cog" "position" "left")))
-            (dict "name" "Search" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "search" "position" "left")))
-        )
-    )
-    (dict
-        "title" "Title2" 
-        "titleURL" "#"
-        "titleActive" false
-        "direction" "left" 
-        "flatten" false
-        "items" (slice
-            (dict "name" "GitHub" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "github" "position" "right")))
-            (dict "name" "Twitter" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "twitter" "position" "right")))
-        )
-    )
-}}
-{{ partial "components/nav-renderer.html" (dict "navLists" $opposingNavLists) }}
-
-<!-- Three Lists -->
-<h4>Three Lists</h4>
-{{ $threeNavLists := slice
-    (dict
-        "title" "Title"
-        "titleURL" "#"
-        "titleActive" false 
-        "direction" "right"
-        "flatten" false
-        "items" (slice
-            (dict "name" "Code" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "code" "position" "left" "class" "icon--primary")))
-            (dict "name" "Terminal" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "terminal" "position" "left" "class" "icon--primary")))
-        )
-    )
-    (dict
-        "title" "" 
-        "direction" "right"
-        "flatten" false 
-        "items" (slice
-            (dict "name" "Calendar" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "calendar" "position" "left" "class" "icon--success")))
-            (dict "name" "Email" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "email" "position" "left" "class" "icon--success")))
-        )
-    )
-    (dict
-        "title" "" 
-        "direction" "right"
-        "flatten" false 
-        "items" (slice
-            (dict "name" "Info" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "info" "position" "left" "class" "icon--info")))
-            (dict "name" "Warning" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "warning" "position" "left" "class" "icon--warning")))
-        )
-    )
-}}
-{{ partial "components/nav-renderer.html" (dict "navLists" $threeNavLists) }}
-
-<!-- Left-pointing Example -->
-<h4>Left-pointing Navigation</h4>
-{{ $leftNavLists := slice
-    (dict
-        "title" "Title"
-        "titleURL" "#"
-        "titleActive" false 
-        "direction" "left"
-        "flatten" false
-        "items" (slice
-            (dict "name" "Bookmark" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "bookmark" "position" "right")))
-            (dict "name" "Download" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "download" "position" "right")))
-            (dict "name" "Heart" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "heart" "position" "right" "class" "icon--danger")))
-        )
-    )
-}}
-{{ partial "components/nav-renderer.html" (dict "navLists" $leftNavLists) }}
-
-<!-- Additional Showcase: Icon Sizes -->
-<h4>Navigation with Different Icon Sizes</h4>
-{{ $iconSizeNavLists := slice
-    (dict
-        "title" "Sizes"
-        "titleURL" "#"
-        "titleActive" false 
-        "direction" "right"
-        "flatten" false
-        "items" (slice
-            (dict "name" "Small" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "star" "position" "left" "size" "sm")))
-            (dict "name" "Medium" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "star" "position" "left" "size" "md")))
-            (dict "name" "Large" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "star" "position" "left" "size" "lg")))
-        )
-    )
-}}
-{{ partial "components/nav-renderer.html" (dict "navLists" $iconSizeNavLists) }}
-
-<!-- Additional Showcase: Fixed Width Icons -->
-<h4>Navigation with Fixed Width Icons</h4>
-{{ $fixedWidthNavLists := slice
-    (dict
-        "title" "Fixed Width"
-        "titleURL" "#"
-        "titleActive" false 
-        "direction" "right"
-        "flatten" false
-        "items" (slice
-            (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "home" "position" "left" "fw" true)))
-            (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "folder" "position" "left" "fw" true)))
-            (dict "name" "Documentation" "url" "#" "active" false "icon" (partial "components/icon" (dict "name" "book" "position" "left" "fw" true)))
-        )
-    )
-}}
-{{ partial "components/nav-renderer.html" (dict "navLists" $fixedWidthNavLists) }}

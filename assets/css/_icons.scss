@@ -65,7 +65,7 @@ $icon-book: '\f02d';
 @if $use-nerd-font {
   // Base icon styles
   .icon {
-    font-family: $nerd-font-family, monospace; // Add monospace fallback
+    font-family: "FiraCode Nerd Font", monospace; // Direct font name for better browser support
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -75,17 +75,17 @@ $icon-book: '\f02d';
     -moz-osx-font-smoothing: grayscale;
     position: relative; // For fallback positioning
     
-    // Fallback for when font doesn't load
-    &:not(:defined), &.icon-failed {
-      // Show something visually useful when the font is missing
-      &::after {
-        content: attr(data-icon);
-        font-family: $font-mono;
-        font-size: 0.85em;
-        font-style: normal;
-        color: inherit;
-      }
-    }
+    // // Fallback for when font doesn't load
+    // &:not(:defined), &.icon-failed {
+    //   // Show something visually useful when the font is missing
+    //   &::after {
+    //     content: attr(data-icon);
+    //     font-family: $font-mono;
+    //     font-size: 0.85em;
+    //     font-style: normal;
+    //     color: inherit;
+    //   }
+    // }
     
     // Standard spacing - more consistent approach
     &:not(.icon--no-margin) {

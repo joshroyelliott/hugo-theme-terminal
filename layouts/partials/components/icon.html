@@ -51,6 +51,7 @@
   "chevron-left" "f053"
   "chevron-up" "f077"
   "chevron-down" "f078"
+  "book" "f02d"
 }}
 
 {{ $iconUnicode := index $iconMap $name | default $name }}
@@ -76,11 +77,5 @@
 
 {{ $allClasses := delimit $classes " " }}
 
-<!-- Provide a fallback in case the font doesn't load properly -->
-<span class="{{ $allClasses }}" data-icon="{{ $name }}">
-  <!-- Render the Unicode character -->
-  &#x{{ $iconUnicode }};
-  
-  <!-- Add a title attribute for better accessibility and as a fallback -->
-  <span class="icon-fallback" style="display: none;">{{ $name }}</span>
-</span>
+<span class="{{ $allClasses }}" aria-hidden="true" data-icon="{{ $name }}" style="margin-right: 0.25em;">&#x{{ $iconUnicode }};</span>
+<!-- <span class="sr-only">{{ $name }}</span> -->

@@ -1,11 +1,11 @@
 // Base container for all panel groups
 .panels-container {
   width: 100%;
-  padding: $spacing-md 0;
+  padding: $spacing-sm 0;
 }
 
 // Standardized panel spacing variables from _variables.scss
-$panel-gap: $spacing-md; // 1rem standard gap between panels
+$panel-gap: $spacing-sm;
 $panel-margin: 0; // No margin for panel groups
 
 // ===================================================
@@ -15,7 +15,9 @@ $panel-margin: 0; // No margin for panel groups
 // Base grid class for all panel layouts with consistent spacing
 %panel-grid-base {
   display: grid;
-  gap: $panel-gap;
+  // gap: $panel-gap;
+  row-gap: $spacing-md;
+  column-gap: $spacing-sm;
   margin: $panel-margin;
 }
 
@@ -27,7 +29,6 @@ $panel-margin: 0; // No margin for panel groups
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
@@ -38,12 +39,10 @@ $panel-margin: 0; // No margin for panel groups
   
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
@@ -54,17 +53,14 @@ $panel-margin: 0; // No margin for panel groups
   
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: repeat(3, 1fr);
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
-    gap: $panel-gap; // Maintain consistent gap when stacked
   }
 }
 
@@ -190,7 +186,7 @@ $panel-margin: 0; // No margin for panel groups
   .stack {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $panel-gap;
+    row-gap: $spacing-md;
   }
   
   @media (max-width: $breakpoint-md) {

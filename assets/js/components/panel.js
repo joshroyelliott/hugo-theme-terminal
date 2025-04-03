@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if icon font is loaded correctly
     checkIconFontLoading();
 
-    // Initialize all panel scrolling indicators
-    const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
+    // Add a slightly longer delay to allow DOM to fully render with icons
+    setTimeout(function() {
+        // Initialize all panel scrolling indicators
+        const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
     
     panelsWithScroll.forEach(panel => {
         const content = panel.querySelector('.panel__content');
@@ -287,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Check if we need to apply responsive layout to the showcase grid
     setupInteractivePanels();
+    }, 100); // Increased delay to ensure accurate measurements
 });
 
 // Function to handle tab content headings
@@ -315,12 +318,15 @@ function setupTabContentHeadings(panel) {
 
 // Function to check if panel is wide enough for side-by-side layout
 function checkPanelWidth(panel) {
+    // Force layout recalculation to ensure accurate measurements after icon changes
+    panel.offsetHeight; // Trigger reflow
+    
     // Get number of tabs
     const tabCount = panel.querySelectorAll('.panel__tab').length;
     if (tabCount <= 1) return;
     
-    // Calculate required width (300px per tab is a good estimate)
-    const requiredWidth = tabCount * 300;
+    // Calculate required width (350px per tab to account for icon spacing)
+    const requiredWidth = tabCount * 350;
     const panelWidth = panel.offsetWidth;
     const isSmallScreen = window.innerWidth < 768;
     
@@ -621,6 +627,9 @@ window.initMarkdownTabPanels = function(panelElement, mainTitle = null) {
 
 // Function to update scroll indicator position and size
 function updateScrollIndicator(content, indicator) {
+    // Force layout recalculation to ensure accurate measurements after icon changes
+    content.offsetHeight; // Trigger reflow
+    
     const contentHeight = content.scrollHeight;
     const visibleHeight = content.clientHeight;
     const scrollTop = content.scrollTop;
@@ -809,11 +818,11 @@ function checkIconFontLoading() {
             const fontLoaded = Array.from(document.fonts).some(font => 
                 font.family.includes('FiraCode Nerd Font') && font.status === 'loaded'
             );
-            
+           
             if (!fontLoaded) {
                 applyFallbackForIcons();
             }
-            
+           
             // Clean up test element
             document.body.removeChild(testSpan);
         });
@@ -824,7 +833,7 @@ function checkIconFontLoading() {
             if (testSpan.offsetWidth < 5) { // Likely means the icon didn't render correctly
                 applyFallbackForIcons();
             }
-            
+           
             // Clean up test element
             document.body.removeChild(testSpan);
         }, 500);
@@ -835,19 +844,19 @@ function checkIconFontLoading() {
 function applyFallbackForIcons() {
     document.querySelectorAll('.icon').forEach(icon => {
         icon.classList.add('icon-failed');
-        
+       
         // If we're using a fallback inside the icon, show it
         const fallback = icon.querySelector('.icon-fallback');
         if (fallback) {
             fallback.style.display = 'inline';
         }
-        
+       
         // Add a tooltips with the icon name for better UX
         const iconName = icon.getAttribute('data-icon');
         if (iconName) {
             icon.setAttribute('title', iconName);
         }
     });
-    
+   
     console.warn('FiraCode Nerd Font failed to load, using fallback styles for icons.');
 }

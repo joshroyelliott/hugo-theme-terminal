@@ -42,7 +42,7 @@
       
       // Properly space and align any icons in the title
       .nav-list__icon, .icon {
-        margin-right: 0.5rem;
+        // margin-right: 0.5rem;
         display: inline-flex;
         align-items: center;
         vertical-align: middle;
@@ -127,6 +127,7 @@
       text-align: center;
       vertical-align: middle;
       display: inline-block; // Keep it inline-block for proper spacing
+      margin: auto;
     }
   }
   

@@ -3,6 +3,42 @@
     <h1>{{ .Title }}</h1>
     <p>{{ .Description }}</p>
 
+    <section id="font-icon-section" class="showcase-section">
+      <!-- layouts/shortcodes/font-test.html -->
+      <div class="font-test" style="padding: 20px; border: 1px solid #ddd; margin: 20px 0;">
+        <h3>Font Test</h3>
+
+        <div style="margin-bottom: 10px;">
+          <strong>Regular Text:</strong>
+          <span style="font-family: 'FiraCode Nerd Font', monospace; font-weight: 400;">
+            This is FiraCode Nerd Font Regular
+          </span>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <strong>Bold Text:</strong>
+          <span style="font-family: 'FiraCode Nerd Font', monospace; font-weight: 700;">
+            This is FiraCode Nerd Font Bold
+          </span>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <strong>Direct Unicode Icons:</strong>
+          <span style="font-family: 'FiraCode Nerd Font', monospace; font-size: 24px;">
+            &#xf015; &#xf09b; &#xf121; &#xf0e0;
+          </span>
+        </div>
+
+        <div>
+          <strong>Icon Classes:</strong>
+          <span class="icon">&#xf015;</span>
+          <span class="icon">&#xf09b;</span>
+          <span class="icon">&#xf121;</span>
+          <span class="icon">&#xf0e0;</span>
+        </div>
+      </div>
+    </section>
+
      <!-- Theme Variables Section (NEW) -->
     <section id="variables-section" class="showcase-section">
         <h2>Theme Variables</h2>
