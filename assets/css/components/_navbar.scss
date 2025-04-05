@@ -31,6 +31,7 @@
       height: 100%;
       display: flex; // Ensure flex display
       align-items: center; // Vertically center contents
+      gap: 0.7rem; // Add a consistent 1rem gap between flex children
       color: var(--base06);
       font-size: 1rem;
       font-weight: 600;
@@ -42,8 +43,7 @@
       
       // Properly space and align any icons in the title
       .nav-list__icon, .icon {
-        // margin-right: 0.5rem;
-        display: inline-flex;
+        display: flex; // Use flex display
         align-items: center;
         vertical-align: middle;
       }
@@ -81,7 +81,8 @@
       height: 100%;
       display: flex;
       align-items: center; // Vertical centering
-      justify-content: flex-start; // Start alignment (better for icon + text)
+      // justify-content: flex-start; // Start alignment (better for icon + text)
+      gap: 0.7rem;
       color: var(--base00);
       font-size: 1rem;
       font-weight: 600;
@@ -106,10 +107,8 @@
     
     // Icon within nav links
     &__icon {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      margin-right: 0.7rem; // Increased margin between icon and text
       vertical-align: middle; // Ensure vertical alignment
       
       // Ensure the icon itself has some space
