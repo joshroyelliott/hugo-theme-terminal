@@ -3,17 +3,13 @@
   
   Parameters:
   - name: The name of the icon (required)
-  - position: Position of the icon (left/right) - default: left
   - size: Size of the icon (xs/sm/md/lg/xl) - default: none
   - class: Additional CSS classes to add
-  - fw: Set to true for fixed width - default: false
 */}}
 
 {{ $name := .name }}
-{{ $position := default "left" .position }}
 {{ $size := default "" .size }}
 {{ $class := default "" .class }}
-{{ $fw := default false .fw }}
 
 {{ $iconMap := dict 
   "home" "f015"
@@ -57,18 +53,8 @@
 {{ $iconUnicode := index $iconMap $name | default $name }}
 {{ $classes := slice "icon" }}
 
-{{ if eq $position "left" }}
-  {{ $classes = $classes | append "icon--left" }}
-{{ else if eq $position "right" }}
-  {{ $classes = $classes | append "icon--right" }}
-{{ end }}
-
 {{ if $size }}
   {{ $classes = $classes | append (printf "icon--%s" $size) }}
-{{ end }}
-
-{{ if $fw }}
-  {{ $classes = $classes | append "icon--fw" }}
 {{ end }}
 
 {{ if $class }}
@@ -77,5 +63,4 @@
 
 {{ $allClasses := delimit $classes " " }}
 
-<span class="{{ $allClasses }}" aria-hidden="true" data-icon="{{ $name }}" style="margin-right: 0.25em;">&#x{{ $iconUnicode }};</span>
-<!-- <span class="sr-only">{{ $name }}</span> -->
+<span class="{{ $allClasses }}" aria-hidden="true" data-icon="{{ $name }}">&#x{{ $iconUnicode }};</span>

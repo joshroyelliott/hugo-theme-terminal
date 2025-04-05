@@ -19,7 +19,7 @@
     
     <!-- Add a title icon if specified in site params -->
     {{ if .Site.Params.titleIcon }}
-        {{ $titleList = merge $titleList (dict "titleIcon" (partial "components/icon" (dict "name" .Site.Params.titleIcon "position" "left"))) }}
+        {{ $titleList = merge $titleList (dict "titleIcon" (partial "components/icon" (dict "name" .Site.Params.titleIcon))) }}
     {{ end }}
     
     {{ $defaultNavLists = $defaultNavLists | append $titleList }}
@@ -58,7 +58,7 @@
                 {{ $icon = printf "<span class=\"icon icon--left\">&#x%s;</span>" $menuItem.Params.icon }}
             {{ else }}
                 <!-- It's an icon name -->
-                {{ $icon = partial "components/icon" (dict "name" $menuItem.Params.icon "position" "left") }}
+                {{ $icon = partial "components/icon" (dict "name" $menuItem.Params.icon) }}
             {{ end }}
         {{ else }}
             <!-- Try to find a matching icon from the map -->
@@ -71,7 +71,7 @@
             {{ end }}
             
             {{ if $iconName }}
-                {{ $icon = partial "components/icon" (dict "name" $iconName "position" "left") }}
+                {{ $icon = partial "components/icon" (dict "name" $iconName) }}
             {{ end }}
         {{ end }}
         

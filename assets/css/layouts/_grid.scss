@@ -114,16 +114,6 @@ $panel-margin: 0; // No margin for panel groups
 // SPECIFIC LAYOUT PATTERNS
 // ===================================================
 
-// Panel showcase grid (for basic panels demonstration)
-.panels-showcase-grid {
-  @extend %panel-grid-base;
-  grid-template-columns: repeat(2, 1fr);
-  
-  @media (max-width: $breakpoint-md) {
-    grid-template-columns: 1fr;
-  }
-}
-
 // Interactive panel layout (with named grid areas)
 .interactive-panels {
   @extend %panel-grid-base;
