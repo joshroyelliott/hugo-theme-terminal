@@ -243,13 +243,11 @@ The navigation system uses a configuration pattern to separate data from renderi
         "titleURL" "/"
         "titleActive" true
         "direction" "right"
-        "flatten" true
         "items" slice
     )
     (dict
         "title" ""
         "direction" "right" 
-        "flatten" true
         "items" (slice
             (dict "name" "Home" "url" "/" "active" false "icon" (partial "components/icon" (dict "name" "home" "position" "left")))
             (dict "name" "Blog" "url" "/blog/" "active" false "icon" (partial "components/icon" (dict "name" "document" "position" "left")))
@@ -267,7 +265,6 @@ The navigation system uses a configuration pattern to separate data from renderi
 - **titleURL**: URL for the title
 - **titleActive**: Whether the title is in active state
 - **direction**: Chevron direction ("right" or "left")
-- **flatten**: Whether to flatten edges at boundaries
 - **items**: Array of navigation items with:
   - **name**: Item text
   - **url**: Item URL

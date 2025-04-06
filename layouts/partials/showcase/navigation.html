@@ -1,23 +1,70 @@
 <!-- Default Navigation -->
 <h4>Default Navigation</h4>
-<!-- Keep your original approach since your renderer expects pre-rendered HTML -->
 {{ $defaultNavLists := slice 
     (dict 
         "title" "Title"
         "titleURL" "#"
         "titleActive" false
         "direction" "right"
-        "flatten" true
         "titleIcon" (partial "components/icon.html" (dict "name" "star"))
         "items" slice
     )
     (dict
         "title" ""
         "direction" "right"
-        "flatten" true
         "items" (slice
             (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "home")))
             (dict "name" "Blog" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "document")))
+            (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "folder")))
+            (dict "name" "About" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "user")))
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
+
+<!-- Change Direction -->
+<h4>Change Direction</h4>
+{{ $defaultNavLists := slice 
+    (dict 
+        "title" "Title"
+        "titleURL" "#"
+        "titleActive" false
+        "direction" "right"
+        "titleIcon" (partial "components/icon.html" (dict "name" "star"))
+        "items" slice
+    )
+    (dict
+        "title" ""
+        "direction" "left"
+        "items" (slice
+            (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "home")))
+            (dict "name" "Blog" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "document")))
+            (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "folder")))
+            (dict "name" "About" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "user")))
+        )
+    )
+}}
+{{ partial "components/nav-renderer.html" (dict "navLists" $defaultNavLists) }}
+
+<!-- Multiple Lists -->
+<h4>Multiple Nav Lists</h4>
+{{ $defaultNavLists := slice 
+    (dict 
+        "title" "Title 1"
+        "titleURL" "#"
+        "titleActive" false
+        "direction" "right"
+        "titleIcon" (partial "components/icon.html" (dict "name" "star"))
+        "items" (slice
+            (dict "name" "Home" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "home")))
+            (dict "name" "Blog" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "document")))
+        )
+    )
+    (dict
+        "title" "Title 2"
+        "direction" "left"
+        "titleIcon" (partial "components/icon.html" (dict "name" "star"))
+        "items" (slice
             (dict "name" "Projects" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "folder")))
             (dict "name" "About" "url" "#" "active" false "icon" (partial "components/icon.html" (dict "name" "user")))
         )

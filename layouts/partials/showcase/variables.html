@@ -1,13 +1,30 @@
 <div>
     <div class="showcase-row">
         <span class="showcase-label">Font:</span>
-        <span class="showcase-value theme-font">{{ .Site.Data.theme.font_mono | default "Fira Code, Consolas, DejaVu Sans Mono, monospace" }}</span>
+        <span class="showcase-value theme-font">{{ $.Site.Data.theme.font_mono | default "" }}</span>
+    </div>
+    <div class="showcase-row">
+        <span class="showcase-label">Font Size:</span>
+        <span class="showcase-value">{{ $.Site.Data.theme.font_size_base | default "" }}</span>
+    </div>
+    <div class="showcase-row">
+        <span class="showcase-label">Line Height:</span>
+        <span class="showcase-value">{{ $.Site.Data.theme.line_height | default "" }}</span>
+    </div>
+    <div class="showcase-row">
+        <span class="showcase-label">Font Icon Example:</span>
+        <span class="showcase-value">
+            <span class="icon">&#xf015;</span>
+            <span class="icon">&#xf09b;</span>
+            <span class="icon">&#xf121;</span>
+            <span class="icon">&#xf0e0;</span>
+            <span class="icon">&#xf120;</span>
+        </span>
     </div>
     <div class="showcase-row">
         <span class="showcase-label">Colorscheme:</span>
-        <span class="showcase-value">{{ .Site.Data.theme.colorscheme_name | default "Tokyo Night Storm" }}</span>
+        <span class="showcase-value">{{ $.Site.Data.theme.colorscheme_name | default "Tokyo Night Storm" }}</span>
     </div>
-    
     <!-- Color palette grid similar to Fastfetch -->
     <div class="variables-colors">
         <div class="color-block" style="background-color: var(--base00);"></div>
