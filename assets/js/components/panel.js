@@ -1,10 +1,8 @@
 // panel.js - Unified panel functionality with responsive improvements
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Add a slightly longer delay to allow DOM to fully render with icons
-    setTimeout(function() {
-        // Initialize all panel scrolling indicators
-        const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
+    // Initialize all panel scrolling indicators
+    const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
     
     panelsWithScroll.forEach(panel => {
         const content = panel.querySelector('.panel__content');
@@ -284,10 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-    
-    // Check if we need to apply responsive layout to the showcase grid
-    setupInteractivePanels();
-    }, 100); // Increased delay to ensure accurate measurements
 });
 
 // Function to handle tab content headings

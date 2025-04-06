@@ -1,5 +1,6 @@
 // Color variables
 :root {
+  // Color Theme
   --base00: #24283B; // Background darker
   --base01: #16161E; // Background dark
   --base02: #343A52; // Selection background
@@ -16,16 +17,31 @@
   --base0D: #2AC3DE; // Functions/Methods
   --base0E: #BB9AF7; // Keywords
   --base0F: #F7768E; // Deprecated/Error
+  
+  // Theme Information (accessible in both SCSS and HTML)
+  --theme-colorscheme-name: Tokyo Night Storm;
+  --theme-colorscheme-author: '';
+  
+  // Typography
+  --theme-font-mono: "FiraCode Nerd Font";
+  --theme-font-size-base: 15px;
+  --theme-line-height: 1.6;
+  
+  // Nerd Font Configuration
+  --theme-nerd-font-path: /fonts/FiraCodeNerdFont/;
+  --theme-use-nerd-font: true;
 }
-$colorscheme-name: 'Tokyo Night Storm';
-$colorscheme-author: '';
 
-$font-mono: '"FiraCode Nerd Font"';
-$font-size-base: 15px;
-$line-height: 1.6;
+// SCSS variables (used internally in SCSS only)
+$colorscheme-name: var(--theme-colorscheme-name);
+$colorscheme-author: var(--theme-colorscheme-author);
+
+$font-mono: var(--theme-font-mono);
+$font-size-base: 15px; // Keep as number for calculations
+$line-height: 1.6;   // Keep as number for calculations
 
 // Nerd Font Configuration
-$nerd-font-family: '"FiraCode Nerd Font"';
+$nerd-font-family: var(--theme-font-mono);
 $nerd-font-path: '/fonts/FiraCodeNerdFont/'; // Path from web root (static folder)
 $use-nerd-font: true;
 
