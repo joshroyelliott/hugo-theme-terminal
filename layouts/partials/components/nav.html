@@ -27,19 +27,6 @@
     {{ $menuItems := slice }}
     {{ $currentPage := . }}
     
-    <!-- Map section identifiers to icon names -->
-    {{ $iconMap := dict 
-        "home" "home"
-        "blog" "document"
-        "posts" "document"
-        "projects" "folder"
-        "about" "user"
-        "contact" "email"
-        "docs" "book"
-        "tags" "tag"
-        "categories" "tags"
-    }}
-    
     {{ range $index, $menuItem := .Site.Menus.main }}
         {{ $isActive := false }}
         {{ if eq $menuItem.URL "/" }}
