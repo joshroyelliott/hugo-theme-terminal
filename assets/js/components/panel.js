@@ -173,6 +173,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 const previewUrl = this.getAttribute('data-preview-url');
                 if (!previewUrl) return;
                 
+                // Find the item title
+                const titleElement = this.querySelector('.panel__list-title') || 
+                                     this.querySelector('h4');
+                
+                let titleText = '';
+                if (titleElement) {
+                    titleText = titleElement.textContent.trim();
+                } else {
+                    // Fallback to using the link's text content (ignoring child elements)
+                    titleText = this.childNodes[0].nodeValue || this.textContent.trim();
+                }
+                
+                // Find the closest preview panel (first look in the same grid/container as this link)
+                const container = this.closest('.grid-2col') || this.closest('.grid-master-stack') || document;
+                let previewPanel = container.querySelector('.panel--preview');
+                
+                // If not found in the same container, try finding anywhere in the document
+                if (!previewPanel) {
+                    previewPanel = document.querySelector('.panel--preview');
+                }
+                
+                if (previewPanel && titleText) {
+                    const previewTitle = previewPanel.querySelector('.panel__title');
+                    if (previewTitle) {
+                        console.log('Updating preview title to:', titleText);
+                        previewTitle.textContent = titleText;
+                    }
+                }
+                
                 // For in-page previews
                 if (previewUrl.startsWith('#')) {
                     const previewId = previewUrl.substring(1);
@@ -197,7 +226,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set the first item as active by default if there are preview links
         const previewLinks = document.querySelectorAll('.js-preview-link');
         if (previewLinks.length > 0) {
-            previewLinks[0].click();
+            // Delay slightly to ensure any other initialization is complete
+            setTimeout(() => {
+                // Trigger a click on the first preview link to set initial active state and update title
+                previewLinks[0].click();
+            }, 50);
         }
     }
 

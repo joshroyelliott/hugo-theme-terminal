@@ -2,6 +2,7 @@
 .panels-container {
   width: 100%;
   padding: $spacing-sm 0;
+  margin: 0;
 }
 
 // Standardized panel spacing variables from _variables.scss
@@ -19,6 +20,7 @@ $panel-margin: 0; // No margin for panel groups
   row-gap: $spacing-md;
   column-gap: $spacing-sm;
   margin: $panel-margin;
+  margin-bottom: $spacing-md;
 }
 
 // Grid layouts that can be applied to any panel group

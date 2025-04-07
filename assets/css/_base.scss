@@ -121,7 +121,7 @@ blockquote {
 // Code
 code {
   font-family: $font-mono;
-  background-color: var(--base01);
+  background-color: var(--base00);
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
@@ -135,7 +135,7 @@ pre {
   margin: 1rem 0;
   
   code {
-    background-color: transparent;
+    background-color: var(--base00);
     padding: 0;
     border-radius: 0;
   }
