@@ -3,6 +3,14 @@
   width: 100%;
   padding: $spacing-sm 0;
   margin: 0;
+  // padding-top: $spacing-sm; // Add padding at the top to accommodate panel headers
+  max-height: 70vh; // Ensure container fits within viewport
+  overflow: visible; // Allow panels to dictate their own overflow behavior
+  
+  /* Make sure container fits with header and footer on large screens */
+  @media (min-height: 800px) {
+    max-height: calc(100vh - 13rem); /* Adjust for header & footer */
+  }
 }
 
 // Standardized panel spacing variables from _variables.scss
@@ -21,6 +29,7 @@ $panel-margin: 0; // No margin for panel groups
   column-gap: $spacing-sm;
   margin: $panel-margin;
   margin-bottom: $spacing-md;
+  // margin-top: $spacing-md;
 }
 
 // Grid layouts that can be applied to any panel group
@@ -70,6 +79,15 @@ $panel-margin: 0; // No margin for panel groups
 .grid-main-sidebar {
   @extend %panel-grid-base;
   grid-template-columns: 1fr 2fr;
+  align-items: start; // Allow each column to set its own height
+  max-height: 78vh; // Constrain the grid to fit within viewport
+  overflow: visible; // Allow panel headers to be visible above the grid
+  position: relative; // Establish positioning context
+  
+  /* Make sure grid fits with header and footer on large screens */
+  @media (min-height: 800px) {
+    max-height: calc(100vh - 180px); /* Adjust for header & footer */
+  }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
@@ -80,6 +98,15 @@ $panel-margin: 0; // No margin for panel groups
 .grid-sidebar-main {
   @extend %panel-grid-base;
   grid-template-columns: 1fr 2fr;
+  align-items: start; // Allow each column to set its own height
+  max-height: 78vh; // Constrain the grid to fit within viewport
+  overflow: visible; // Allow panel headers to be visible above the grid
+  position: relative; // Establish positioning context
+  
+  /* Make sure grid fits with header and footer on large screens */
+  @media (min-height: 800px) {
+    max-height: calc(100vh - 180px); /* Adjust for header & footer */
+  }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;

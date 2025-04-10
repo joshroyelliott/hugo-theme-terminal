@@ -9,6 +9,7 @@
     &__content {
         padding: 1rem;
         font-size: 1rem;
+        position: relative; // For scroll indicator positioning
 
         h1, h2, h3, h4, h5, h6 {
           margin-top: 1rem;
@@ -148,10 +149,16 @@
         }
         
         .panel__content {
-            max-height: 400px;
-            overflow-y: auto;
+            /* Set max height for scrolling */
+            max-height: 75vh; /* Use viewport-relative height */
+            overflow-y: auto; /* Only scroll when content exceeds max-height */
             scrollbar-width: none;
             -ms-overflow-style: none;
+            
+            /* Make sure content is visible on large screens with header and footer */
+            @media (min-height: 800px) {
+                max-height: calc(100vh - 200px); /* Adjust for header & footer */
+            }
             
             &::-webkit-scrollbar {
                 display: none;
@@ -382,6 +389,36 @@
     // Preview panel - just a simple border
     &--preview {
         border-color: var(--base04);
+        
+        .panel__content {
+            /* Set max height for scrolling */
+            max-height: 75vh; /* Use viewport-relative height */
+            overflow-y: auto; /* Only scroll when content exceeds max-height */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            
+            /* Make sure content is visible on large screens with header and footer */
+            @media (min-height: 800px) {
+                max-height: calc(100vh - 200px); /* Adjust for header & footer */
+            }
+            
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        
+        .js-scroll-indicator {
+            position: absolute;
+            right: -5px;
+            width: 3px;
+            background-color: var(--base0B);
+            transition: top 0.1s ease, height 0.1s ease;
+            opacity: 0;
+        }
+        
+        &:hover .js-scroll-indicator {
+            opacity: 1;
+        }
     }
     
     // Input panel - styles for actual HTML input elements
@@ -521,10 +558,16 @@
     // Scroll feature for any panel
     &--scroll {
         .panel__content {
-            max-height: 300px;
-            overflow-y: auto;
+            /* Set max height for scrolling */
+            max-height: 75vh; /* Use viewport-relative height */
+            overflow-y: auto; /* Only scroll when content exceeds max-height */
             scrollbar-width: none;
             -ms-overflow-style: none;
+            
+            /* Make sure content is visible on large screens with header and footer */
+            @media (min-height: 800px) {
+                max-height: calc(100vh - 200px); /* Adjust for header & footer */
+            }
             
             &::-webkit-scrollbar {
                 display: none;
@@ -538,6 +581,7 @@
             background-color: var(--base0B);
             transition: top 0.1s ease, height 0.1s ease;
             opacity: 0;
+            z-index: 5;
         }
         
         &:hover .js-scroll-indicator {
