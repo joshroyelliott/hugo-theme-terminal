@@ -6,7 +6,7 @@
   padding-top: 1rem;
   min-height: 0; /* Allow it to shrink if needed */
   height: 100%; /* Fill available space */
-  overflow: hidden; /* Prevent overflow from pushing footer down */
+  // overflow: hidden; /* Prevent overflow from pushing footer down */
 }
 
 /* Add a special class we can apply to main for single page content that should scroll normally */
