@@ -4,107 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
-    <link rel="preload" href="{{ "fonts/FiraCodeNerdFont/FiraCodeNerdFont-Regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin> 
-    <link rel="preload" href="{{ "fonts/FiraCodeNerdFont/FiraCodeNerdFont-Bold.ttf" | relURL }}" as="font" type="font/ttf" crossorigin> 
-    
-    {{ $style := resources.Get "css/main.scss" | resources.ToCSS (dict "enableSourceMap" true) | resources.Minify }}
+    {{ $style := resources.Get "css/main.scss" | css.Sass | minify }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
-
+    
     <!-- Load panel.js for the theme functionality -->
-    {{ $panelJs := resources.Get "js/components/panel.js" | resources.Minify }}
+    {{ $panelJs := resources.Get "js/components/panel.js" | js.Build | minify }}
     <script src="{{ $panelJs.RelPermalink }}"></script>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Check if the font loaded properly - try after a longer delay to ensure fonts have time to load
-        setTimeout(function() {
-          console.log('Testing font loading status...');
-          
-          // Test with a known icon character from the font
-          const testEl = document.createElement('span');
-          testEl.style.fontFamily = '"FiraCode Nerd Font", monospace';
-          testEl.style.visibility = 'hidden';
-          testEl.style.position = 'absolute';
-          testEl.style.fontSize = '24px'; // Larger to make width differences more apparent
-          testEl.textContent = '\uf015'; // Home icon
-          document.body.appendChild(testEl);
-
-          // Get the width with our font
-          const specialFontWidth = testEl.offsetWidth;
-          console.log('FiraCode Nerd Font width:', specialFontWidth);
-          
-          // Force fallback font
-          testEl.style.fontFamily = 'monospace';
-          
-          // Compare widths - should be different if our font loaded
-          const fallbackFontWidth = testEl.offsetWidth;
-          console.log('Fallback font width:', fallbackFontWidth);
-          
-          const fontLoaded = specialFontWidth !== fallbackFontWidth;
-          
-          if (!fontLoaded) {
-            console.warn('FiraCode Nerd Font failed to load, using fallback styles for icons');
-            document.body.classList.add('font-failed');
-
-            // Visual indicator in development
-            if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-              const notice = document.createElement('div');
-              notice.style.background = '#ffecb3';
-              notice.style.color = '#333';
-              notice.style.padding = '10px';
-              notice.style.position = 'fixed';
-              notice.style.top = '0';
-              notice.style.left = '0';
-              notice.style.right = '0';
-              notice.style.zIndex = '9999';
-              notice.style.textAlign = 'center';
-              notice.innerHTML = '<strong>Font Loading Issue:</strong> FiraCode Nerd Font is not loading properly.<br>' + 
-                                 'Current font path: <code>/fonts/FiraCodeNerdFont/*.ttf</code><br>' +
-                                 'Check that these files exist in your <code>static</code> directory.';
-              document.body.appendChild(notice);
-              
-              // Log the actual font being used
-              const computedFont = window.getComputedStyle(testEl).fontFamily;
-              console.log('Computed font being used:', computedFont);
-            }
-          } else {
-            console.log('FiraCode Nerd Font loaded successfully!');
-            document.body.classList.add('font-loaded');
-            
-            // Test an icon to verify it renders properly
-            const iconTest = document.createElement('div');
-            iconTest.style.position = 'fixed';
-            iconTest.style.bottom = '10px';
-            iconTest.style.right = '10px';
-            iconTest.style.background = 'rgba(0,0,0,0.7)';
-            iconTest.style.color = '#fff';
-            iconTest.style.padding = '5px 10px';
-            iconTest.style.borderRadius = '4px';
-            iconTest.style.fontFamily = '"FiraCode Nerd Font", monospace';
-            iconTest.style.zIndex = 9999;
-            iconTest.innerHTML = 'Font test: <span style="font-size:1.5em;">&#xf015; &#xf013; &#xf007; &#xf120;</span>';
-            iconTest.style.display = 'none'; // Only show in dev mode when clicking
-            
-            if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-              const infoButton = document.createElement('button');
-              infoButton.textContent = 'Test Icons';
-              infoButton.style.position = 'fixed';
-              infoButton.style.bottom = '10px';
-              infoButton.style.right = '10px';
-              infoButton.style.zIndex = 9998;
-              infoButton.addEventListener('click', function() {
-                iconTest.style.display = iconTest.style.display === 'none' ? 'block' : 'none';
-              });
-              document.body.appendChild(infoButton);
-              document.body.appendChild(iconTest);
-            }
-          }
-
-          document.body.removeChild(testEl);
-        }, 1000); // Longer timeout for more reliable loading
-      });
-    </script>   
-
+    
     <!-- Additional scripts block for page-specific JS -->
     {{ block "scripts" . }}{{ end }}
 </head>

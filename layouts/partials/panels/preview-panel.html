@@ -1,11 +1,9 @@
-<div class="panel panel--titled panel--numbered panel--preview" 
+<div class="panel panel--titled panel--numbered panel--preview panel--scroll" 
      tabindex="0" 
-     data-panel-number="2"
      role="region"
-     aria-labelledby="panel-title-preview">
+     aria-labelledby="panel-title-preview"
+     data-current-url="">
     <div class="panel__header">
-        <span class="panel__number">[2]</span>
-        <span class="panel__separator"></span>
         <span class="panel__title" id="panel-title-preview">Preview</span>
     </div>
     <div class="panel__content js-preview-content">
@@ -23,8 +21,46 @@
 document.addEventListener('DOMContentLoaded', function() {
     const listItems = document.querySelectorAll('.panel__list-item');
     const listLinks = document.querySelectorAll('.panel__list-link');
+    const previewPanel = document.querySelector('.panel--preview');
+    const previewTitle = document.querySelector('#panel-title-preview');
     const previewContent = document.querySelector('.preview-content');
     const previewPlaceholder = document.querySelector('.preview-placeholder');
+    
+    // Make the entire preview panel clickable to navigate to full view
+    if (previewPanel) {
+        previewPanel.addEventListener('click', function(e) {
+            // Don't navigate if clicked on a link or button within the content
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || 
+                e.target.closest('a') || e.target.closest('button')) {
+                return;
+            }
+            
+            // Get the current URL from data attribute
+            const currentUrl = this.getAttribute('data-current-url');
+            if (currentUrl) {
+                window.location.href = currentUrl;
+            }
+        });
+        
+        // Add visual cue when hovering
+        previewPanel.addEventListener('mouseenter', function() {
+            if (this.getAttribute('data-current-url')) {
+                this.classList.add('panel--clickable');
+            }
+        });
+        
+        previewPanel.addEventListener('mouseleave', function() {
+            this.classList.remove('panel--clickable');
+        });
+        
+        // Keyboard accessibility
+        previewPanel.addEventListener('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ' ') && this.getAttribute('data-current-url')) {
+                e.preventDefault();
+                window.location.href = this.getAttribute('data-current-url');
+            }
+        });
+    }
     
     listLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -39,6 +75,24 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get the URL from the parent list item
             const listItem = this.closest('.panel__list-item');
             const url = listItem.getAttribute('data-url');
+            
+            // Store the current URL in the preview panel for navigation
+            if (previewPanel) {
+                previewPanel.setAttribute('data-current-url', url);
+                
+                // Add clickable class if URL is available
+                if (url) {
+                    previewPanel.classList.add('panel--clickable');
+                } else {
+                    previewPanel.classList.remove('panel--clickable');
+                }
+            }
+            
+            // Update preview panel title with the selected item's title
+            const itemTitle = this.querySelector('.panel__list-title');
+            if (itemTitle && previewTitle) {
+                previewTitle.textContent = itemTitle.textContent;
+            }
             
             // Show loading state
             previewPlaceholder.style.display = 'none';
@@ -56,6 +110,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update the preview
                     previewContent.innerHTML = content;
+                    
+                    // Update counter if applicable
+                    const index = Array.from(listLinks).indexOf(this) + 1;
+                    const total = listLinks.length;
+                    const listPanel = this.closest('.panel--list');
+                    if (listPanel) {
+                        listPanel.setAttribute('data-count', `${index} of ${total}`);
+                    }
                 })
                 .catch(error => {
                     previewContent.innerHTML = `<p>Error loading preview: ${error.message}</p>`;

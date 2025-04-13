@@ -1,15 +1,33 @@
 // Base container for all panel groups
 .panels-container {
-  width: 100%;
-  padding: $spacing-sm 0;
-  margin: 0;
-  // padding-top: $spacing-sm; // Add padding at the top to accommodate panel headers
-  max-height: 70vh; // Ensure container fits within viewport
-  overflow: visible; // Allow panels to dictate their own overflow behavior
-  
-  /* Make sure container fits with header and footer on large screens */
-  @media (min-height: 800px) {
-    max-height: calc(100vh - 13rem); /* Adjust for header & footer */
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Take all available space within main */
+  padding-top: 1rem;
+  min-height: 0; /* Allow it to shrink if needed */
+  height: 100%; /* Fill available space */
+  overflow: hidden; /* Prevent overflow from pushing footer down */
+}
+
+/* Add a special class we can apply to main for single page content that should scroll normally */
+main.page-scrollable {
+  overflow-y: auto; /* Allow normal page scrolling */
+  overflow-x: hidden;
+ 
+  /* Remove constraints from child content */
+  .panels-container {
+    overflow: visible;
+    height: auto;
+  }
+
+  /* Reset panel scroll behavior for normal article flow */
+  .panel {
+    overflow: visible;
+    max-height: none;
+   
+    &__content {
+      overflow: visible;
+    }
   }
 }
 
@@ -24,12 +42,12 @@ $panel-margin: 0; // No margin for panel groups
 // Base grid class for all panel layouts with consistent spacing
 %panel-grid-base {
   display: grid;
-  // gap: $panel-gap;
   row-gap: $spacing-md;
   column-gap: $spacing-sm;
   margin: $panel-margin;
-  margin-bottom: $spacing-md;
-  // margin-top: $spacing-md;
+  min-height: 0;
+  // height: 100%; /* Fill the container height */
+  // grid-template-rows: minmax(0, 1fr); /* Crucial for proper height behavior */
 }
 
 // Grid layouts that can be applied to any panel group
@@ -79,15 +97,7 @@ $panel-margin: 0; // No margin for panel groups
 .grid-main-sidebar {
   @extend %panel-grid-base;
   grid-template-columns: 1fr 2fr;
-  align-items: start; // Allow each column to set its own height
-  max-height: 78vh; // Constrain the grid to fit within viewport
-  overflow: visible; // Allow panel headers to be visible above the grid
-  position: relative; // Establish positioning context
-  
-  /* Make sure grid fits with header and footer on large screens */
-  @media (min-height: 800px) {
-    max-height: calc(100vh - 180px); /* Adjust for header & footer */
-  }
+  grid-template-rows: minmax(0, 1fr); /* Ensures the row can shrink and expand within container */
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
@@ -97,16 +107,8 @@ $panel-margin: 0; // No margin for panel groups
 // Sidebar with main content (1:2 ratio)
 .grid-sidebar-main {
   @extend %panel-grid-base;
-  grid-template-columns: 1fr 2fr;
-  align-items: start; // Allow each column to set its own height
-  max-height: 78vh; // Constrain the grid to fit within viewport
-  overflow: visible; // Allow panel headers to be visible above the grid
-  position: relative; // Establish positioning context
-  
-  /* Make sure grid fits with header and footer on large screens */
-  @media (min-height: 800px) {
-    max-height: calc(100vh - 180px); /* Adjust for header & footer */
-  }
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: minmax(0, 1fr); /* Ensures the row can shrink and expand within container */
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
@@ -149,6 +151,7 @@ $panel-margin: 0; // No margin for panel groups
   // Define grid areas for different panel types using specific layouts
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto minmax(0, 1fr); /* Auto for tab and scroll, flexible for list/preview */
   grid-template-areas: 
     "tab tab"
     "scroll scroll"
@@ -174,6 +177,7 @@ $panel-margin: 0; // No margin for panel groups
   // Mobile response for the interactive panels
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto minmax(0, 1fr); /* Auto for tab, scroll, list, flexible for preview */
     grid-template-areas: 
       "tab"
       "scroll"
@@ -186,6 +190,7 @@ $panel-margin: 0; // No margin for panel groups
 .list-layout {
   @extend %panel-grid-base;
   grid-template-columns: minmax(300px, 1fr) 2fr;
+  grid-template-rows: minmax(0, 1fr); /* Ensures the row can shrink and expand within container */
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;

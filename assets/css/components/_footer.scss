@@ -1,0 +1,29 @@
+// Footer styling for Terminal theme
+// This provides a consistent TUI-like footer that stays at the bottom
+
+.site-footer {
+  padding-top: 0.5rem;
+  background-color: var(--base00);
+  color: var(--base0D);
+  font-size: 1rem;
+  margin-top: auto; // Push to bottom when content is short
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .footer-right {
+      gap: 1rem;
+      
+      a {
+        color: var(--base0D);
+        
+        &:hover {
+          color: var(--base0C);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

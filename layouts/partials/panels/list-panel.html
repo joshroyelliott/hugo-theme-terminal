@@ -1,21 +1,18 @@
 {{ $title := .title }}
 {{ $items := .items }}
 
-<div class="panel panel--titled panel--numbered panel--list" 
+<div class="panel panel--titled panel--numbered panel--list panel--scroll" 
      tabindex="0" 
-     data-panel-number="1"
      role="region"
      aria-labelledby="panel-title-list">
     <div class="panel__header">
-        <span class="panel__number">[1]</span>
-        <span class="panel__separator"></span>
         <span class="panel__title" id="panel-title-list">{{ $title }}</span>
     </div>
     <div class="panel__content">
         <ul class="panel__list">
             {{ range $items }}
             <li class="panel__list-item" data-url="{{ .Permalink }}" tabindex="0">
-                <a href="{{ .Permalink }}" class="panel__list-link js-preview-link" data-preview-url="{{ .Permalink }}">
+                <a href="{{ .Permalink }}" class="panel__list-link js-preview-link">
                     <span class="panel__list-title">{{ .Title }}</span>
                     <span class="panel__list-meta">{{ .Date.Format "2006-01-02" }}</span>
                 </a>

@@ -1,11 +1,13 @@
 // Base styles for the terminal theme
 
 *, *::before, *::after {
-  box-sizing: border-box;
+  // box-sizing: border-box;
 }
 
-html {
-  font-size: 16px;
+html, body {
+  margin: 0;
+  padding: 0;
+  // height: 100%;
 }
 
 // CSS custom properties for fonts with variable font support
@@ -18,14 +20,18 @@ body {
   line-height: $line-height;
   color: var(--base05);
   font-size: $font-size-base;
-  margin: 0;
   background-color: var(--base00);
+  // min-height: 100%; // Ensure body is at least full viewport height
+  align-items: center;
 }
 
 .container {
-  max-width: $container-max-width;
-  margin: 0 auto;
   padding: $spacing-xl;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Use viewport height to ensure it fills the screen */
+  // height: 100vh;
+  box-sizing: border-box;
 }
 
 // Typography
@@ -114,7 +120,8 @@ li {
 blockquote {
   margin: 1rem 0;
   padding: 0 1rem;
-  color: var(--base04);
+  background-color: var(--base01);
+  color: var(--base05);
   border-left: 3px solid var(--base03);
 }
 
@@ -181,6 +188,11 @@ img {
 
 // Main content area
 main {
-  min-height: calc(100vh - 100px);
-  margin: $spacing-lg 0;
+  flex: 1; /* This makes the main content area take up all available space */
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Enable proper flex child shrinking */
+  // max-height: 50vh;
+
+  // max-height: calc(100vh - 4rem); /* Account for padding and elements like nav/footer */
 }

@@ -30,6 +30,11 @@
   // Nerd Font Configuration
   --theme-nerd-font-path: /fonts/FiraCodeNerdFont/;
   --theme-use-nerd-font: true;
+  // --font-mono: "FiraCode Nerd Font", monospace;
+
+  --header-height: 60px;
+  --footer-height: 60px;
+  // --main-padding: 30px;
 }
 
 // SCSS variables (used internally in SCSS only)

@@ -5,11 +5,25 @@
     position: relative;
     transition: border-color 0.2s ease;
     margin: 0;
+    // height: 100%; /* Fix the height to exactly match the grid cell */
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Allow protruding elements to be visible */
+    max-height: calc(100vh - 9rem);
     
     &__content {
         padding: 1rem;
         font-size: 1rem;
         position: relative; // For scroll indicator positioning
+        flex: 1; /* Allow content to fill panel */
+        overflow-y: auto; /* Enable scrolling when content overflows */
+        scrollbar-width: none; /* Hide default scrollbar in Firefox */
+        -ms-overflow-style: none; /* Hide default scrollbar in IE/Edge */
+        
+        &::-webkit-scrollbar {
+            display: none; /* Hide default scrollbar in Chrome/Safari */
+        }
 
         h1, h2, h3, h4, h5, h6 {
           margin-top: 1rem;
@@ -147,24 +161,7 @@
             display: flex;
             align-items: center;
         }
-        
-        .panel__content {
-            /* Set max height for scrolling */
-            max-height: 75vh; /* Use viewport-relative height */
-            overflow-y: auto; /* Only scroll when content exceeds max-height */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            
-            /* Make sure content is visible on large screens with header and footer */
-            @media (min-height: 800px) {
-                max-height: calc(100vh - 200px); /* Adjust for header & footer */
-            }
-            
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-        
+
         // List styles
         .panel__list {
             list-style: none;
@@ -389,24 +386,7 @@
     // Preview panel - just a simple border
     &--preview {
         border-color: var(--base04);
-        
-        .panel__content {
-            /* Set max height for scrolling */
-            max-height: 75vh; /* Use viewport-relative height */
-            overflow-y: auto; /* Only scroll when content exceeds max-height */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            
-            /* Make sure content is visible on large screens with header and footer */
-            @media (min-height: 800px) {
-                max-height: calc(100vh - 200px); /* Adjust for header & footer */
-            }
-            
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-        
+
         .js-scroll-indicator {
             position: absolute;
             right: -5px;
@@ -557,23 +537,6 @@
 
     // Scroll feature for any panel
     &--scroll {
-        .panel__content {
-            /* Set max height for scrolling */
-            max-height: 75vh; /* Use viewport-relative height */
-            overflow-y: auto; /* Only scroll when content exceeds max-height */
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            
-            /* Make sure content is visible on large screens with header and footer */
-            @media (min-height: 800px) {
-                max-height: calc(100vh - 200px); /* Adjust for header & footer */
-            }
-            
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-        
         .js-scroll-indicator {
             position: absolute;
             right: -5px;

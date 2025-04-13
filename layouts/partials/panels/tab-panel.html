@@ -1,0 +1,22 @@
+{{ $title := .title }}
+{{ $number := .number }}
+{{ $classes := .classes }}
+{{ $note := .note }}
+{{ $checkWidth := .checkWidth | default true }}
+
+{{ $tabs := slice }}
+{{ range $index, $section := .sections }}
+    {{ $tab := dict "title" $section.title "content" $section.content }}
+    {{ $tabs = $tabs | append $tab }}
+{{ end }}
+
+{{ $panelData := dict 
+    "title" $title
+    "number" $number 
+    "classes" $classes
+    "tabs" $tabs
+    "note" $note
+    "checkWidth" $checkWidth
+}}
+
+{{ template "tab-panel" $panelData }}

@@ -2,11 +2,18 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize all panel scrolling indicators
-    const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll');
+    const panelsWithScroll = document.querySelectorAll('.panel--list, .panel--scroll, .panel--preview');
     
     panelsWithScroll.forEach(panel => {
         const content = panel.querySelector('.panel__content');
-        const scrollIndicator = panel.querySelector('.js-scroll-indicator');
+        let scrollIndicator = panel.querySelector('.js-scroll-indicator');
+        
+        // Create scroll indicator if missing
+        if (!scrollIndicator && content) {
+            scrollIndicator = document.createElement('div');
+            scrollIndicator.className = 'js-scroll-indicator';
+            panel.appendChild(scrollIndicator);
+        }
         
         if (!content || !scrollIndicator) return;
         
@@ -171,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Handle preview content if it's a preview link
                 const previewUrl = this.getAttribute('data-preview-url');
+                console.log(previewUrl);
                 if (!previewUrl) return;
                 
                 // Find the item title
@@ -197,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (previewPanel && titleText) {
                     const previewTitle = previewPanel.querySelector('.panel__title');
                     if (previewTitle) {
-                        console.log('Updating preview title to:', titleText);
+                        // console.log('Updating preview title to:', titleText);
                         previewTitle.textContent = titleText;
                     }
                 }
