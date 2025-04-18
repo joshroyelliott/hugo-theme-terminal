@@ -1,0 +1,42 @@
+// Theme Image Color System
+// This file provides CSS for dynamically coloring images with theme colors
+
+// Base class for theme-colored images
+[class*="theme-color-"] {
+  // Preserve transparency
+  filter: brightness(0) saturate(100%);
+  mix-blend-mode: screen;
+}
+
+// Individual theme color classes
+// Each class applies a color overlay to white areas of the image
+@each $index in ("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F") {
+  .theme-color-base#{$index} {
+    // Create a class for each base16 color
+    @supports (background-blend-mode: screen) {
+      // Modern browsers approach
+      position: relative;
+      z-index: 1;
+      
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--base#{$index});
+        mix-blend-mode: multiply;
+        z-index: 2;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+// Special handling for the hero image
+.home-hero-img {
+  &[class*="theme-color-"] {
+    // Any additional hero-specific styling
+  }
+}

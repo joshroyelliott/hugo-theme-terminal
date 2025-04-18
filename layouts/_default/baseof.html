@@ -7,9 +7,12 @@
     {{ $style := resources.Get "css/main.scss" | css.Sass | minify }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
     
-    <!-- Load panel.js for the theme functionality -->
+    <!-- Load theme JavaScript -->
     {{ $panelJs := resources.Get "js/components/panel.js" | js.Build | minify }}
     <script src="{{ $panelJs.RelPermalink }}"></script>
+    
+    {{ $themeImageJs := resources.Get "js/components/theme-image.js" | js.Build | minify }}
+    <script src="{{ $themeImageJs.RelPermalink }}"></script>
     
     <!-- Additional scripts block for page-specific JS -->
     {{ block "scripts" . }}{{ end }}

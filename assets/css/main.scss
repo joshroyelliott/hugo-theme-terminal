@@ -36,5 +36,9 @@
 @import 'components/navbar';
 @import 'components/panels';
 @import 'components/footer';
+@import 'components/theme-image';
+
+// Page-specific styles
+@import 'homepage';
 
 // Further customization can be added here

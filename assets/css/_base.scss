@@ -7,7 +7,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  // height: 100%;
 }
 
 // CSS custom properties for fonts with variable font support
@@ -21,7 +20,6 @@ body {
   color: var(--base05);
   font-size: $font-size-base;
   background-color: var(--base00);
-  // min-height: 100%; // Ensure body is at least full viewport height
   align-items: center;
 }
 
@@ -30,7 +28,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Use viewport height to ensure it fills the screen */
-  // height: 100vh;
   box-sizing: border-box;
 }
 
@@ -183,7 +180,7 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 1rem 0;
+  // margin: 1rem 0;
 }
 
 // Main content area
@@ -192,7 +189,5 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 0; /* Enable proper flex child shrinking */
-  // max-height: 50vh;
-
-  // max-height: calc(100vh - 4rem); /* Account for padding and elements like nav/footer */
 }
+

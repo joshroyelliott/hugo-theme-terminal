@@ -3,9 +3,11 @@
   display: flex;
   flex-direction: column;
   flex: 1; /* Take all available space within main */
-  padding-top: 1rem;
+  // padding-top: 1rem;
+  margin-top: 1rem;
   min-height: 0; /* Allow it to shrink if needed */
-  height: 100%; /* Fill available space */
+  // height: 100%; /* Fill available space */
+  max-height: calc(100vh - 9rem);
   // overflow: hidden; /* Prevent overflow from pushing footer down */
 }
 
@@ -46,8 +48,6 @@ $panel-margin: 0; // No margin for panel groups
   column-gap: $spacing-sm;
   margin: $panel-margin;
   min-height: 0;
-  // height: 100%; /* Fill the container height */
-  // grid-template-rows: minmax(0, 1fr); /* Crucial for proper height behavior */
 }
 
 // Grid layouts that can be applied to any panel group
@@ -245,6 +245,30 @@ $panel-margin: 0; // No margin for panel groups
     
     .span-2, .span-3 {
       grid-column: span 1;
+    }
+  }
+}
+
+// Special handling for hero section grid-thirds
+.hero-section .grid-thirds {
+  grid-template-rows: minmax(0, 1fr);
+  grid-auto-rows: 1fr; /* Force rows to be equal height */
+  // max-height: 100%; /* Constrain to parent */
+  // height: 100%; /* Fill parent height */
+  gap: $spacing-md;
+  overflow: hidden; /* Prevent overflow */
+  align-items: stretch; /* Make sure all cells stretch to fill height */
+  
+  @media (max-width: $breakpoint-md) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-auto-rows: auto;
+    height: auto;
+    max-height: none;
+    
+    .welcome-panel-container {
+      grid-column: 1 / -1;
     }
   }
 }
