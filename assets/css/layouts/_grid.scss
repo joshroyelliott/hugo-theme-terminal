@@ -9,6 +9,12 @@
   // height: 100%; /* Fill available space */
   max-height: calc(100vh - 9rem);
   // overflow: hidden; /* Prevent overflow from pushing footer down */
+  
+  @media (max-width: $breakpoint-md) {
+    max-height: none; /* Remove max-height constraint on mobile */
+    height: auto; /* Allow container to expand with content */
+    overflow: visible; /* Allow content to flow naturally */
+  }
 }
 
 /* Add a special class we can apply to main for single page content that should scroll normally */
@@ -48,6 +54,7 @@ $panel-margin: 0; // No margin for panel groups
   column-gap: $spacing-sm;
   margin: $panel-margin;
   min-height: 0;
+  align-items: start; // Default to align-items: start for all grid layouts
 }
 
 // Grid layouts that can be applied to any panel group
@@ -55,6 +62,12 @@ $panel-margin: 0; // No margin for panel groups
 .grid-2col {
   @extend %panel-grid-base;
   grid-template-columns: repeat(2, 1fr);
+  align-items: start; // Allow panels to only be as tall as their content
+  
+  > * {
+    height: auto; // Override any height: 100% that might be inherited
+    min-height: 0; // Allow panels to shrink to their content
+  }
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
@@ -65,6 +78,12 @@ $panel-margin: 0; // No margin for panel groups
 .grid-3col {
   @extend %panel-grid-base;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start; // Allow panels to only be as tall as their content
+  
+  > * {
+    height: auto; // Override any height: 100% that might be inherited
+    min-height: 0; // Allow panels to shrink to their content
+  }
   
   @media (max-width: $breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
@@ -79,6 +98,12 @@ $panel-margin: 0; // No margin for panel groups
 .grid-4col {
   @extend %panel-grid-base;
   grid-template-columns: repeat(4, 1fr);
+  align-items: start; // Allow panels to only be as tall as their content
+  
+  > * {
+    height: auto; // Override any height: 100% that might be inherited
+    min-height: 0; // Allow panels to shrink to their content
+  }
   
   @media (max-width: $breakpoint-xl) {
     grid-template-columns: repeat(3, 1fr);
@@ -101,6 +126,14 @@ $panel-margin: 0; // No margin for panel groups
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto; /* Set explicit rows for stacking */
+    row-gap: $spacing-md; /* Ensure proper spacing between stacked panels */
+    
+    > .sidebar, > .main {
+      height: auto;
+      min-height: 0;
+      z-index: auto; /* Reset any z-index */
+    }
   }
 }
 
@@ -194,6 +227,8 @@ $panel-margin: 0; // No margin for panel groups
   
   @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto; /* Set explicit rows for stacking */
+    row-gap: $spacing-md; /* Ensure proper spacing between stacked panels */
   }
 }
 

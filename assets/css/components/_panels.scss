@@ -7,10 +7,15 @@
     margin: 0;
     // height: 100%; /* Fix the height to exactly match the grid cell */
     min-height: 0;
+    height: auto; /* Allow height to be determined by content */
     display: flex;
     flex-direction: column;
     overflow: visible; /* Allow protruding elements to be visible */
     max-height: calc(100vh - 9rem);
+    
+    @media (max-width: $breakpoint-md) {
+        max-height: none; /* Remove max-height constraint on mobile */
+    }
     
     &__content {
         padding: 1rem;
@@ -23,6 +28,11 @@
         
         &::-webkit-scrollbar {
             display: none; /* Hide default scrollbar in Chrome/Safari */
+        }
+        
+        @media (max-width: $breakpoint-md) {
+            max-height: none; /* Remove height constraint on mobile */
+            overflow-y: visible; /* Allow content to flow naturally */
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -399,6 +409,21 @@
         &:hover .js-scroll-indicator {
             opacity: 1;
         }
+        
+        @media (max-width: $breakpoint-md) {
+            // Special handling for preview panel in mobile layout
+            max-height: none;
+            overflow: visible;
+            
+            .panel__content {
+                max-height: none;
+                overflow: visible;
+            }
+            
+            .js-scroll-indicator {
+                display: none; /* Hide scroll indicator on mobile */
+            }
+        }
     }
     
     // Input panel - styles for actual HTML input elements
@@ -549,6 +574,13 @@
         
         &:hover .js-scroll-indicator {
             opacity: 1;
+        }
+        
+        // Adjust scroll indicator for mobile layouts
+        @media (max-width: $breakpoint-md) {
+            .js-scroll-indicator {
+                right: 0; // Move indicator inside the panel border on mobile
+            }
         }
     }
 }
