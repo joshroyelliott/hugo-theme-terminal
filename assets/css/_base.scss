@@ -125,10 +125,11 @@ blockquote {
 // Code
 code {
   font-family: $font-mono;
-  background-color: var(--base00);
+  background-color: var(--base01);
   padding: 0.2em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
+  color: var(--base05);
 }
 
 pre {
@@ -139,10 +140,23 @@ pre {
   margin: 1rem 0;
   
   code {
-    background-color: var(--base00);
+    background-color: transparent;
     padding: 0;
     border-radius: 0;
+    display: block;
   }
+  
+  // Syntax highlighting classes
+  .keyword { color: var(--base0E); }
+  .string { color: var(--base0B); }
+  .number { color: var(--base09); }
+  .function { color: var(--base0D); }
+  .comment { color: var(--base03); font-style: italic; }
+  .class { color: var(--base0A); }
+  .variable { color: var(--base08); }
+  .operator { color: var(--base05); }
+  .property { color: var(--base0C); }
+  .error { color: var(--base0F); }
 }
 
 // Tables

@@ -273,8 +273,7 @@ class Solver {
     function fmt(idx, multiplier = 1) {
       return Math.round(filters[idx] * multiplier);
     }
-    // Modified to prepend brightness(0) saturate(100%) as requested
-    // Return just the filter value without "filter:" prefix which is handled by the style application
+    // Modified to prepend brightness(0) saturate(100%)
     return `brightness(0) saturate(100%) invert(${fmt(0)}%) sepia(${fmt(1)}%) saturate(${fmt(2)}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(5)}%)`;
   }
 }
