@@ -1,13 +1,24 @@
 {{ define "main" }}
-    <div class="panels-container">
-        <div class="panels-grid">
-            {{ with .Site.GetPage "/about" }}
-                {{ partial "content-panels.html" . }}
-            {{ end }}
+<div class="panels-container">
+    <!-- Hero Section with overlapping layout -->
+    <div class="home-hero-container">
+        <!-- Hero image with direct filter class -->
+        <div class="home-hero-image">
+            <img src="{{ .Params.heroImage }}" alt="Hero Image" class="home-hero-img{{ with .Params.heroImageColor }} transform-base{{ . }}{{ end }}">
         </div>
-        <div class="panels-grid">
-            {{ partial "panels/recent-projects.html" . }}
-            {{ partial "panels/recent-posts.html" . }}
+        
+        <!-- Hero content grid overlaying the image -->
+        <div class="home-hero-content">
+            <div class="home-welcome-panel">
+                {{ partial "panels/welcome.html" . }}
+            </div>
         </div>
     </div>
+    
+    <!-- Recent Posts/Projects Section -->
+    <div class="grid-2col">
+        {{ partial "panels/recent-posts.html" . }}
+        {{ partial "panels/recent-projects.html" . }}
+    </div>
+</div>
 {{ end }}

@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    
     {{ $style := resources.Get "css/main.scss" | css.Sass | minify }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}">
     
     <!-- Load theme JavaScript -->
-    {{ $panelJs := resources.Get "js/components/panel.js" | js.Build | minify }}
-    <script src="{{ $panelJs.RelPermalink }}"></script>
+    {{ $panelJs := resources.Get "js/components/panel.js" | js.Build | resources.Fingerprint "sha512" }}
+    <script src="{{ $panelJs.RelPermalink }}" integrity="{{ $panelJs.Data.Integrity }}" type="text/javascript"></script>
     
-    {{ $themeImageJs := resources.Get "js/components/theme-image.js" | js.Build | minify }}
-    <script src="{{ $themeImageJs.RelPermalink }}"></script>
+    <!-- Load theme image colorizer -->
+    {{ $filterJs := resources.Get "js/components/css_filter_generator.js" | js.Build | resources.Fingerprint "sha512" }}
+    <script src="{{ $filterJs.RelPermalink }}" integrity="{{ $filterJs.Data.Integrity }}" type="text/javascript"></script>
     
     <!-- Additional scripts block for page-specific JS -->
     {{ block "scripts" . }}{{ end }}
