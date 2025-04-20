@@ -7,22 +7,58 @@
   color: var(--base0D);
   font-size: 1rem;
   margin-top: auto; // Push to bottom when content is short
+  white-space: nowrap; // Prevent wrapping
   
   .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow-x: auto; // Allow horizontal scrolling if needed
+    scrollbar-width: none; // Hide scrollbar for Firefox
+    
+    &::-webkit-scrollbar {
+      display: none; // Hide scrollbar for Chrome/Safari
+    }
     
     .footer-right {
+      display: flex;
+      align-items: center;
       gap: 1rem;
       
       a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         color: var(--base0D);
+        
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 1em;
+        }
         
         &:hover {
           color: var(--base0C);
           text-decoration: none;
         }
+      }
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: $breakpoint-md) {
+    .footer-right a {
+      padding: 0 0.3rem;
+      min-width: 1.5rem;
+      justify-content: center;
+      
+      .footer-link-text {
+        display: none; // Hide text at medium breakpoint and below
+      }
+      
+      .icon {
+        font-size: 1.1rem; // Slightly larger icons when alone
       }
     }
   }

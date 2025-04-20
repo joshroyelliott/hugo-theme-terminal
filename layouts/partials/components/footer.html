@@ -23,8 +23,10 @@
                     <a href="{{ .url }}" 
                        {{ with .target }}target="{{ . }}"{{ else }}target="_blank"{{ end }}
                        {{ with .rel }}rel="{{ . }}"{{ else }}rel="noopener noreferrer"{{ end }}>
-                        {{ with .icon }}<span class="icon">{{ . }}</span>{{ end }}
-                        {{ .name }}
+                        {{ with .icon }}
+                          {{ partial "components/icon.html" (dict "name" .) }}
+                        {{ end }}
+                        <span class="footer-link-text">{{ .name }}</span>
                     </a>
                     {{ if ne (add $index 1) $socialLength }}
                         <span>|</span>
@@ -39,7 +41,10 @@
                 {{ range $index, $element := site.Data.footer.links }}
                     <a href="{{ .url }}" 
                        {{ with .target }}target="{{ . }}"{{ end }}>
-                        {{ .name }}
+                        {{ with .icon }}
+                          {{ partial "components/icon.html" (dict "name" .) }}
+                        {{ end }}
+                        <span class="footer-link-text">{{ .name }}</span>
                     </a>
                     {{ if ne (add $index 1) $linksLength }}
                         <span>|</span>
