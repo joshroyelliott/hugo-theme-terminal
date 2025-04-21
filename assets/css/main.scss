@@ -46,4 +46,24 @@
 // Page-specific styles
 @import 'homepage';
 
+// Additional helper classes
+
+// Responsive content helpers
+.content-responsive {
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  img, svg, pre, code, table, .mermaid, iframe {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
 // Further customization can be added here

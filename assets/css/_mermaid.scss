@@ -5,12 +5,16 @@
   overflow: hidden;
   background: var(--base01);
   padding: 0.5rem;
-  // width: 100%;
+  width: 100%; // Force diagrams to use 100% of container width
+  max-width: 100%; // Ensure diagrams never exceed container width
   font-family: var(--font-mono);
+  box-sizing: border-box; // Include padding in width calculation
   
   // Make diagrams fit within containers
   svg {
     max-width: 100%;
+    width: 100%; // Fill available width while respecting max-width
+    height: auto; // Maintain aspect ratio
   }
   
   // Enforce monospace everywhere

@@ -410,14 +410,37 @@
             opacity: 1;
         }
         
+        // Content in preview panels should always be contained
+        .preview-content {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden; // Prevent horizontal overflow
+            
+            // Ensure all content respects the container width
+            img, svg, pre, code, table, .mermaid {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            // Handle wide content like code blocks and tables
+            pre, table {
+                overflow-x: auto;
+                white-space: pre-wrap;
+                word-break: break-word;
+            }
+        }
+        
         @media (max-width: $breakpoint-md) {
             // Special handling for preview panel in mobile layout
             max-height: none;
-            overflow: visible;
+            overflow: visible; // Change from visible to hidden to contain content
+            width: 100%;
             
             .panel__content {
                 max-height: none;
-                overflow: visible;
+                overflow-y: visible;
+                overflow-x: hidden; // Prevent horizontal overflow
+                width: 100%;
             }
             
             .js-scroll-indicator {

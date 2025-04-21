@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ .Store.Set "hasMermaid" true }}
-<div class="panels-container">
+<div class="panels-container content-responsive">
     <div class="panels-grid list-layout">
         {{ partial "panels/list-panel.html" (dict 
             "context" .
