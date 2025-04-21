@@ -27,5 +27,39 @@
         </main>
         {{ partial "components/footer.html" . }}
     </div>
+
+    {{ if .Store.Get "hasMermaid" }}
+      <!-- Load Mermaid in global scope (not as a module) for preview panel compatibility -->
+      <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+      <script>
+        // Initialize mermaid with configuration
+        mermaid.initialize({
+          theme: 'dark',
+          startOnLoad: true,
+          // securityLevel: 'loose'
+        });
+        
+        // Expose mermaid initialization function for dynamic content
+        window.initMermaid = function() {
+          // console.log('Running mermaid init function');
+          try {
+            mermaid.init(undefined, document.querySelectorAll('pre.mermaid:not(.mermaid-processed)'));
+           
+            // Mark processed diagrams to avoid duplicate rendering
+            document.querySelectorAll('pre.mermaid').forEach(diagram => {
+              diagram.classList.add('mermaid-processed');
+            });
+          } catch (e) {
+            console.error('Mermaid initialization error:', e);
+          }
+        };
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+          window.initMermaid();
+        });
+      </script>
+    {{ end }}
+
 </body>
 </html>

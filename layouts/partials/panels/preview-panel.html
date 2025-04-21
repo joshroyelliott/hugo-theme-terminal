@@ -111,6 +111,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Update the preview
                     previewContent.innerHTML = content;
                     
+                    // Re-initialize Mermaid diagrams in the preview panel
+                    if (window.initMermaid) {
+                        <!-- console.log('Calling initMermaid for preview panel content'); -->
+                        // Allow some time for the DOM to update before initializing mermaid
+                        setTimeout(window.initMermaid, 200);
+                    } else {
+                        console.warn('Mermaid initialization function not available');
+                    }
+                    
                     // Update counter if applicable
                     const index = Array.from(listLinks).indexOf(this) + 1;
                     const total = listLinks.length;

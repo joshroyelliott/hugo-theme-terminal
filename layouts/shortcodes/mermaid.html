@@ -1,0 +1,10 @@
+{{ if .Inner }}
+<pre class="mermaid">
+  {{- .Inner | htmlEscape | safeHTML -}}
+</pre>
+{{ .Page.Store.Set "hasMermaid" true }}
+{{ else }}
+<div class="notification is-danger">
+  Error: Mermaid shortcode needs content.
+</div>
+{{ end }}

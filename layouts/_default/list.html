@@ -1,5 +1,6 @@
 {{ define "main" }}
-<div class="section-container">
+{{ .Store.Set "hasMermaid" true }}
+<div class="panels-container">
     <div class="panels-grid list-layout">
         {{ partial "panels/list-panel.html" (dict 
             "context" .
@@ -9,4 +10,17 @@
         {{ partial "panels/preview-panel.html" . }}
     </div>
 </div>
+
+<!-- Panel clickability is built into the preview-panel.html template -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-select the first item in the list to show in the preview
+    const firstListItem = document.querySelector('.panel__list-link');
+    if (firstListItem) {
+        setTimeout(() => {
+            firstListItem.click();
+        }, 10);
+    }
+});
+</script>
 {{ end }}
