@@ -28,6 +28,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Use viewport height to ensure it fills the screen */
+  max-width: $container-max-width;
+  margin: auto;
   box-sizing: border-box;
 }
 
