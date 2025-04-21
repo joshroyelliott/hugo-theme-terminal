@@ -32,11 +32,57 @@
       <!-- Load Mermaid in global scope (not as a module) for preview panel compatibility -->
       <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
       <script>
-        // Initialize mermaid with configuration
+        // Create a custom theme using CSS variables
+        const getComputedVarColor = (varName) => {
+          return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        };
+        
+        // Define custom mermaid theme based on our CSS variables
         mermaid.initialize({
-          theme: 'dark',
+          theme: 'base',
           startOnLoad: true,
-          // securityLevel: 'loose'
+          <!-- securityLevel: 'loose', -->
+          themeVariables: {
+            // Base colors
+            primaryColor: getComputedVarColor('--base0D'),
+            primaryTextColor: getComputedVarColor('--base05'),
+            primaryBorderColor: getComputedVarColor('--base05'),
+            secondaryColor: getComputedVarColor('--base02'),
+            tertiaryColor: getComputedVarColor('--base02'),
+            
+            // Background colors
+            background: getComputedVarColor('--base01'),
+            mainBkg: getComputedVarColor('--base00'),
+            secondBkg: getComputedVarColor('--base01'),
+            
+            // Contrast colors
+            lineColor: getComputedVarColor('--base05'),
+            textColor: getComputedVarColor('--base05'),
+            border1: getComputedVarColor('--base05'),
+            border2: getComputedVarColor('--base00'),
+            
+            // Special colors
+            errorBkgColor: getComputedVarColor('--base0F'),
+            errorTextColor: getComputedVarColor('--base07'),
+            
+            // Class diagram colors
+            classText: getComputedVarColor('--base05'),
+            
+            // Node colors (flowchart)
+            nodeBorder: getComputedVarColor('--base05'),
+            
+            // Gantt chart
+            taskTextColor: getComputedVarColor('--base05'),
+            taskTextOutsideColor: getComputedVarColor('--base05'),
+            taskTextLightColor: getComputedVarColor('--base06'),
+            taskTextDarkColor: getComputedVarColor('--base00'),
+            sectionBkgColor: getComputedVarColor('--base01'),
+            sectionBkgColor2: getComputedVarColor('--base02'),
+            altSectionBkgColor: getComputedVarColor('--base03'),
+            
+            // Font styles
+            fontFamily: getComputedVarColor('--theme-font-mono').replace(/"/g, '')
+          }
         });
         
         // Expose mermaid initialization function for dynamic content

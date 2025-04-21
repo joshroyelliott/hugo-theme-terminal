@@ -20,27 +20,27 @@
   
   // TUI-style nodes
   .node rect, .node circle, .node polygon {
-    // stroke: var(--base03);
+    stroke: var(--base03);
     stroke-width: 2px;
-    // fill: var(--base01);
+    fill: var(--base01);
   }
   
   // TUI-style edges
   .edgePath .path {
-    // stroke: var(--base04);
+    stroke: var(--base04);
     stroke-width: 2px;
   }
   
   // TUI-style arrows
   marker {
-    // fill: var(--base04);
+    fill: var(--base04);
   }
   
   // TUI-style clusters
   .cluster rect {
-    // stroke: var(--base03);
+    stroke: var(--base03);
     stroke-width: 2px;
-    // fill: var(--base01);
+    fill: var(--base01);
     rx: 0;
     ry: 0;
   }
