@@ -13,8 +13,9 @@
             {{ range $items }}
             <li class="panel__list-item" data-url="{{ .Permalink }}" tabindex="0">
                 <a href="{{ .Permalink }}" class="panel__list-link js-preview-link">
-                    <span class="panel__list-title">{{ .Title }}</span>
-                    <span class="panel__list-meta">{{ .Date.Format "2006-01-02" }}</span>
+                    <h4 class="panel__list-title">{{ .Title }}</h4>
+                    <div class="panel__list-meta">{{ .Date.Format "January 2, 2006" }}</div>
+                    <div class="panel__list-summary">{{ .Params.summary | default (.Summary | truncate 100) }}</div>
                 </a>
             </li>
             {{ end }}

@@ -1,0 +1,50 @@
+{{/* 
+  model shortcode - Renders a 3D model viewer
+  
+  Parameters:
+  - src: URL path to the model file (required)
+  - type: Model file type (obj, stl, gltf - default: determined from src extension)
+  - title: Title to display in the viewer (default: filename)
+  - height: Height of the viewer (default: 400px)
+*/}}
+
+{{/* Set up parameters with defaults */}}
+{{ $src := .Get "src" }}
+{{ $type := .Get "type" }}
+{{ $title := .Get "title" }}
+{{ $height := .Get "height" | default "400px" }}
+{{ $hasInfo := gt (.Inner | len) 0 }}
+
+{{/* If type not specified, try to determine from src extension */}}
+{{ if not $type }}
+  {{ $ext := path.Ext $src }}
+  {{ $type = strings.TrimPrefix "." $ext }}
+{{ end }}
+
+{{/* If title not specified, use filename */}}
+{{ if not $title }}
+  {{ $title = path.Base $src }}
+{{ end }}
+
+{{/* Ensure Hugo knows we need model_viewer.js */}}
+{{ .Page.Store.Set "hasModelViewer" true }}
+
+<div class="model-viewer" 
+     style="height: {{ $height }};"
+     data-model-path="{{ $src }}"
+     data-model-type="{{ $type }}"
+     data-title="{{ $title }}">
+  <div class="model-viewer-loading">
+    <div class="model-viewer-progress-text">Loading model...</div>
+    <div class="model-viewer-progress-container">
+      <div class="model-viewer-progress-bar"></div>
+    </div>
+  </div>
+  
+  {{ if $hasInfo }}
+  <div class="model-viewer-info">
+    <h3>{{ $title }}</h3>
+    {{ .Inner }}
+  </div>
+  {{ end }}
+</div>

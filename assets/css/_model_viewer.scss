@@ -1,0 +1,324 @@
+// Model viewer styling
+// Panel-based implementation (legacy)
+.panel--model-viewer {
+  // Use full dimensions for container
+  width: 100%;
+  height: 100%;
+  position: relative;
+  
+  .panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .panel__controls {
+      display: flex;
+      gap: $spacing-sm;
+      
+      .control-button {
+        cursor: pointer;
+        background: var(--base01);
+        color: var(--base05);
+        border: 1px solid var(--base03);
+        border-radius: 4px;
+        padding: $spacing-xs $spacing-sm;
+        font-size: 0.9rem;
+        
+        &:hover {
+          background: var(--base02);
+        }
+      }
+    }
+  }
+  
+  .panel__content {
+    position: relative;
+    height: calc(100% - 2rem);
+    overflow: hidden;
+  }
+  
+  .model-viewer__canvas {
+    width: 100%;
+    height: 100%;
+    background-color: var(--base00);
+    
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      outline: none;
+    }
+  }
+  
+  .model-viewer__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--base00);
+    z-index: 10;
+    
+    .model-viewer__progress-container {
+      width: 80%;
+      max-width: 300px;
+      background-color: var(--base01);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: $spacing-md 0;
+    }
+    
+    .model-viewer__progress-bar {
+      height: 100%;
+      background-color: var(--base0D);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .model-viewer__progress-text {
+      color: var(--base05);
+      font-size: 0.9rem;
+      margin-bottom: $spacing-sm;
+    }
+  }
+  
+  // For wide viewport panels that can display model info alongside the viewer
+  &.panel--wide {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-gap: $spacing-md;
+    
+    .model-viewer__canvas {
+      grid-column: 1;
+    }
+    
+    .model-viewer__info {
+      grid-column: 2;
+      padding: $spacing-md;
+      background-color: var(--base01);
+      border-radius: $panel-border-radius;
+      
+      h3 {
+        color: var(--base0D);
+        margin-top: 0;
+        margin-bottom: $spacing-md;
+      }
+      
+      .info-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        
+        li {
+          margin-bottom: $spacing-sm;
+          padding-bottom: $spacing-sm;
+          border-bottom: 1px solid var(--base02);
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          strong {
+            display: block;
+            color: var(--base0A);
+            font-size: 0.9rem;
+          }
+          
+          span {
+            color: var(--base05);
+          }
+        }
+      }
+    }
+    
+    @media (max-width: $breakpoint-lg) {
+      grid-template-columns: 1fr;
+      
+      .model-viewer__canvas {
+        grid-column: 1;
+      }
+      
+      .model-viewer__info {
+        grid-column: 1;
+      }
+    }
+  }
+}
+
+// New inline model viewer implementation that matches code blocks
+.model-viewer {
+  display: block;
+  width: 100%;
+  min-height: 400px;
+  margin: 2rem 0;
+  position: relative;
+  background-color: var(--base00);
+  border-radius: $panel-border-radius;
+  border: 2px solid var(--base03);
+  overflow: hidden;
+  
+  // Base canvas container
+  .model-viewer-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      outline: none;
+    }
+  }
+  
+  // Title element
+  .model-viewer-title {
+    position: absolute;
+    top: $spacing-sm;
+    left: $spacing-sm;
+    color: var(--base05);
+    background-color: rgba(darken(#000, 10%), 0.7);
+    padding: $spacing-xs $spacing-sm;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    z-index: 5;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  // Loading indicator
+  .model-viewer-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--base00);
+    z-index: 10;
+    
+    .model-viewer-progress-container {
+      width: 80%;
+      max-width: 300px;
+      background-color: var(--base01);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: $spacing-md 0;
+    }
+    
+    .model-viewer-progress-bar {
+      height: 100%;
+      background-color: var(--base0D);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .model-viewer-progress-text {
+      color: var(--base05);
+      font-size: 0.9rem;
+      margin-bottom: $spacing-sm;
+    }
+  }
+  
+  // Control buttons
+  .model-viewer-controls {
+    position: absolute;
+    bottom: $spacing-sm;
+    right: $spacing-sm;
+    display: flex;
+    gap: $spacing-sm;
+    z-index: 5;
+    
+    .model-viewer-button {
+      background-color: rgba(darken(#000, 10%), 0.7);
+      color: var(--base05);
+      border: 1px solid var(--base03);
+      border-radius: 4px;
+      padding: $spacing-xs $spacing-sm;
+      font-size: 0.9rem;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: var(--base02);
+      }
+    }
+  }
+  
+  // Information panel
+  .model-viewer-info {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    width: 250px;
+    background-color: rgba(darken(#000, 10%), 0.8);
+    border: 1px solid var(--base03);
+    border-radius: $panel-border-radius;
+    padding: $spacing-sm;
+    color: var(--base05);
+    z-index: 5;
+    max-height: calc(100% - #{$spacing-md * 2});
+    overflow-y: auto;
+    
+    h3 {
+      margin-top: 0;
+      margin-bottom: $spacing-sm;
+      color: var(--base0D);
+      font-size: 1.1rem;
+    }
+    
+    ul, ol {
+      margin: 0;
+      padding-left: $spacing-md;
+    }
+    
+    li {
+      margin-bottom: $spacing-xs;
+    }
+    
+    strong {
+      color: var(--base0A);
+    }
+    
+    // For small screens, move info panel to bottom
+    @media (max-width: $breakpoint-md) {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      max-height: none;
+      margin-top: $spacing-sm;
+    }
+  }
+  
+  // For print media
+  @media print {
+    border: 1px solid #ccc;
+    height: 300px !important;
+    
+    &::after {
+      content: "3D model: " attr(data-title) " (" attr(data-model-path) ")";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      transform: translateY(-50%);
+    }
+    
+    canvas,
+    .model-viewer-controls,
+    .model-viewer-loading {
+      display: none !important;
+    }
+  }
+}

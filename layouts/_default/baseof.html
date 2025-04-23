@@ -106,6 +106,12 @@
         });
       </script>
     {{ end }}
+    
+    {{ if .Store.Get "hasModelViewer" }}
+      <!-- Load model viewer script -->
+      {{ $modelViewerJs := resources.Get "js/components/model_viewer.js" | js.Build | resources.Fingerprint "sha512" }}
+      <script src="{{ $modelViewerJs.RelPermalink }}" integrity="{{ $modelViewerJs.Data.Integrity }}" type="text/javascript"></script>
+    {{ end }}
 
 </body>
 </html>
